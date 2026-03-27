@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readings in Philippine History</title>
+    <link rel="icon" href="Images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="Styles/course.css?v=3">
+    <link rel="stylesheet" href="Styles/course-feed.css?v=21">
+    <!-- Lucide Icons - Modern Icon Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lottie Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="JS/supabase-config.js"></script>
+    <script src="JS/db-helpers.js"></script>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <button id="toggleSidebar" style="background: none; border: none; color: #5C3422; cursor: pointer; font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; z-index: 1001;">
+                ☰
+            </button>
+
+            <div class="header-logo">
+                <img src="Images/favicon.png" alt="RPH Logo" class="header-logo-img">
+                <h1 class="header-title"><a href="home.html" class="header-title-link">RPH Interactive Learning Hub</a></h1>
+            </div>
+
+            <div class="header-actions">
+                <div class="header-search">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search users..." />
+                    <button class="search-btn" id="searchBtn" title="Search">
+                        <i data-lucide="search" style="width: 18px; height: 18px;"></i>
+                    </button>
+                </div>
+                
+                <button class="sidebar-toggle-right" id="sidebarToggleRight" title="Show more">
+                    <i data-lucide="layout-grid" style="width: 20px; height: 20px;"></i>
+                </button>
+                <button class="logout-btn" title="Logout">
+                    <i data-lucide="log-out" style="width: 20px; height: 20px;"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Left Sidebar Navigation -->
+        <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
+            <!-- User Profile Section -->
+            <div class="user-profile">
+                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" />
+                <div class="profile-info">
+                    <h4 class="profile-name" id="profileName">Loading...</h4>
+                    <p class="profile-email" id="profileEmail">Loading...</p>
+                </div>
+                <button class="edit-profile-btn" id="editProfileBtn" title="Edit profile">
+                    <i data-lucide="edit-2" style="width: 16px; height: 16px;"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="course.html" class="nav-item active" data-section="feed">
+                    <i data-lucide="radio" class="nav-icon-svg"></i>
+                    <span>Feed</span>
+                </a>
+                <div class="nav-item-dropdown">
+                    <div class="nav-item" data-section="topic">
+                        <i data-lucide="book-open" class="nav-icon-svg"></i>
+                        <span>Topic</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="first-mass.html" class="dropdown-item">First Mass</a>
+                        <a href="cavite-mutiny.html" class="dropdown-item">Cavite Mutiny</a>
+
+                        <a href="retraction-of-rizal.html" class="dropdown-item">Retraction of Rizal</a>
+                        <a href="cry-of-rebellion.html" class="dropdown-item">Cry of Rebellion</a>
+                    </div>
+                </div>
+                <div class="nav-item-dropdown">
+                    <div class="nav-item" data-section="activities">
+                        <i data-lucide="calendar" class="nav-icon-svg"></i>
+                        <span>Learning Hub</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="games.html" class="dropdown-item" data-section="games">
+                            <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
+                            Games
+                        </a>
+                        
+                        <a href="quizzes.html" class="dropdown-item" data-section="quizzes">
+                            <i data-lucide="clipboard-list" style="width: 16px; height: 16px;"></i>
+                            Quizzes
+                        </a>
+
+                        <a href="interactive-tasks.html" class="dropdown-item" data-section="interactive">
+                            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                            Interactive Tasks
+                        </a>
+
+                        <a href="worksheets.html" class="dropdown-item" data-section="worksheets">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Worksheets
+                        </a>
+
+                        <a href="Handouts.html" class="dropdown-item" data-section="handouts">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Handouts
+                        </a>
+                    </div>
+                </div>
+
+
+                <a href="videos.html" class="nav-item" data-section="videos">
+                    <i data-lucide="play-circle" class="nav-icon-svg"></i>
+                    <span>Videos</span>
+                </a>
+
+                <a href="reference.html" class="nav-item" data-section="reference">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="book-open" aria-hidden="true" class="lucide lucide-book-open nav-icon-svg"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+                    <span>Reference</span>
+                </a>
+            </nav>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Welcome Banner -->
+            <div class="hero-welcome-banner" id="heroWelcomeBanner" role="region" aria-labelledby="heroBannerTitle" aria-describedby="heroBannerDesc">
+                <button class="hero-banner-close" id="closeBanner" aria-label="Close welcome banner (Press Escape to close)" title="Close">
+                    <i data-lucide="x" aria-hidden="true"></i>
+                </button>
+                <div class="hero-banner-content">
+                    <div class="hero-banner-icon" aria-hidden="true">
+                        <i data-lucide="sparkles"></i>
+                    </div>
+                    <div class="hero-banner-text">
+                        <h2 class="hero-banner-title" id="heroBannerTitle">Welcome to Your Interactive Learning Hub</h2>
+                        <p class="hero-banner-subtitle" id="heroBannerDesc">This is your personal feed – a special space designed for meaningful connections and collaborative learning. Share insights, discuss historical events, and engage with your classmates in this beautifully crafted interface.</p>
+                        <div class="hero-banner-features" role="list" aria-label="Key features">
+                            <div class="hero-feature-item" role="listitem">
+                                <i data-lucide="pencil" aria-hidden="true"></i>
+                                <span>Create posts</span>
+                            </div>
+                            <div class="hero-feature-item" role="listitem">
+                                <i data-lucide="message-square" aria-hidden="true"></i>
+                                <span>Start discussions</span>
+                            </div>
+                            <div class="hero-feature-item" role="listitem">
+                                <i data-lucide="users" aria-hidden="true"></i>
+                                <span>Connect with peers</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discussion/Post Section -->
+            <section class="discussion-section">
+                <!-- Create Post -->
+                <div class="create-post">
+                    <div class="create-post-header">
+                        <img src="https://i.pravatar.cc/40?img=20" alt="Your avatar" class="avatar" id="createPostAvatar" />
+                        <div class="post-input-wrapper">
+                            <strong id="createPostName">Loading...</strong>
+                            <input type="text" placeholder="Share your thoughts..." class="post-input" />
+                        </div>
+                        <button class="send-btn">
+                            <i data-lucide="send" style="width: 20px; height: 20px;"></i>
+                        </button>
+                    </div>
+                    <div class="create-post-footer">
+                        <label class="image-upload-btn" title="Add image">
+                            <i data-lucide="image" style="width: 20px; height: 20px;"></i>
+                            <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+                        </label>
+
+                        <button class="video-upload-btn" id="videoUrlBtn" title="Add YouTube video">
+                            <div id="youtubeLottie" style="width: 32px; height: 32px;"></div>
+                        </button>
+                        <script>
+                            const youtubeAnimation = lottie.loadAnimation({
+                                container: document.getElementById('youtubeLottie'),
+                                renderer: 'svg',
+                                loop: true,
+                                autoplay: false,
+                                path: 'JSON/Youtube.json'
+                            });
+                            
+                            document.getElementById('videoUrlBtn').addEventListener('mouseenter', () => {
+                                youtubeAnimation.play();
+                            });
+                            
+                            document.getElementById('videoUrlBtn').addEventListener('mouseleave', () => {
+                                youtubeAnimation.stop();
+                            });
+                        </script>
+
+                        
+
+
+                        <button class="poll-btn" title="Create poll" id="pollBtn">
+                            <i data-lucide="bar-chart-3" style="width: 20px; height: 20px;"></i>
+                        </button>
+
+                        <div id="imagePreviewContainer" class="image-preview-container"></div>
+                        <div id="videoPreviewContainer" class="video-preview-container"></div>
+                        <div id="pollPreviewContainer" class="poll-preview-container"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Learning Tips Section -->
+            <div class="widget">
+                <div class="widget-header">
+                    <i data-lucide="lightbulb" style="width: 20px; height: 20px; color: #F4A460;"></i>
+                    <h3>Learning Tips</h3>
+                </div>
+
+                <div class="widget-content ideas-list">
+                    <div class="idea-card">
+                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
+                            <i data-lucide="book" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
+                                <strong>Read Actively</strong>
+                                <p>Take notes and ask questions while reading topics</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card">
+                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
+                            <i data-lucide="video" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
+                                <strong>Watch Videos</strong>
+                                <p>Watch educational videos to deepen understanding</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card">
+                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
+                            <i data-lucide="gamepad-2" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
+                                <strong>Play Games</strong>
+                                <p>Test your knowledge with fun interactive games</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Mobile Search Modal -->
+    <div class="mobile-search-modal" id="mobileSearchModal">
+        <div class="mobile-search-modal-content">
+            <h3>Search Users</h3>
+            <input type="text" id="mobileSearchInput" class="mobile-search-input" placeholder="Enter username or email..." />
+            <div class="mobile-search-modal-buttons">
+                <button class="cancel-btn" id="mobileSearchCancel">Cancel</button>
+                <button class="search-submit-btn" id="mobileSearchSubmit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results Modal -->
+    <div class="modal" id="searchResultsModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2>Search Results</h2>
+                <button class="modal-close" id="closeSearchModal">&times;</button>
+            </div>
+            <div class="modal-body" id="searchResultsBody" style="max-height: 600px; overflow-y: auto;">
+                <!-- Search results will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content" style="max-width: 500px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);">
+            <div class="modal-header" style="background: linear-gradient(135deg, #5C3422 0%, #8B7355 100%); color: white; border-radius: 16px 16px 0 0; padding: 24px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600;">Edit Your Profile</h2>
+                </div>
+                <button class="modal-close" id="closeEditModal" style="color: white; font-size: 24px; background: none; border: none; cursor: pointer; padding: 4px; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; transition: background 0.2s ease;">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 32px; background: #fafafa;">
+                <!-- Profile Picture Section -->
+                <div class="form-group" style="text-align: center; margin-bottom: 32px; padding: 24px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
+                    <label style="display: block; font-weight: 600; color: #333; margin-bottom: 16px; font-size: 1.1rem;">Profile Picture</label>
+                    <div style="position: relative; display: inline-block;">
+                        <img id="avatarPreview" src="https://i.pravatar.cc/80?img=20" alt="Profile preview" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid #5C3422; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);" />
+                    </div>
+                    <input type="file" id="editAvatar" accept="image/*" style="display: none;" />
+                    <p style="margin: 16px 0 0 0; color: #666; font-size: 14px;">Click the picture to change your profile picture</p>
+                </div>
+
+                <!-- Name Field -->
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label for="editName" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 1rem;">Full Name</label>
+                    <div style="position: relative;">
+                        <input type="text" id="editName" placeholder="Enter your full name" style="width: 100%; padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; transition: border-color 0.3s ease; box-sizing: border-box;" />
+                    </div>
+                </div>
+
+                <!-- Bio Field -->
+                <div class="form-group" style="margin-bottom: 32px;">
+                    <label for="editBio" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 1rem;">Bio</label>
+                    <div style="position: relative;">
+                        <textarea id="editBio" placeholder="Tell us about yourself..." rows="4" style="width: 100%; padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; resize: vertical; min-height: 100px; transition: border-color 0.3s ease; box-sizing: border-box; font-family: inherit;"></textarea>
+                    </div>
+                    <p style="margin: 8px 0 0 0; color: #999; font-size: 12px;">Share a bit about yourself (optional)</p>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 24px 32px; background: white; border-top: 1px solid #e0e0e0; border-radius: 0 0 16px 16px; display: flex; gap: 12px; justify-content: flex-end;">
+                <button class="btn-cancel" id="cancelEditBtn" style="padding: 12px 24px; border: 2px solid #e0e0e0; background: white; color: #666; border-radius: 8px; font-weight: 500; cursor: pointer; transition: all 0.3s ease;">Cancel</button>
+                <button class="btn-save" id="saveProfileBtn" style="padding: 12px 24px; border: none; background: linear-gradient(135deg, #5C3422 0%, #8B7355 100%); color: white; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(92, 52, 34, 0.3);">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video URL Modal -->
+    <div class="modal" id="videoUrlModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add YouTube Video</h2>
+                <button class="modal-close" id="closeVideoModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="videoUrlInput">YouTube URL</label>
+                    <input type="text" id="videoUrlInput" placeholder="Paste YouTube video URL here" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelVideoBtn">Cancel</button>
+                <button class="btn-save" id="confirmVideoBtn">Add Video</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Poll Modal -->
+    <div class="modal" id="pollModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Poll</h2>
+                <button class="modal-close" id="closePollModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="pollOption1">Option 1 (Required)</label>
+                    <input type="text" id="pollOption1" placeholder="Enter first poll option" />
+                </div>
+                <div class="form-group">
+                    <label for="pollOption2">Option 2 (Required)</label>
+                    <input type="text" id="pollOption2" placeholder="Enter second poll option" />
+                </div>
+                <div id="pollOptionsContainer">
+                    <div class="form-group">
+                        <label for="pollOption3">Option 3 (Optional)</label>
+                        <input type="text" id="pollOption3" placeholder="Enter third poll option" />
+                    </div>
+                    <div class="form-group">
+                        <label for="pollOption4">Option 4 (Optional)</label>
+                        <input type="text" id="pollOption4" placeholder="Enter fourth poll option" />
+                    </div>
+                </div>
+                <button type="button" class="add-option-btn" id="addOptionBtn" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; margin-top: 8px; background: #f0f0f0; border: 2px dashed #5C3422; border-radius: 6px; color: #5C3422; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.3s ease;">+ Add Another Option</button>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelPollBtn">Cancel</button>
+                <button class="btn-save" id="confirmPollBtn">Create Poll</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/course.js?v=8"></script>
+</body>
+</html>
+

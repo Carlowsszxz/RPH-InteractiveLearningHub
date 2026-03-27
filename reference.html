@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference Materials - Readings in Philippine History</title>
+    <link rel="icon" href="Images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="Styles/course.css">
+    <link rel="stylesheet" href="Styles/reference.css">
+    <link rel="stylesheet" href="Styles/course-feed.css">
+    <!-- Lucide Icons - Modern Icon Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="JS/supabase-config.js"></script>
+    <script src="JS/db-helpers.js"></script>
+    <script src="JS/course.js"></script>
+</head>
+<body class="page-course">
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <button id="referenceMobileToggle" style="background: none; border: none; color: #5C3422; cursor: pointer; font-size: 24px; width: 40px; height: 40px; display: none; align-items: center; justify-content: center; z-index: 1001; padding: 0;">
+                ☰
+            </button>
+
+            <div class="header-logo">
+                <img src="Images/favicon.png" alt="RPH Logo" class="header-logo-img">
+                <h1 class="header-title">
+                    <a href="home.html" class="header-title-link">RPH Interactive Learning Hub</a>
+                </h1>
+            </div>
+
+            <div class="header-actions">
+                
+                <button class="sidebar-toggle-right" id="sidebarToggleRight" title="Show more">
+                    <i data-lucide="layout-grid" style="width: 20px; height: 20px;"></i>
+                </button>
+                <button class="logout-btn" title="Logout">
+                    <i data-lucide="log-out" style="width: 20px; height: 20px;"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Left Sidebar Navigation -->
+        <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
+            <!-- User Profile Section -->
+            <div class="user-profile">
+                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" />
+                <div class="profile-info">
+                    <h4 class="profile-name" id="profileName">Loading...</h4>
+                    <p class="profile-email" id="profileEmail">Loading...</p>
+                </div>
+                
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="course.html" class="nav-item" data-section="feed">
+                    <i data-lucide="radio" class="nav-icon-svg"></i>
+                    <span>Feed</span>
+                </a>
+                <div class="nav-item-dropdown">
+                    <div class="nav-item" data-section="topic">
+                        <i data-lucide="book-open" class="nav-icon-svg"></i>
+                        <span>Topic</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="first-mass.html" class="dropdown-item">First Mass</a>
+                        <a href="cavite-mutiny.html" class="dropdown-item">Cavite Mutiny</a>
+                        <a href="retraction-of-rizal.html" class="dropdown-item">Retraction of Rizal</a>
+                        <a href="cry-of-rebellion.html" class="dropdown-item">Cry of Rebellion</a>
+                    </div>
+                </div>
+                <div class="nav-item-dropdown">
+                    <div class="nav-item" data-section="activities">
+                        <i data-lucide="calendar" class="nav-icon-svg"></i>
+                        <span>Learning Hub</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="games.html" class="dropdown-item" data-section="games">
+                            <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
+                            Games
+                        </a>
+                        
+                        <a href="quizzes.html" class="dropdown-item" data-section="quizzes">
+                            <i data-lucide="clipboard-list" style="width: 16px; height: 16px;"></i>
+                            Quizzes
+                        </a>
+
+                        <a href="interactive-tasks.html" class="dropdown-item" data-section="interactive">
+                            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                            Interactive Tasks
+                        </a>
+
+                        <a href="worksheets.html" class="dropdown-item" data-section="worksheets">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Worksheets
+                        </a>
+
+                        <a href="Handouts.html" class="dropdown-item" data-section="handouts">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Handouts
+                        </a>
+                    </div>
+                </div>
+
+                <a href="videos.html" class="nav-item" data-section="videos">
+                    <i data-lucide="play-circle" class="nav-icon-svg"></i>
+                    <span>Videos</span>
+                </a>
+
+                <a href="reference.html" class="nav-item active" data-section="reference">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="book-open" aria-hidden="true" class="lucide lucide-book-open nav-icon-svg"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+                    <span>Reference</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Reference Materials</h1>
+                <p>Essential resources and materials for Readings in Philippine History</p>
+            </div>
+
+            <!-- Search and Filter Section -->
+            <div class="reference-controls">
+                <div class="search-container">
+                    <input type="text" id="referenceSearch" placeholder="Search reference materials..." class="reference-search-input">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="books">Books</button>
+                    <button class="filter-btn" data-filter="videos">Videos</button>
+                </div>
+            </div>
+
+            <!-- Reference Content Sections -->
+            <div class="reference-content">
+
+                <!-- Books Section -->
+                <section class="reference-section" data-category="books">
+                    <div class="section-header">
+                        <h2><i data-lucide="book" style="width: 24px; height: 24px;"></i> Reference Books</h2>
+                        <p>Books referenced and used throughout the RPH Interactive Learning Hub</p>
+                    </div>
+
+                    <div class="books-grid">
+                        <div class="reference-card">
+                            <div class="book-icon">
+                                <i data-lucide="book-open" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <div class="book-info">
+                                <h3>Readings in Philippine History</h3>
+                                <p class="book-authors">J. L. Candelaria & V. C. Alporha</p>
+                                <p class="book-details">1st Edition, 2018, Rex Bookstore</p>
+                                <p class="book-description">A comprehensive textbook covering key events and figures in Philippine colonial history.</p>
+                            </div>
+                        </div>
+
+                        <div class="reference-card">
+                            <div class="book-icon">
+                                <i data-lucide="book-open" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <div class="book-info">
+                                <h3>Understanding Philippine History: Readings and Discourse</h3>
+                                <p class="book-authors">A. C. Rosales, J. R. Viray & R. R. Sebastian</p>
+                                <p class="book-details">2020, Lorimar Publishing</p>
+                                <p class="book-description">An in-depth exploration of Philippine historical narratives and discourses.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Fact Sources Section -->
+                <section class="reference-section" data-category="sources">
+                    <div class="section-header">
+                        <h2><i data-lucide="globe" style="width:20px;height:20px;"></i> Sources & Further Reading</h2>
+                        <p class="muted">These reputable sources were used to verify facts displayed on this site (for example: José Rizal's education and language abilities). Click any card to open the source.</p>
+                    </div>
+
+                    <div class="sources-grid">
+                        <article class="source-card">
+                            <div class="source-icon" aria-hidden="true">
+                                <i data-lucide="book-open"></i>
+                            </div>
+                            <h3>Encyclopedia Britannica</h3>
+                            <p>Authoritative biography summarizing Rizal's life, education (medicine; Philosophy and Letters) and accomplishments.</p>
+                            <a class="source-link" href="https://www.britannica.com/biography/Jose-Rizal" target="_blank" rel="noopener">Open Britannica</a>
+                        </article>
+
+                        <article class="source-card">
+                            <div class="source-icon" aria-hidden="true">
+                                <i data-lucide="file-text"></i>
+                            </div>
+                            <h3>Wikipedia (José Rizal)</h3>
+                            <p>Well-cited article noting Rizal was conversant in twenty-two languages; follow the article references for primary citations.</p>
+                            <a class="source-link" href="https://en.wikipedia.org/wiki/Jos%C3%A9_Rizal" target="_blank" rel="noopener">Open Wikipedia</a>
+                        </article>
+
+                        <article class="source-card">
+                            <div class="source-icon" aria-hidden="true">
+                                <i data-lucide="award"></i>
+                            </div>
+                            <h3>National Historical Commission of the Philippines</h3>
+                            <p>Official Philippine historical body with curated biographical notes and references on Rizal.</p>
+                            <a class="source-link" href="https://nhcp.gov.ph/jose-rizal/" target="_blank" rel="noopener">Open NHCP</a>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Videos Section -->
+                <section class="reference-section" data-category="videos">
+                    <div class="section-header">
+                        <h2><i data-lucide="play-circle" style="width: 24px; height: 24px;"></i> Video Resources</h2>
+                        <p>Educational videos covering key Philippine history topics</p>
+                    </div>
+
+                    <div class="videos-grid">
+                        <div class="reference-card">
+                            <div class="video-thumbnail">
+                                    <img src="https://img.youtube.com/vi/Dtc9q_V8_hs/hqdefault.jpg" alt="Ang Unang Sigaw Ng Himagsikan - thumbnail" loading="lazy" />
+                                </div>
+                            <div class="video-info">
+                                <h3>Ang Unang Sigaw Ng Himagsikan Sa Balintawak, Caloocan</h3>
+                                <p class="video-creator">Xiao Time</p>
+                                <p class="video-date">May 28, 2020</p>
+                                <p class="video-description">A detailed video on the Cry of Rebellion in Balintawak, Caloocan.</p>
+                                <a href="https://youtu.be/Dtc9q_V8_hs?si=V15c_dwqkPLp6QgW" class="video-link" target="_blank">Watch on YouTube</a>
+                            </div>
+                        </div>
+
+                        <div class="reference-card">
+                            <div class="video-thumbnail">
+                                    <img src="https://img.youtube.com/vi/5CwmcUCwuv8/hqdefault.jpg" alt="Ang Pag-aaklas Sa Cavite - thumbnail" loading="lazy" />
+                                </div>
+                            <div class="video-info">
+                                <h3>Ang Pag-aaklas Sa Cavite (Cavite Mutiny)</h3>
+                                <p class="video-creator">Xiao Time</p>
+                                <p class="video-date">June 4, 2020</p>
+                                <p class="video-description">Exploration of the Cavite Mutiny and its historical significance.</p>
+                                <a href="https://youtu.be/5CwmcUCwuv8?si=OIpVryseX3K8t8MR" class="video-link" target="_blank">Watch on YouTube</a>
+                            </div>
+                        </div>
+
+                        <div class="reference-card">
+                            <div class="video-thumbnail">
+                                    <img src="https://img.youtube.com/vi/YPLn_u0x5k4/hqdefault.jpg" alt="Retraction Ni Jose Rizal - thumbnail" loading="lazy" />
+                                </div>
+                            <div class="video-info">
+                                <h3>Retraction Ni Jose Rizal</h3>
+                                <p class="video-creator">Xiao Time HD</p>
+                                <p class="video-date">July 20, 2022</p>
+                                <p class="video-description">Discussion on Jose Rizal's retraction and its context.</p>
+                                <a href="https://youtu.be/YPLn_u0x5k4?si=mNLdBMtkna99A620" class="video-link" target="_blank">Watch on YouTube</a>
+                            </div>
+                        </div>
+
+                        <div class="reference-card">
+                            <div class="video-thumbnail">
+                                    <img src="https://img.youtube.com/vi/qQgYPV-mAUY/hqdefault.jpg" alt="Ang KASAYSAYAN unang MISA Sa PILIPINAS - thumbnail" loading="lazy" />
+                                </div>
+                            <div class="video-info">
+                                <h3>Ang KASAYSAYAN unang MISA Sa PILIPINAS | March 31, 1521 | Easter Sunday</h3>
+                                <p class="video-creator">Knowledge Power TV</p>
+                                <p class="video-date">April 3, 2021</p>
+                                <p class="video-description">Historical account of the first mass in the Philippines on Easter Sunday 1521.</p>
+                                <a href="https://youtu.be/qQgYPV-mAUY?si=tmwYUGVafR-eEvc-" class="video-link" target="_blank">Watch on YouTube</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Learning tips (uses course-feed styles) -->
+            <div class="widget learning-tips-widget" aria-labelledby="referenceTipsTitle">
+                <div class="widget-header">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i data-lucide="lightbulb" class="widget-header-icon"></i>
+                        <div>
+                            <h3 id="referenceTipsTitle">Reference Tips</h3>
+                            <p class="widget-subtitle">Quick guidance for using sources</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-content learning-tips-list">
+                    <article class="tip-card" tabindex="0" role="article">
+                        <div class="tip-icon" aria-hidden="true"><i data-lucide="search"></i></div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Verify Sources</h4>
+                            <p class="tip-desc">Cross-check primary and secondary sources for reliability.</p>
+                        </div>
+                    </article>
+
+                    <article class="tip-card" tabindex="0" role="article">
+                        <div class="tip-icon" aria-hidden="true"><i data-lucide="book-open"></i></div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Use Citations</h4>
+                            <p class="tip-desc">Record full citation details for future reference.</p>
+                        </div>
+                    </article>
+
+                    <article class="tip-card" tabindex="0" role="article">
+                        <div class="tip-icon" aria-hidden="true"><i data-lucide="link"></i></div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Prefer Reputable Sites</h4>
+                            <p class="tip-desc">Use established archives, museums, and academic publications.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Scripts -->
+    <script src="JS/script.js"></script>
+    <script>
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Add click event to edit profile button to redirect to Feed (course.html)
+        document.addEventListener('DOMContentLoaded', function() {
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', function() {
+                    window.location.href = 'course.html';
+                });
+            }
+        });
+
+        // Add active class to reference nav item
+        document.addEventListener('DOMContentLoaded', function() {
+            const referenceNav = document.querySelector('[data-section="reference"]');
+            if (referenceNav) {
+                referenceNav.classList.add('active');
+            }
+
+            // Populate user profile using the centralized function
+            const nameEl = document.getElementById('profileName');
+            const emailEl = document.getElementById('profileEmail');
+            const avatarEl = document.getElementById('profileAvatar');
+            loadUserProfile(nameEl, emailEl, avatarEl);
+        });
+
+        // ==================== RIGHT SIDEBAR TOGGLE ====================
+        const sidebarToggleRight = document.getElementById('sidebarToggleRight');
+        const rightSidebar = document.querySelector('.right-sidebar');
+
+        if (sidebarToggleRight && rightSidebar) {
+            sidebarToggleRight.addEventListener('click', function() {
+                rightSidebar.classList.toggle('sidebar-open');
+            });
+        }
+
+        // ==================== LOGOUT BUTTON ====================
+        const referenceLogoutBtn = document.querySelector('.logout-btn');
+        console.log('Logout button found:', referenceLogoutBtn);
+        if (referenceLogoutBtn) {
+            console.log('Adding logout event listener');
+            referenceLogoutBtn.addEventListener('click', async () => {
+                console.log('Logout button clicked');
+                try {
+                    // Clear all local storage
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    console.log('Cleared localStorage and sessionStorage');
+
+                    // Sign out from Supabase globally
+                    const supabaseClient = await getSupabaseClient();
+                    console.log('Got supabase client, signing out...');
+                    const { error } = await supabaseClient.auth.signOut({ scope: 'global' });
+                    if (error) {
+                        console.error('Supabase signOut error:', error);
+                    } else {
+                        console.log('Supabase signOut successful');
+                    }
+                } catch (error) {
+                    console.error('Logout error:', error);
+                } finally {
+                    // Force redirect to index after clearing everything
+                    console.log('Redirecting to index.html');
+                    window.location.href = 'index.html';
+                }
+            });
+        } else {
+            console.error('Logout button not found!');
+        }
+        // ==================== LEFT SIDEBAR TOGGLE ====================
+        const referenceMobileToggle = document.getElementById('referenceMobileToggle');
+        const referenceSidebar = document.getElementById('leftSidebar');
+
+        console.log('referenceMobileToggle:', referenceMobileToggle);
+        console.log('referenceSidebar:', referenceSidebar);
+
+        if (referenceMobileToggle && referenceSidebar) {
+            referenceMobileToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Mobile toggle button clicked!');
+                console.log('Before toggle:', referenceSidebar.className);
+                referenceSidebar.classList.toggle('mobile-open');
+                console.log('After toggle:', referenceSidebar.className);
+            });
+        } else {
+            console.warn('Mobile toggle or sidebar element not found');
+        }
+
+        // ==================== REFERENCE PAGE FUNCTIONALITY ====================
+
+        // Search functionality
+        const referenceSearchInput = document.getElementById('referenceSearch');
+        const referenceSections = document.querySelectorAll('.reference-section');
+
+        if (referenceSearchInput) {
+            referenceSearchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+
+                referenceSections.forEach(section => {
+                    const sectionText = section.textContent.toLowerCase();
+                    const isVisible = searchTerm === '' || sectionText.includes(searchTerm);
+                    section.style.display = isVisible ? 'block' : 'none';
+                });
+            });
+        }
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                // Filter sections
+                referenceSections.forEach(section => {
+                    if (filter === 'all') {
+                        section.style.display = 'block';
+                    } else {
+                        const category = section.getAttribute('data-category');
+                        section.style.display = category === filter ? 'block' : 'none';
+                    }
+                });
+
+                // Clear search when filtering
+                if (referenceSearchInput) {
+                    referenceSearchInput.value = '';
+                }
+            });
+        });
+
+        // Highlight search terms
+        function highlightSearchTerms(text, searchTerm) {
+            if (!searchTerm) return text;
+
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        }
+
+        // Enhanced search with highlighting
+        if (referenceSearchInput) {
+            referenceSearchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+
+                referenceSections.forEach(section => {
+                    const sectionText = section.textContent.toLowerCase();
+                    const isVisible = searchTerm === '' || sectionText.includes(searchTerm);
+
+                    if (isVisible) {
+                        section.style.display = 'block';
+
+                        // Remove previous highlights
+                        section.querySelectorAll('mark').forEach(mark => {
+                            const textNode = document.createTextNode(mark.textContent);
+                            mark.parentNode.replaceChild(textNode, mark);
+                        });
+
+                        // Add new highlights if there's a search term
+                        if (searchTerm) {
+                            const textElements = section.querySelectorAll('p, h3, li');
+                            textElements.forEach(element => {
+                                if (element.textContent.toLowerCase().includes(searchTerm)) {
+                                    element.innerHTML = highlightSearchTerms(element.innerHTML, searchTerm);
+                                }
+                            });
+                        }
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        }
+    </script>
+    <style>
+        @media (max-width: 768px) {
+            #referenceMobileToggle {
+                display: flex !important;
+            }
+        }
+    </style>
+</body>
+</html>
+
+
+

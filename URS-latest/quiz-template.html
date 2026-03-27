@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="Styles/course.css">
+    <link rel="stylesheet" href="Styles/quiz-template.css">
+    <!-- Lucide Icons - Modern Icon Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase Config -->
+    <script src="JS/supabase-config.js?v=1"></script>
+    <script src="JS/db-helpers.js?v=1"></script>
+    <script src="JS/quiz-data.js?v=1"></script>
+    <script src="JS/quiz-template.js?v=1"></script>
+</head>
+<body onload="initQuiz()">
+    <main>
+        <!-- creating a modal for when quiz ends -->
+        <div class="modal-container" id="score-modal">
+
+            <div class="redesigned-score-modal">
+
+                <h1>Congratulations, Quiz Completed.</h1>
+
+                <div class="quiz-results-details">
+                    <div class="result-item">
+                        <div class="result-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="clipboard-list" aria-hidden="true" style="width: 32px; height: 32px;" class="lucide lucide-clipboard-list"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                        </div>
+                        <div class="result-text">
+                            <span class="result-label">Total Questions</span>
+                            <span class="result-value" id="total-questions"></span>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x-circle" aria-hidden="true" style="width: 32px; height: 32px;" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                        </div>
+                        <div class="result-text">
+                            <span class="result-label">Wrong Answers</span>
+                            <span class="result-value" id="wrong-answers"></span>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle" aria-hidden="true" style="width: 32px; height: 32px;" class="lucide lucide-check-circle"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>
+                        </div>
+                        <div class="result-text">
+                            <span class="result-label">Correct Answers</span>
+                            <span class="result-value" id="right-answers"></span>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="clock" aria-hidden="true" style="width: 32px; height: 32px;" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <div class="result-text">
+                            <span class="result-label">Time Taken</span>
+                            <span class="result-value" id="time-taken"></span>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="timer" aria-hidden="true" style="width: 32px; height: 32px;" class="lucide lucide-timer"><line x1="10" y1="2" x2="14" y2="2"></line><line x1="12" y1="14" x2="15" y2="11"></line><circle cx="12" cy="14" r="8"></circle></svg>
+                        </div>
+                        <div class="result-text">
+                            <span class="result-label">Avg Time / Question</span>
+                            <span class="result-value" id="avg-time"></span>
+                        </div>
+                    </div>
+                    <div class="result-remark">
+                        <span id="remarks" class="remark-text"></span>
+                    </div>
+                </div>
+
+                <div class="modal-button-container">
+                    <button onclick="closeScoreModal()" class="modal-continue-btn">Continue</button>
+                </div>
+
+            </div>
+        </div>
+<!-- end of modal of quiz details-->
+
+        <div class="game-quiz-container">
+
+            <div class="quiz-header">
+                <h1 id="quiz-title"></h1>
+                <div class="score-display">Score: <span id="player-score"></span> / <span id="total-score"></span></div>
+            </div>
+
+            <!-- Fixed Sound Controls -->
+            <div class="sound-controls-fixed">
+                <button id="sound-settings" class="sound-settings-btn" onclick="openSoundSettings()" title="Sound Settings">
+                    <span>⚙️</span>
+                </button>
+                <button id="sound-toggle" class="sound-toggle-btn" onclick="toggleSound()" title="Toggle Sound">
+                    <span id="sound-icon">🔊</span>
+                </button>
+            </div>
+
+            <!-- Sound Settings Modal -->
+            <div class="modal-container" id="sound-settings-modal" style="display: none;">
+                <div class="sound-settings-modal-content">
+                    <div class="sound-settings-header">
+                        <h2>Sound Settings</h2>
+                        <button class="close-settings-btn" onclick="closeSoundSettings()">✕</button>
+                    </div>
+                    
+                    <div class="sound-settings-body">
+                        <!-- Master Volume -->
+                        <div class="setting-group">
+                            <label class="setting-label">
+                                <span class="setting-icon">🔊</span>
+                                <span>Master Volume</span>
+                                <span class="volume-value" id="volume-display">70%</span>
+                            </label>
+                            <input type="range" id="volume-slider" class="volume-slider" 
+                                   min="0" max="100" value="70" 
+                                   oninput="updateVolume(this.value)">
+                        </div>
+
+                        <!-- Individual Sound Toggles -->
+                        <div class="setting-group">
+                            <h3 class="setting-subtitle">Sound Effects</h3>
+                            
+                            <label class="toggle-setting">
+                                <input type="checkbox" id="correct-sound-toggle" checked onchange="toggleSoundType('correct', this.checked)">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-label">✅ Correct Answer</span>
+                            </label>
+
+                            <label class="toggle-setting">
+                                <input type="checkbox" id="wrong-sound-toggle" checked onchange="toggleSoundType('wrong', this.checked)">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-label">❌ Wrong Answer</span>
+                            </label>
+
+                            <label class="toggle-setting">
+                                <input type="checkbox" id="click-sound-toggle" checked onchange="toggleSoundType('click', this.checked)">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-label">🔘 Button Clicks</span>
+                            </label>
+
+                            <label class="toggle-setting">
+                                <input type="checkbox" id="complete-sound-toggle" checked onchange="toggleSoundType('complete', this.checked)">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-label">🎉 Quiz Complete</span>
+                            </label>
+                        </div>
+
+                        <!-- Presets -->
+                        <div class="setting-group">
+                            <h3 class="setting-subtitle">Quick Presets</h3>
+                            <div class="preset-buttons">
+                                <button class="preset-btn" onclick="applyPreset('silent')">🔇 Silent</button>
+                                <button class="preset-btn" onclick="applyPreset('low')">🔈 Low</button>
+                                <button class="preset-btn" onclick="applyPreset('medium')">🔉 Medium</button>
+                                <button class="preset-btn" onclick="applyPreset('high')">🔊 Loud</button>
+                            </div>
+                        </div>
+
+                        <!-- Test Button -->
+                        <div class="setting-group">
+                            <button class="test-sound-btn" onclick="testSound()">🎵 Test Sound</button>
+                        </div>
+
+                        <!-- Keyboard Shortcut Hint -->
+                        <div class="keyboard-hint">
+                            <small>🎹 Press <kbd>M</kbd> to toggle mute</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sound Playing Indicator -->
+            <div class="sound-indicator" id="sound-indicator">
+                <div class="sound-wave"></div>
+                <div class="sound-wave"></div>
+                <div class="sound-wave"></div>
+            </div>
+
+            <!-- Timer Section -->
+            <div class="timer-container">
+                <div class="timer-info">
+                    <span class="timer-icon">⏱️</span>
+                    <span class="timer-text">Time Remaining: <span id="timer-display">10:00</span></span>
+                </div>
+                <div class="timer-progress-bar">
+                    <div class="timer-progress-fill" id="timer-progress"></div>
+                </div>
+            </div>
+
+            <div class="question-section">
+                <div class="question-counter">Question <span id="question-number"></span> of <span id="total-questions-display"></span></div>
+                <h2 id="display-question"></h2>
+            </div>
+
+            <div class="options-section">
+               <div class="modal-container" id="option-modal">
+
+                    <div class="modal-content-container option-modal">
+                        <div class="option-modal-inner">
+                            <h1>⚠️ Please Pick An Option</h1>
+
+                            <div class="modal-button-container">
+                                <button onclick="closeOptionModal()" class="modal-continue-btn">Continue</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+               </div>
+
+                <input type="radio" id="option-one" name="option" class="radio" value="optionA" />
+                <label for="option-one" class="option" id="option-one-label"></label>
+                <input type="radio" id="option-two" name="option" class="radio" value="optionB" />
+                <label for="option-two" class="option" id="option-two-label"></label>
+                <input type="radio" id="option-three" name="option" class="radio" value="optionC" />
+                <label for="option-three" class="option" id="option-three-label"></label>
+                <input type="radio" id="option-four" name="option" class="radio" value="optionD" />
+                <label for="option-four" class="option" id="option-four-label"></label>
+            </div>
+
+            <div class="action-section">
+                <button onclick="window.location.href='quizzes.html'" class="back-btn">← Back</button>
+                <button onclick="handleNextQuestion()" class="next-btn">Next Question</button>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

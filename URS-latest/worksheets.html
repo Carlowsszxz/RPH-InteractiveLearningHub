@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worksheets - Readings in Philippine History</title>
+    <link rel="icon" href="Images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="Styles/course.css">
+    <link rel="stylesheet" href="Styles/worksheets.css">
+    <!-- Lucide Icons - Modern Icon Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase Config -->
+    <script src="JS/supabase-config.js"></script>
+    <script src="JS/db-helpers.js"></script>
+    <script src="JS/course.js"></script>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <button id="worksheetsMobileToggle" style="background: none; border: none; color: #5C3422; cursor: pointer; font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; z-index: 1001; padding: 0;">
+                ☰
+            </button>
+
+            <div class="header-logo">
+                <img src="Images/favicon.png" alt="RPH Logo" class="header-logo-img">
+                <h1 class="header-title"><a href="home.html" class="header-title-link">RPH Interactive Learning Hub
+</a></h1>
+            </div>
+
+            <div class="header-actions">
+                <button class="sidebar-toggle-right" id="sidebarToggleRight" title="Show more">
+                    <i data-lucide="layout-grid" style="width: 20px; height: 20px;"></i>
+                </button>
+                <button class="logout-btn" title="Logout">
+                    <i data-lucide="log-out" style="width: 20px; height: 20px;"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Left Sidebar Navigation -->
+        <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
+            <!-- User Profile Section -->
+            <div class="user-profile">
+                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" />
+                <div class="profile-info">
+                    <h4 class="profile-name" id="profileName">Loading...</h4>
+                    <p class="profile-email" id="profileEmail">Loading...</p>
+                </div>
+                
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="course.html" class="nav-item" data-section="feed">
+                    <i data-lucide="radio" class="nav-icon-svg"></i>
+                    <span>Feed</span>
+                </a>
+                <div class="nav-item-dropdown">
+                    <div class="nav-item" data-section="topic">
+                        <i data-lucide="book-open" class="nav-icon-svg"></i>
+                        <span>Topic</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="first-mass.html" class="dropdown-item">First Mass</a>
+                        <a href="cavite-mutiny.html" class="dropdown-item">Cavite Mutiny</a>
+                        <a href="retraction-of-rizal.html" class="dropdown-item">Retraction of Rizal</a>
+                        <a href="cry-of-rebellion.html" class="dropdown-item">Cry of Rebellion</a>
+                    </div>
+                </div>
+                <div class="nav-item-dropdown open">
+                    <div class="nav-item" data-section="activities">
+                        <i data-lucide="calendar" class="nav-icon-svg"></i>
+                        <span>Learning Hub</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="games.html" class="dropdown-item" data-section="games">
+                            <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
+                            Games
+                        </a>
+                        
+                        <a href="quizzes.html" class="dropdown-item" data-section="quizzes">
+                            <i data-lucide="clipboard-list" style="width: 16px; height: 16px;"></i>
+                            Quizzes
+                        </a>
+
+                        <a href="interactive-tasks.html" class="dropdown-item" data-section="interactive">
+                            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                            Interactive Tasks
+                        </a>
+
+                        <a href="worksheets.html" class="dropdown-item active" data-section="worksheets">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Worksheets
+                        </a>
+
+                        <a href="Handouts.html" class="dropdown-item" data-section="handouts">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Handouts
+                        </a>
+                    </div>
+                </div>
+
+
+                <a href="videos.html" class="nav-item" data-section="videos">
+                    <i data-lucide="play-circle" class="nav-icon-svg"></i>
+                    <span>Videos</span>
+                </a>
+
+                <a href="reference.html" class="nav-item" data-section="reference">
+                    <i data-lucide="book-open" class="nav-icon-svg"></i>
+                    <span>Reference</span>
+                </a>
+            </nav>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Worksheets</h1>
+                <p>Download and practice with our comprehensive learning materials</p>
+            </div>
+
+            <!-- Separator -->
+            <hr class="section-divider">
+
+            <!-- Worksheets Hub Section -->
+            <section class="worksheets-hub">
+                <div class="hub-header">
+                    <h2>Worksheets & Learning Materials</h2>
+                    <p class="hub-subtitle">Download, reflect, and master the content at your own pace</p>
+                </div>
+
+                <!-- Activities Grid -->
+                <div class="activities-grid">
+                    <!-- First Mass Historical Rebuttal Essay -->
+                    <div class="activity-card">
+                        <div class="activity-icon">
+                            <i data-lucide="book-open" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h3 class="activity-title">First Mass: Historical Rebuttal Essay and Venn Diagram Analysis</h3>
+                            <p class="activity-description">Write a historical rebuttal essay challenging traditional narratives of the first Catholic Mass. Use a Venn diagram to compare Spanish colonial accounts with indigenous perspectives and modern scholarship.</p>
+                            <div class="activity-meta">
+                                <span class="activity-type">Rebuttal Essay & Venn Diagram</span>
+                                <span class="activity-duration">35-40 mins</span>
+                            </div>
+                        </div>
+                        <div class="activity-actions">
+                            <button class="btn-download-activity" onclick="downloadImage('Images/Worksheets/1.png')">Download Image</button>
+                            <button class="btn-preview" onclick="previewImage('Images/Worksheets/1.png')">Preview</button>
+                        </div>
+                    </div>
+
+                    <!-- Cavite Mutiny Primary Source Analysis -->
+                    <div class="activity-card">
+                        <div class="activity-icon">
+                            <i data-lucide="file-search" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h3 class="activity-title">Cavite Mutiny: Primary Source Perspective Analysis</h3>
+                            <p class="activity-description">Analyze primary sources from the 1872 Cavite Mutiny to understand different perspectives. Examine Spanish colonial documents, Filipino accounts, and their impact on the Propaganda Movement.</p>
+                            <div class="activity-meta">
+                                <span class="activity-type">Analysis Worksheet</span>
+                                <span class="activity-duration">25-30 mins</span>
+                            </div>
+                        </div>
+                        <div class="activity-actions">
+                            <button class="btn-download-activity" onclick="downloadImage('Images/Worksheets/2.png')">Download Image</button>
+                            <button class="btn-preview" onclick="previewImage('Images/Worksheets/2.png')">Preview</button>
+                        </div>
+                    </div>
+
+                    <!-- Cavite Mutiny Interpretation Comparison Matrix -->
+                    <div class="activity-card">
+                        <div class="activity-icon">
+                            <i data-lucide="git-compare" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h3 class="activity-title">Cavite Mutiny: Interpretation Comparison Matrix</h3>
+                            <p class="activity-description">Compare different historical interpretations of the 1872 Cavite Mutiny. Analyze Spanish colonial, Filipino nationalist, and modern scholarly perspectives using a structured comparison matrix.</p>
+                            <div class="activity-meta">
+                                <span class="activity-type">Comparison Matrix</span>
+                                <span class="activity-duration">30-35 mins</span>
+                            </div>
+                        </div>
+                        <div class="activity-actions">
+                            <button class="btn-download-activity" onclick="downloadImage('Images/Worksheets/3.png')">Download Image</button>
+                            <button class="btn-preview" onclick="previewImage('Images/Worksheets/3.png')">Preview</button>
+                        </div>
+                    </div>
+
+                    <!-- Rizal Retraction Primary Source Evaluation -->
+                    <div class="activity-card">
+                        <div class="activity-icon">
+                            <i data-lucide="scale" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h3 class="activity-title">Retraction of Rizal: Primary Source Evaluation Matrix and Historical Verdict Essay</h3>
+                            <p class="activity-description">Evaluate the authenticity of Jose Rizal's retraction document using a primary source evaluation matrix. Write a historical verdict essay weighing evidence for and against its genuineness.</p>
+                            <div class="activity-meta">
+                                <span class="activity-type">Evaluation Matrix & Essay</span>
+                                <span class="activity-duration">40-45 mins</span>
+                            </div>
+                        </div>
+                        <div class="activity-actions">
+                            <button class="btn-download-activity" onclick="downloadImage('Images/Worksheets/4.png')">Download Image</button>
+                            <button class="btn-preview" onclick="previewImage('Images/Worksheets/4.png')">Preview</button>
+                        </div>
+                    </div>
+
+                    <!-- Cry of Rebellion Clash of Witnesses -->
+                    <div class="activity-card">
+                        <div class="activity-icon">
+                            <i data-lucide="users" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h3 class="activity-title">Cry of Rebellion: Clash of Witnesses and Double-Entry Journal</h3>
+                            <p class="activity-description">Analyze conflicting eyewitness accounts of the Cry of Pugad Lawin using a double-entry journal format. Compare Spanish colonial reports with Filipino revolutionary testimonies to understand the complexity of historical truth.</p>
+                            <div class="activity-meta">
+                                <span class="activity-type">Double-Entry Journal</span>
+                                <span class="activity-duration">35-40 mins</span>
+                            </div>
+                        </div>
+                        <div class="activity-actions">
+                            <button class="btn-download-activity" onclick="downloadImage('Images/Worksheets/5.png')">Download Image</button>
+                            <button class="btn-preview" onclick="previewImage('Images/Worksheets/5.png')">Preview</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Worksheets Downloads Section (Hidden) -->
+            <section class="worksheets-downloads" id="worksheetsSection" style="display: none;">
+                <div class="section-header">
+                    <button class="btn-back" onclick="navigateToSection('hub')">← Back to Hub</button>
+                    <h2>Download Worksheets</h2>
+                </div>
+
+                <div class="worksheets-list">
+                    <div class="worksheet-item">
+                        <div class="worksheet-info">
+                            <h4>First Mass in the Philippines (1521)</h4>
+                            <p>Worksheet covering the first Catholic Mass and its significance in Philippine history.</p>
+                            <span class="worksheet-type">PDF • 2 pages</span>
+                        </div>
+                        <button class="btn-download-file" onclick="downloadWorksheet('first-mass')">Download Image</button>
+                    </div>
+
+                    <div class="worksheet-item">
+                        <div class="worksheet-info">
+                            <h4>Cavite Mutiny (1872)</h4>
+                            <p>Comprehensive worksheet about the Cavite Mutiny and its impact on nationalism.</p>
+                            <span class="worksheet-type">PDF • 2 pages</span>
+                        </div>
+                        <button class="btn-download-file" onclick="downloadWorksheet('cavite-mutiny')">Download Image</button>
+                    </div>
+
+                    <div class="worksheet-item">
+                        <div class="worksheet-info">
+                            <h4>Cry of Rebellion (1896)</h4>
+                            <p>Worksheet exploring the Cry of Rebellion and the start of the Philippine Revolution.</p>
+                            <span class="worksheet-type">PDF • 2 pages</span>
+                        </div>
+                        <button class="btn-download-file" onclick="downloadWorksheet('cry-of-rebellion')">Download Image</button>
+                    </div>
+
+                    <div class="worksheet-item">
+                        <div class="worksheet-info">
+                            <h4>Retraction of Rizal (1896)</h4>
+                            <p>Worksheet about Jose Rizal's controversial retraction and its historical debate.</p>
+                            <span class="worksheet-type">PDF • 2 pages</span>
+                        </div>
+                        <button class="btn-download-file" onclick="downloadWorksheet('retraction-of-rizal')">Download Image</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reflections Section (Hidden) -->
+            <section class="reflections-section" id="reflectionsSection" style="display: none;">
+                <div class="section-header">
+                    <button class="btn-back" onclick="navigateToSection('hub')">← Back to Hub</button>
+                    <h2>My Reflections</h2>
+                </div>
+
+                <div class="reflections-container">
+                    <div class="reflection-form">
+                        <h3>Write Your Reflection</h3>
+                        <div class="form-group">
+                            <label for="reflectionTopic">Topic:</label>
+                            <select id="reflectionTopic" class="form-input">
+                                <option value="">Select a topic...</option>
+                                <option value="first-mass">First Mass in the Philippines</option>
+                                <option value="cavite-mutiny">Cavite Mutiny</option>
+                                <option value="cry-of-rebellion">Cry of Rebellion</option>
+                                <option value="retraction-of-rizal">Retraction of Rizal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reflectionText">Your Reflection:</label>
+                            <textarea id="reflectionText" class="form-input reflection-textarea" placeholder="Share your thoughts, insights, and feelings about the readings..."></textarea>
+                        </div>
+                        <button class="btn-save-reflection" onclick="saveReflection()">Save Reflection</button>
+                    </div>
+
+                    <div class="reflections-list" id="reflectionsList">
+                        <p style="text-align: center; color: #7A6B5F;">No reflections yet. Start by writing one above!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz Section (Hidden) -->
+            <section class="quiz-section" id="quizSection" style="display: none;">
+                <div class="section-header">
+                    <button class="btn-back" onclick="navigateToSection('hub')">← Back to Hub</button>
+                    <h2>Practice Quiz</h2>
+                </div>
+
+                <div class="quiz-container" id="quizContainer">
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <span class="progress-text"><span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></span>
+                    </div>
+
+                    <div class="quiz-content" id="quizContent">
+                        <!-- Questions will be loaded here by JavaScript -->
+                    </div>
+
+                    <div class="quiz-controls">
+                        <button class="btn-prev" id="prevBtn" disabled>← Previous</button>
+                        <button class="btn-next" id="nextBtn">Next →</button>
+                    </div>
+                </div>
+
+                <!-- Results Section (Hidden by default) -->
+                <div class="results-container" id="resultsContainer" style="display: none;">
+                    <div class="results-content">
+                        <div class="results-header">
+                            <h2>Quiz Complete!</h2>
+                            <div class="score-display">
+                                <div class="score-circle">
+                                    <span class="score-percentage" id="scorePercentage">0%</span>
+                                </div>
+                            </div>
+                            <p class="score-message" id="scoreMessage">Great effort!</p>
+                        </div>
+
+                        <div class="results-details">
+                            <div class="result-stat">
+                                <strong id="correctCount">0</strong>
+                                <span>Correct Answers</span>
+                            </div>
+                            <div class="result-stat">
+                                <strong id="totalCount">10</strong>
+                                <span>Total Questions</span>
+                            </div>
+                            <div class="result-stat">
+                                <strong id="timeSpent">0:00</strong>
+                                <span>Time Spent</span>
+                            </div>
+                        </div>
+
+                        <div class="results-actions">
+                            <button class="btn-download" id="downloadBtn">📥 Download Results</button>
+                            <button class="btn-print" id="printBtn">🖨️ Print Results</button>
+                            <button class="btn-retake" id="retakeBtn">↻ Retake Quiz</button>
+                        </div>
+
+                        <div class="results-summary" id="resultsSummary">
+                            <!-- Summary will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Edit Profile Modal -->
+        <div class="modal" id="editProfileModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Profile</h2>
+                    <button class="modal-close" id="closeEditModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">👤</div>
+                        <h3 style="margin: 0 0 16px 0; color: #333;">Edit Your Profile</h3>
+                        <p style="margin: 0 0 20px 0; color: #666; line-height: 1.6;">
+                            To edit your profile information, please visit the <a href="course.html" style="color: #5C3422; text-decoration: underline; font-weight: 500;">Feed page</a>.
+                        </p>
+                        <p style="margin: 0; color: #999; font-size: 14px;">
+                            You can update your profile picture, name, and bio there.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" id="cancelEditBtn">Cancel</button>
+                    <button class="btn-save" onclick="window.location.href='course.html'">Go to Feed</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+        <!-- Right Sidebar -->
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Key Facts Section -->
+            <div class="widget">
+                <div class="widget-header">
+                    <i data-lucide="lightbulb" style="width: 20px; height: 20px; color: #F4A460;"></i>
+                    <h3>Key Facts</h3>
+                </div>
+
+                <div class="widget-content ideas-list">
+                    <div class="idea-card">
+                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
+                            <i data-lucide="file-text" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
+                                <strong>Format</strong>
+                                <p>PDF Worksheets</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card">
+                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
+                            <i data-lucide="clock" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
+                                <strong>Duration</strong>
+                                <p>15-30 minutes each</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card">
+                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
+                            <i data-lucide="book-open" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
+                                <strong>Topics</strong>
+                                <p>4 Historical Events</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="JS/worksheets.js"></script>
+</body>
+</html>
+
+

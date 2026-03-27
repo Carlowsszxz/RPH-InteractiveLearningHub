@@ -1,0 +1,250 @@
+/* Styles for Reference page - improves main content layout and cards */
+.main-content{
+    padding: 32px 40px;
+    background: transparent;
+}
+
+.page-title{
+    margin-bottom:20px;
+}
+.page-title h1{
+    font-size:28px;
+    color:var(--brand-dark);
+    margin-bottom:6px;
+}
+.page-title p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.reference-controls{
+    display:flex;
+    gap:16px;
+    align-items:center;
+    justify-content:space-between;
+    margin:20px 0 28px 0;
+    flex-wrap:wrap;
+}
+
+.reference-controls .search-container{
+    flex:1 1 420px;
+    max-width:720px;
+}
+
+.reference-search-input{
+    width:100%;
+    padding:12px 16px;
+    border-radius:12px;
+    border:1px solid #E6DCCA;
+    background:#FFF;
+    font-size:14px;
+    color:var(--brand-dark);
+    box-shadow: 0 4px 12px rgba(92,52,34,0.06);
+}
+
+.filter-buttons{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+.filter-btn{
+    background:transparent;
+    border:1px solid rgba(92,52,34,0.08);
+    padding:10px 14px;
+    border-radius:999px;
+    color:var(--brand-dark);
+    cursor:pointer;
+    font-weight:600;
+    font-size:13px;
+}
+.filter-btn.active{
+    background:var(--brand-dark);
+    color:#fff;
+    border-color:var(--brand-dark);
+}
+
+.reference-content{
+    margin-top:8px;
+}
+.section-header h2{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:18px;
+    color:var(--brand-dark);
+    margin-bottom:6px;
+}
+.section-header p{color:var(--muted);font-size:13px;margin-bottom:12px}
+
+.books-grid, .videos-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap:18px;
+}
+
+.reference-card{
+    background:var(--surface);
+    border-radius:12px;
+    padding:16px;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    border:1px solid rgba(92,52,34,0.06);
+    box-shadow: 0 6px 18px rgba(92,52,34,0.04);
+}
+
+/* Stack video cards: thumbnail on top, info below (scoped to videos grid only) */
+.videos-grid .reference-card{
+    flex-direction:column;
+    align-items:stretch;
+}
+.videos-grid .reference-card .video-thumbnail{
+    border-radius:8px;
+}
+.videos-grid .reference-card .video-info{
+    margin-top:12px;
+}
+
+.book-icon{
+    flex:0 0 56px;
+    width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#F5F1E8;color:var(--brand-dark);
+}
+.book-info h3{font-size:16px;color:var(--brand-dark);margin-bottom:6px}
+.book-info p{color:var(--muted);font-size:13px;margin:2px 0}
+.book-description{margin-top:6px;color:#666;font-size:13px}
+
+.video-thumbnail{
+    /* Default for desktop cards: thumbnail on top, full width */
+    width:100%;
+    height:0;
+    padding-top:56.25%; /* 16:9 */
+    background:#000;border-radius:8px;overflow:hidden;display:block;position:relative;
+}
+.video-thumbnail > img, .video-thumbnail > svg{
+    position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.video-thumbnail svg{opacity:0.9}
+.video-info{flex:1;margin-top:12px}
+.video-info h3{font-size:16px;margin-bottom:6px;color:var(--brand-dark)}
+.video-description{color:var(--muted);font-size:13px;margin-bottom:8px}
+.video-link{display:inline-block;color:var(--brand-dark);font-weight:700}
+
+/* Responsive tweaks */
+@media (max-width: 900px){
+    .reference-controls{flex-direction:column;align-items:stretch}
+    .video-thumbnail{width:160px;height:90px;flex:0 0 160px}
+}
+
+/* Prevent the search container's flex-basis (420px) from becoming a fixed height
+   when `.reference-controls` stacks vertically on mobile. */
+@media (max-width: 900px) {
+    .reference-controls .search-container {
+        flex: 1 1 auto !important;
+        max-width: 100% !important;
+        min-height: 0 !important;
+        height: auto !important;
+    }
+    .reference-search-input {
+        padding: 12px 14px;
+    }
+}
+
+@media (max-width: 600px){
+    .main-content{padding:20px}
+    .reference-card{flex-direction:column;align-items:flex-start}
+    .video-thumbnail{width:100%;height:200px;flex:0 0 auto}
+    .book-icon{width:48px;height:48px}
+}
+
+/* Add spacing between consecutive reference sections (e.g., between Books and Video Resources) */
+.reference-section + .reference-section {
+    margin-top: 28px;
+}
+
+/* Sources / Fact references styling */
+.sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.source-card {
+    background: linear-gradient(180deg, #ffffff 0%, #fbf8f5 100%);
+    border: 1px solid rgba(92,52,34,0.06);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 6px 18px rgba(92,52,34,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.source-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,#5C3422 0%, #442913 100%);
+    color: #fff;
+    border-radius: 8px;
+}
+
+.source-card h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #442913;
+}
+
+.source-card p {
+    margin: 0;
+    font-size: 13px;
+    color: #5C3F2C;
+    line-height: 1.4;
+}
+
+.source-link {
+    margin-top: 6px;
+    align-self: start;
+    background: transparent;
+    border: 1px solid #5C3422;
+    color: #5C3422;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.source-link:hover {
+    background: #5C3422;
+    color: #fff;
+}
+
+.section-header .muted {
+    color: #6b4f3b;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+/* Mobile-specific layout fixes: prevent the main layout from forcing full viewport height
+   which can create empty vertical space on smaller screens. Hide sidebars by default
+   and allow the left sidebar to be toggled via the mobile button. */
+@media (max-width: 900px) {
+    .main-layout {
+        height: auto !important;
+        grid-template-columns: 1fr !important;
+    }
+    .left-sidebar {
+        display: none;
+    }
+    .right-sidebar {
+        display: none;
+    }
+    .main-content {
+        padding: 16px 20px;
+    }
+    .reference-controls {
+        margin-top: 8px;
+    }
+}

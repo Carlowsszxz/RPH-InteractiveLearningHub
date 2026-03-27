@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess that Hero! - Readings in Philippine History</title>
+    <link rel="icon" href="Images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="Styles/course.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="JS/supabase-config.js"></script>
+    <script src="JS/db-helpers.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #E2D5C2;
+            color: #5C3422;
+        }
+
+        /* HEADER */
+        .header {
+            background: #FFFFFF;
+            color: #5C3422;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(92, 52, 34, 0.08);
+            border-bottom: 1px solid #E2D5C2;
+        }
+
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            justify-content: space-between;
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        .header-title-link {
+            text-decoration: none;
+            color: inherit;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .header-title-link:hover {
+            color: #5C3422;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: #5C3422;
+            cursor: pointer;
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .menu-toggle:hover {
+            background: #E2D5C2;
+        }
+
+        .header-brand {
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-brand h1 {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #1a1a1a;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-left: auto;
+        }
+
+        .sidebar-toggle-right {
+            background: none;
+            border: none;
+            color: #1a1a1a;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-toggle-right:hover {
+            background: #f5f5f5;
+        }
+
+        /* MAIN LAYOUT */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 0;
+            max-width: 1600px;
+            margin: 0 auto;
+            height: calc(100vh - 70px);
+        }
+
+        /* LEFT SIDEBAR */
+        .left-sidebar {
+            background: #FFFFFF;
+            border-right: 1px solid #E2D5C2;
+            overflow-y: auto;
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 0 8px;
+        }
+
+        .nav-section {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #999;
+            letter-spacing: 0.5px;
+            padding: 8px 12px;
+            margin: 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+            color: #8B7355;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: #E2D5C2;
+            color: #5C3422;
+        }
+
+        .nav-item.active {
+            background: rgba(92, 52, 34, 0.08);
+            color: #5C3422;
+        }
+
+        .nav-item-dropdown {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            margin-left: 12px;
+            padding-left: 12px;
+            border-left: 2px solid #e8e8e8;
+            background: rgba(81, 81, 62, 0.02);
+        }
+
+        .nav-item-dropdown.open .dropdown-menu {
+            display: flex;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #666;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(81, 81, 62, 0.08);
+            color: #51513E;
+        }
+
+        .dropdown-item.active {
+            background: rgba(81, 81, 62, 0.15);
+            color: #51513E;
+            font-weight: 600;
+        }
+
+        .dropdown-arrow {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-item-dropdown.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-icon-svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            overflow-y: auto;
+            padding: 32px 40px;
+            background: #E2D5C2;
+        }
+
+        .game-screen {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            background: #FFFFFF;
+            border: 1px solid #E2D5C2;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(92, 52, 34, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .game-card:hover {
+            box-shadow: 0 4px 12px rgba(92, 52, 34, 0.12);
+            border-color: #D4A574;
+        }
+
+        .question-header {
+            background: #F5F3F0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E2D5C2;
+        }
+
+        .question-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+            color: #5C3422;
+        }
+
+        .score-badge {
+            background: rgba(92, 52, 34, 0.08);
+            color: #5C3422;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .progress-container {
+            padding: 16px 20px;
+            background: #F5F3F0;
+            border-bottom: 1px solid #E2D5C2;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e8e8e8;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #8B7355;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 3px;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .game-content {
+            padding: 32px 28px;
+        }
+
+        .hero-image-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .hero-image {
+            width: 220px;
+            height: 220px;
+            border-radius: 12px;
+            object-fit: cover;
+            filter: brightness(0.5) contrast(1.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hero Image Modal */
+        .hero-image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2500;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease;
+            padding: 20px;
+        }
+
+        .hero-image-modal.active {
+            display: flex;
+        }
+
+        .hero-modal-content {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: slideUp 0.3s ease;
+            overflow: hidden;
+        }
+
+        .hero-modal-content img {
+            max-width: calc(100% - 32px);
+            max-height: calc(100% - 32px);
+            border-radius: 8px;
+            object-fit: contain;
+            width: auto;
+            height: auto;
+        }
+
+        .hero-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5C3422;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            z-index: 2501;
+        }
+
+        .hero-modal-close:hover {
+            background: #E2D5C2;
+            transform: rotate(90deg);
+        }
+
+        .feedback {
+            text-align: center;
+            margin-bottom: 24px;
+            min-height: 32px;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .feedback.correct-text {
+            color: #15803d;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .feedback.incorrect-text {
+            color: #991b1b;
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .option-btn {
+            padding: 16px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-align: center;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            line-height: 1.4;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: #51513E;
+            background: #f0f5ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .option-btn.correct {
+            border-color: #22c55e;
+            background: #22c55e;
+            color: white;
+            animation: correctPulse 0.6s ease;
+        }
+
+        .option-btn.incorrect {
+            border-color: #dc2626;
+            background: #dc2626;
+            color: white;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .game-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-next {
+            padding: 12px 32px;
+            background: #51513E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .btn-next:hover:not(:disabled) {
+            background: #423833;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-forfeit {
+            padding: 12px 32px;
+            background: white;
+            color: #dc2626;
+            border: 2px solid #dc2626;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-forfeit:hover {
+            background: #fef2f2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+        }
+
+        .game-over-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 28px;
+        }
+
+        .game-over-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .final-score {
+            font-size: 64px;
+            font-weight: 800;
+            color: #51513E;
+            margin-bottom: 8px;
+        }
+
+        .score-percentage {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+
+        .game-end-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-restart {
+            padding: 12px 32px;
+            background: #51513E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-restart:hover {
+            background: #423833;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-back {
+            padding: 12px 32px;
+            background: white;
+            color: #51513E;
+            border: 2px solid #51513E;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background: #f0f5ff;
+            transform: translateY(-2px);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 0;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #f5f5f5;
+            color: #1a1a1a;
+        }
+
+        .modal-body {
+            padding: 24px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .btn-cancel {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-cancel:hover {
+            background: #e8e8e8;
+        }
+
+        .btn-danger {
+            padding: 10px 20px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        /* RIGHT SIDEBAR */
+        .right-sidebar {
+            background: #f9f9f9;
+            border-left: 1px solid #f0f0f0;
+            overflow-y: auto;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .widget {
+            background: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .widget-header {
+            padding: 16px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .widget-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .widget-content {
+            padding: 16px;
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .leaderboard-item:hover {
+            background: #f0f5ff;
+        }
+
+        .leaderboard-rank {
+            font-weight: 700;
+            color: #51513E;
+            min-width: 30px;
+            font-size: 14px;
+        }
+
+        .leaderboard-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin: 0 10px;
+            background: #51513E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .leaderboard-info {
+            flex: 1;
+        }
+
+        .leaderboard-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .leaderboard-score {
+            font-size: 11px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .leaderboard-points {
+            font-size: 14px;
+            font-weight: 700;
+            color: #51513E;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .leaderboard-loading,
+        .leaderboard-empty {
+            text-align: center;
+            padding: 20px 16px;
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* SCROLLBARS */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d0d0d0;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .sidebar-toggle-right {
+                display: flex;
+            }
+
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .left-sidebar,
+            .right-sidebar {
+                display: none;
+                position: fixed;
+                top: 70px;
+                width: 280px;
+                height: calc(100vh - 70px);
+                z-index: 90;
+            }
+
+            .left-sidebar {
+                left: 0;
+                border-right: 1px solid #f0f0f0;
+            }
+
+            .right-sidebar {
+                right: 0;
+                border-left: 1px solid #f0f0f0;
+                border-right: none;
+            }
+
+            .left-sidebar.mobile-open,
+            .right-sidebar.mobile-open {
+                display: flex;
+            }
+
+            .main-content {
+                padding: 24px 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
+                gap: 12px;
+            }
+
+            .header-brand h1 {
+                font-size: 18px;
+            }
+
+            .main-content {
+                padding: 16px 12px;
+            }
+
+            .game-content {
+                padding: 20px 16px;
+            }
+
+            .question-header {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                width: 180px;
+                height: 180px;
+            }
+
+            .game-over-title {
+                font-size: 28px;
+            }
+
+            .final-score {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-brand h1 {
+                font-size: 16px;
+            }
+
+            .main-content {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <button id="toggleSidebar" style="background: none; border: none; color: #5C3422; cursor: pointer; font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; z-index: 10001; position: relative; pointer-events: auto;">
+                ☰
+            </button>
+
+            <div class="header-logo">
+                <img src="Images/favicon.png" alt="RPH Logo" class="header-logo-img">
+                <h1 class="header-title"><a href="home.html" class="header-title-link">RPH Interactive Learning Hub
+</a></h1>
+            </div>
+
+            <div class="header-actions">
+                <button class="sidebar-toggle-right" id="sidebarToggleRight" title="Show more">
+                    <i data-lucide="layout-grid" style="width: 20px; height: 20px;"></i>
+                </button>
+                <button class="logout-btn" title="Logout">
+                    <i data-lucide="log-out" style="width: 20px; height: 20px;"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
+            <!-- User Profile Section -->
+            <div class="user-profile">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect fill='%23e0e0e0' width='48' height='48'/%3E%3Ctext x='50%25' y='50%25' font-size='20' fill='%23999' text-anchor='middle' dy='.3em'%3E👤%3C/text%3E%3C/svg%3E" alt="User avatar" class="profile-avatar" id="profileAvatar" />
+                <div class="profile-info">
+                    <h4 class="profile-name" id="profileName">Guest User</h4>
+                    <p class="profile-email" id="profileEmail">Not logged in</p>
+                </div>
+                <button class="edit-profile-btn" id="editProfileBtn" title="Edit profile">
+                    <i data-lucide="edit-2" style="width: 16px; height: 16px;"></i>
+                </button>
+            </div>
+
+             <nav class="sidebar-nav">
+                <a href="course.html" class="nav-item active" data-section="feed">
+                    <i data-lucide="radio" class="nav-icon-svg"></i>
+                    <span>Feed</span>
+                </a>
+                <div class="nav-item-dropdown">
+                    <div class="nav-item" data-section="topic">
+                        <i data-lucide="book-open" class="nav-icon-svg"></i>
+                        <span>Topic</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                           <a href="first-mass.html" class="dropdown-item">First Mass</a>
+                        <a href="cavite-mutiny.html" class="dropdown-item">Cavite Mutiny</a>
+
+                        <a href="retraction-of-rizal.html" class="dropdown-item">Retraction of Rizal</a>
+                        <a href="cry-of-rebellion.html" class="dropdown-item">Cry of Rebellion</a>
+                    </div>
+                </div>
+                <div class="nav-item-dropdown open">
+                    <div class="nav-item" data-section="activities">
+                        <i data-lucide="calendar" class="nav-icon-svg"></i>
+                        <span>Learning Hub</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="games.html" class="dropdown-item active" data-section="games">
+                            <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
+                            Games
+                        </a>
+                        
+                        <a href="interactive-tasks.html" class="dropdown-item" data-section="interactive">
+                            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                            Interactive Tasks
+                        </a>
+                    </div>
+                </div>
+
+
+                <a href="videos.html" class="nav-item" data-section="videos">
+                    <i data-lucide="play-circle" class="nav-icon-svg"></i>
+                    <span>Videos</span>
+                </a>
+
+                <a href="reference.html" class="nav-item" data-section="reference">
+                    <i data-lucide="book-open" class="nav-icon-svg"></i>
+                    <span>Reference</span>
+                </a>
+            </nav>
+
+        </aside>
+
+        <main class="main-content">
+            <div class="game-screen">
+                <div class="game-card">
+                    <div class="question-header">
+                        <h2 class="question-title" id="questionTitle">Question</h2>
+                        <div class="score-badge" id="scoreDisplay">0 / 10</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">Question 0 of 10</div>
+                    </div>
+                    <div class="game-content">
+                        <div id="gameScreen">
+                            <div class="hero-image-container">
+                                <img id="heroImage" src="https://i.pravatar.cc/200?img=1" alt="Mystery hero" class="hero-image" />
+                            </div>
+                            <!-- Hero Image Modal -->
+                            <div class="hero-image-modal" id="heroImageModal">
+                                <div class="hero-modal-content">
+                                    <button class="hero-modal-close" id="heroModalClose">&times;</button>
+                                    <img id="heroModalImage" src="" alt="Hero Image" />
+                                </div>
+                            </div>
+
+                            <div class="feedback" id="feedback"></div>
+
+                            <div class="options-grid" id="optionsGrid"></div>
+
+                            <div class="game-buttons">
+                                <button class="btn-next" id="nextBtn" disabled>Next Question</button>
+                                <button class="btn-forfeit" id="forfeitBtn">Exit Game</button>
+                            </div>
+                        </div>
+
+                        <div id="gameOverScreen" style="display: none;">
+                            <div class="game-over-section">
+                                <div class="game-over-title">Quiz Complete!</div>
+                                <div class="final-score" id="finalScore">0</div>
+                                <div class="score-percentage" id="scorePercentage">0%</div>
+                                <div class="game-end-buttons" style="margin-top: 32px;">
+                                    <button class="btn-restart" onclick="location.reload()">Play Again</button>
+                                    <button class="btn-back" onclick="window.location.href='games.html'">Back to Games</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Profile Modal -->
+            <div class="modal" id="editProfileModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Edit Profile</h2>
+                        <button class="modal-close" id="closeEditModal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 48px; margin-bottom: 16px;">👤</div>
+                            <h3 style="margin: 0 0 16px 0; color: #333;">Edit Your Profile</h3>
+                            <p style="margin: 0 0 20px 0; color: #666; line-height: 1.6;">
+                                To edit your profile information, please visit the <a href="course.html" style="color: #5C3422; text-decoration: underline; font-weight: 500;">Feed page</a>.
+                            </p>
+                            <p style="margin: 0; color: #999; font-size: 14px;">
+                                You can update your profile picture, name, and bio there.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" id="cancelEditBtn">Cancel</button>
+                        <button class="btn-save" onclick="window.location.href='course.html'">Go to Feed</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="right-sidebar" id="rightSidebar">
+            <div class="widget widget-leaderboard">
+                <div class="widget-header">
+                    <i data-lucide="award" style="width: 20px; height: 20px;"></i><h3 class="widget-title">Top Players</h3>
+                </div>
+                <div class="widget-content" style="max-height: 500px; overflow-y: auto;">
+                    <div id="leaderboardList" class="leaderboard-list">
+                        <div class="leaderboard-loading">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Exit Confirmation Modal -->
+    <div class="modal" id="exitConfirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Exit Game?</h2>
+                <button class="modal-close" id="closeExitModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to exit the game? Your progress will not be saved.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelExitBtn">Cancel</button>
+                <button class="btn-danger" id="confirmExitBtn">Exit Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== AUTHENTICATION CHECK ====================
+        // Check if user is logged in via Supabase session
+        async function checkAuth() {
+            try {
+                // If userEmail not in localStorage, user is logged out
+                if (!localStorage.getItem('userEmail')) {
+                    console.log('No user email in localStorage, redirecting to login');
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // Wait a bit to ensure Supabase is fully initialized
+                await new Promise(resolve => setTimeout(resolve, 100));
+
+                if (!window.supabaseClient) {
+                    console.error('Supabase client not initialized');
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                const { data: { session } } = await window.supabaseClient.auth.getSession();
+
+                if (!session) {
+                    console.log('No active session, redirecting to login');
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                console.log('User authenticated:', session.user.email);
+            } catch (error) {
+                console.error('Auth check error:', error);
+                // If error checking auth, redirect to login to be safe
+                window.location.href = 'index.html';
+            }
+        }
+
+        class GuessTheHeroGame {
+            constructor() {
+                this.questions = [
+
+                    {
+                        name: "Jose Rizal",
+                        image: "Images/GuessTheHero/Image (2).jpg",
+                        options: ["Jose Rizal", "Andres Bonifacio", "Emilio Aguinaldo", "Lapu-Lapu"]
+                    },
+                    {
+                        name: "Lapu-Lapu",
+                        image: "Images/GuessTheHero/Image (3).jpg",
+                        options: ["Lapu-Lapu", "Juan Luna", "Jose Rizal", "Emilio Aguinaldo"]
+                    },
+                    {
+                        name: "Marcelo Del Pilar",
+                        image: "Images/GuessTheHero/Image (4).jpg",
+                        options: ["Marcelo Del Pilar", "Juan Luna", "Emilio Aguinaldo", "Andres Bonifacio"]
+                    },
+
+                    {
+                        name: "Andres Bonifacio",
+                        image: "Images/GuessTheHero/Image (6).jpg",
+                        options: ["Andres Bonifacio", "Jose Rizal", "Emilio Aguinaldo", "Marcelo Del Pilar"]
+                    },
+                    {
+                        name: "Apolinario Mabini",
+                        image: "Images/GuessTheHero/Image (7).jpg",
+                        options: ["Apolinario Mabini", "Marcelo Del Pilar", "Lapu-Lapu", "Emilio Aguinaldo"]
+                    },
+                    {
+                        name: "Emilio Aguinaldo",
+                        image: "Images/GuessTheHero/Image (8).jpg",
+                        options: ["Emilio Aguinaldo", "Andres Bonifacio", "Jose Rizal", "Juan Luna"]
+                    },
+                    {
+                        name: "Mariano Gomez",
+                        image: "Images/GuessTheHero/Image (9).png",
+                        options: ["Mariano Gomez", "Jose Rizal", "Apolinario Mabini", "Andres Bonifacio"]
+                    },
+                    {
+                        name: "Jacinto Zamora",
+                        image: "Images/GuessTheHero/Image 10.jpg",
+                        options: ["Jacinto Zamora", "Mariano Gomez", "Jose Burgos", "Emilio Aguinaldo"]
+                    },
+                    {
+                        name: "Antonio Pigafetta",
+                        image: "Images/GuessTheHero/Image 11.jpg",
+                        options: ["Antonio Pigafetta", "Jose Rizal", "Juan Luna", "Lapu-Lapu"]
+                    },
+                    {
+                        name: "Jose Burgos",
+                        image: "Images/GuessTheHero/Image 12.jpg",
+                        options: ["Jose Burgos", "Mariano Gomez", "Jacinto Zamora", "Jose Rizal"]
+                    }
+                ];
+
+                this.currentQuestion = 0;
+                this.score = 0;
+                this.answered = false;
+                this.lastLeaderboardData = null; // Cache last data to prevent unnecessary updates
+                this.isUpdatingLeaderboard = false; // Prevent concurrent updates
+
+                // Load saved game state
+                this.loadGameState();
+                
+                // Shuffle questions on new game
+                if (this.currentQuestion === 0) {
+                    this.shuffleQuestions();
+                }
+                
+                this.init();
+            }
+
+            shuffleQuestions() {
+                // Fisher-Yates shuffle algorithm
+                for (let i = this.questions.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [this.questions[i], this.questions[j]] = [this.questions[j], this.questions[i]];
+                }
+            }
+
+            init() {
+                this.loadQuestion();
+            }
+
+            loadQuestion() {
+                const question = this.questions[this.currentQuestion];
+                document.getElementById('heroImage').src = question.image;
+                document.getElementById('progressText').textContent = `Question ${this.currentQuestion + 1} of ${this.questions.length}`;
+                document.getElementById('feedback').innerHTML = '';
+                document.getElementById('feedback').className = 'feedback';
+                document.getElementById('nextBtn').disabled = true;
+                this.answered = false;
+
+                const optionsGrid = document.getElementById('optionsGrid');
+                optionsGrid.innerHTML = '';
+
+                // Shuffle options
+                const shuffled = [...question.options].sort(() => Math.random() - 0.5);
+
+                shuffled.forEach(option => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.textContent = option;
+                    btn.onclick = () => this.checkAnswer(option, question.name, btn);
+                    optionsGrid.appendChild(btn);
+                });
+
+                this.updateProgress();
+            }
+
+            checkAnswer(selected, correct, btnElement) {
+                if (this.answered) return;
+                this.answered = true;
+
+                const isCorrect = selected === correct;
+                const feedback = document.getElementById('feedback');
+                const nextBtn = document.getElementById('nextBtn');
+                if (isCorrect) {
+                    this.score++;
+                    btnElement.classList.add('correct');
+                    feedback.innerHTML = `<i data-lucide="check-circle" style="width: 20px; height: 20px; display: inline; margin-right: 8px; vertical-align: middle;"></i>Correct! That's ${correct}`;
+                    feedback.className = 'feedback correct-text';
+                } else {
+                    btnElement.classList.add('incorrect');
+                    feedback.innerHTML = `<i data-lucide="x-circle" style="width: 20px; height: 20px; display: inline; margin-right: 8px; vertical-align: middle;"></i>Wrong! The answer was ${correct}`;
+                    feedback.className = 'feedback incorrect-text';
+                }
+
+                // Re-initialize Lucide icons
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+
+                // Disable all buttons
+                document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+
+                // Enable next button
+                nextBtn.disabled = false;
+
+                this.updateScore();
+                this.saveGameState(); // Save progress after answer
+            }
+
+            updateScore() {
+                const scoreDisplay = document.getElementById('scoreDisplay');
+                scoreDisplay.textContent = `${this.score} / ${this.questions.length}`;
+                
+                // Add visual feedback animation
+                scoreDisplay.classList.remove('updated');
+                setTimeout(() => {
+                    scoreDisplay.classList.add('updated');
+                }, 10);
+                setTimeout(() => {
+                    scoreDisplay.classList.remove('updated');
+                }, 300);
+            }
+
+            updateProgress() {
+                const progress = ((this.currentQuestion + 1) / this.questions.length) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            }
+
+            nextQuestion() {
+                this.currentQuestion++;
+                this.saveGameState(); // Save progress
+                if (this.currentQuestion < this.questions.length) {
+                    this.loadQuestion();
+                } else {
+                    this.endGame();
+                }
+            }
+
+            saveGameState() {
+                const gameState = {
+                    currentQuestion: this.currentQuestion,
+                    score: this.score,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem('guessTheHeroProgress', JSON.stringify(gameState));
+            }
+
+            loadGameState() {
+                const saved = localStorage.getItem('guessTheHeroProgress');
+                if (saved) {
+                    try {
+                        const gameState = JSON.parse(saved);
+                        // Validate that the saved question index is valid
+                        if (gameState.currentQuestion < this.questions.length) {
+                            this.currentQuestion = gameState.currentQuestion;
+                            this.score = gameState.score;
+                        } else {
+                            // Game was completed, reset it
+                            localStorage.removeItem('guessTheHeroProgress');
+                            this.currentQuestion = 0;
+                            this.score = 0;
+                        }
+                    } catch (e) {
+                        console.log('Could not load game state');
+                    }
+                }
+            }
+
+            endGame() {
+                document.getElementById('gameScreen').style.display = 'none';
+                document.getElementById('gameOverScreen').style.display = 'block';
+                
+                const percentage = Math.round((this.score / this.questions.length) * 100);
+                document.getElementById('finalScore').textContent = `${this.score}/${this.questions.length}`;
+                document.getElementById('scorePercentage').textContent = `${percentage}% Correct`;
+
+                // Save score to database
+                this.saveScore(percentage);
+
+                // Load leaderboard
+                this.loadLeaderboard();
+            }
+
+            async saveScore(percentage) {
+                try {
+                    const { data: { user } } = await window.supabaseClient.auth.getUser();
+                    
+                    if (!user) {
+                        console.log('No user logged in, skipping score save');
+                        return;
+                    }
+
+                    // Get user name from multiple sources
+                    let userName = localStorage.getItem('userName') || 
+                                   user.user_metadata?.full_name || 
+                                   user.email.split('@')[0];
+
+                    // Save or update score in database
+                    const { error } = await window.supabaseClient
+                        .from('game_scores')
+                        .upsert({
+                            user_id: user.id,
+                            user_email: user.email,
+                            user_name: userName,
+                            game_name: 'Guess that Hero',
+                            score: this.score,
+                            max_score: this.questions.length,
+                            percentage: percentage
+                        }, {
+                            onConflict: 'user_id,game_name'
+                        });
+
+                    if (error) {
+                        console.error('Error saving score:', error);
+                    } else {
+                        console.log('Score saved successfully');
+                    }
+                } catch (err) {
+                    console.error('Error:', err);
+                }
+            }
+
+            async loadLeaderboard() {
+                // Prevent concurrent updates (senior dev practice)
+                if (this.isUpdatingLeaderboard) return;
+                this.isUpdatingLeaderboard = true;
+
+                try {
+                    const { data, error } = await window.supabaseClient
+                        .from('game_scores')
+                        .select('id, user_id, user_email, user_name, score, max_score, percentage, created_at')
+                        .eq('game_name', 'Guess that Hero')
+                        .order('score', { ascending: false })
+                        .limit(10);
+
+                    if (error) {
+                        throw error;
+                    }
+
+                    // Check if data changed before updating DOM (prevents flicker)
+                    const dataString = JSON.stringify(data);
+                    if (this.lastLeaderboardData === dataString) {
+                        this.isUpdatingLeaderboard = false;
+                        return;
+                    }
+                    this.lastLeaderboardData = dataString;
+
+                    const leaderboardList = document.getElementById('leaderboardList');
+                    
+                    if (!data || data.length === 0) {
+                        leaderboardList.innerHTML = '<div class="leaderboard-empty">No scores yet. Be the first!</div>';
+                        this.isUpdatingLeaderboard = false;
+                        return;
+                    }
+
+                    // Build new content before updating DOM (batch DOM operations)
+                    const fragment = document.createDocumentFragment();
+                    
+                    data.forEach((score, index) => {
+                        const rank = index + 1;
+                        let rankDisplay = '';
+                        if (rank === 1) {
+                            rankDisplay = '<i data-lucide="trophy" style="width: 24px; height: 24px; color: #FFD700;"></i>';
+                        } else if (rank === 2) {
+                            rankDisplay = '<i data-lucide="medal" style="width: 24px; height: 24px; color: #C0C0C0;"></i>';
+                        } else if (rank === 3) {
+                            rankDisplay = '<i data-lucide="award" style="width: 24px; height: 24px; color: #CD7F32;"></i>';
+                        } else {
+                            rankDisplay = `<span style="font-weight: 700; color: #8B7355;">#${rank}</span>`;
+                        }
+                        const playerName = score.user_name || score.user_email.split('@')[0] || `Player ${rank}`;
+
+                        const item = document.createElement('div');
+                        item.className = `leaderboard-item ${rank === 1 ? 'top-1' : rank === 2 ? 'top-2' : rank === 3 ? 'top-3' : ''}`;
+                        item.style.animation = 'none'; // Reset animation
+                        
+                        item.innerHTML = `
+                            <div class="leaderboard-rank ${rank <= 3 ? 'top-rank' : ''}">${rankDisplay}</div>
+                            <div class="leaderboard-info">
+                                <div class="leaderboard-name">${playerName}</div>
+                                <div class="leaderboard-score">${score.score}/${score.max_score} correct</div>
+                            </div>
+                            <div class="leaderboard-points">${score.percentage}%</div>
+                        `;
+
+                        fragment.appendChild(item);
+                    });
+
+                    // Update DOM once with all items (batch operation)
+                    leaderboardList.innerHTML = '';
+                    leaderboardList.appendChild(fragment);
+
+                    // Trigger animation with reflow
+                    void leaderboardList.offsetHeight;
+                    leaderboardList.querySelectorAll('.leaderboard-item').forEach((item, i) => {
+                        setTimeout(() => {
+                            item.style.animation = 'fadeIn 0.3s ease forwards';
+                        }, i * 30);
+                    });
+
+                } catch (err) {
+                    console.error('Error loading leaderboard:', err);
+                    document.getElementById('leaderboardList').innerHTML = '<div class="leaderboard-empty">Could not load leaderboard</div>';
+                } finally {
+                    this.isUpdatingLeaderboard = false;
+                }
+            }
+        }
+
+        // Initialize game (uses supabaseClient from supabase-config.js)
+        const game = new GuessTheHeroGame();
+        document.getElementById('nextBtn').onclick = () => game.nextQuestion();
+        
+        // Forfeit/Exit button
+        document.getElementById('forfeitBtn').onclick = () => {
+            document.getElementById('exitConfirmModal').classList.add('show');
+        };
+
+        // Exit confirmation modal handlers
+        document.getElementById('closeExitModal').onclick = () => {
+            document.getElementById('exitConfirmModal').classList.remove('show');
+        };
+
+        document.getElementById('cancelExitBtn').onclick = () => {
+            document.getElementById('exitConfirmModal').classList.remove('show');
+        };
+
+        document.getElementById('confirmExitBtn').onclick = () => {
+            window.location.href = 'games.html';
+        };
+
+        // Close modal when clicking outside
+        document.getElementById('exitConfirmModal').onclick = (e) => {
+            if (e.target.id === 'exitConfirmModal') {
+                document.getElementById('exitConfirmModal').classList.remove('show');
+            }
+        };
+
+        // Sidebar toggle handlers for mobile
+        document.getElementById('toggleSidebar').onclick = () => {
+            const leftSidebar = document.getElementById('leftSidebar');
+            leftSidebar.classList.toggle('mobile-open');
+            // Close right sidebar if open
+            document.getElementById('rightSidebar').classList.remove('mobile-open');
+        };
+
+        document.getElementById('sidebarToggleRight').onclick = () => {
+            const rightSidebar = document.getElementById('rightSidebar');
+            rightSidebar.classList.toggle('mobile-open');
+            // Close left sidebar if open
+            document.getElementById('leftSidebar').classList.remove('mobile-open');
+        };
+
+        // Close sidebars when a navigation link is clicked
+        document.querySelectorAll('.nav-item, .dropdown-item').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('leftSidebar').classList.remove('mobile-open');
+                document.getElementById('rightSidebar').classList.remove('mobile-open');
+            });
+        });
+
+        // Handle dropdown toggles
+        document.querySelectorAll('.nav-item-dropdown').forEach(dropdown => {
+            const navItem = dropdown.querySelector('.nav-item');
+            if (navItem) {
+                navItem.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    dropdown.classList.toggle('open');
+                });
+            }
+        });
+
+        // Initialize Lucide icons
+        setTimeout(() => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }, 100);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+
+        window.addEventListener('load', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+
+        // Load leaderboard on page load
+        game.loadLeaderboard();
+
+        // Refresh leaderboard every 5 seconds (with smart caching to prevent flicker)
+        setInterval(() => {
+            game.loadLeaderboard();
+        }, 5000);
+
+        // Hero Image Modal Functions
+        const heroImageModal = document.getElementById('heroImageModal');
+        const heroImage = document.getElementById('heroImage');
+        const heroModalImage = document.getElementById('heroModalImage');
+        const heroModalClose = document.getElementById('heroModalClose');
+
+        function openHeroImageModal(imageSrc) {
+            heroModalImage.src = imageSrc;
+            heroImageModal.classList.add('active');
+        }
+
+        function closeHeroImageModal() {
+            heroImageModal.classList.remove('active');
+        }
+
+        // Hero image click handler
+        heroImage.addEventListener('click', () => {
+            openHeroImageModal(heroImage.src);
+        });
+
+        // Close button handler
+        heroModalClose.addEventListener('click', () => {
+            closeHeroImageModal();
+        });
+
+        // Close modal when clicking outside the image
+        heroImageModal.addEventListener('click', (e) => {
+            if (e.target === heroImageModal) {
+                closeHeroImageModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && heroImageModal.classList.contains('active')) {
+                closeHeroImageModal();
+            }
+        });
+
+        // ==================== PROFILE SECTION ====================
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const editProfileModal = document.getElementById('editProfileModal');
+        const closeEditModal = document.getElementById('closeEditModal');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const saveProfileBtn = document.getElementById('saveProfileBtn');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const editNameInput = document.getElementById('editName');
+        const editBioInput = document.getElementById('editBio');
+        const profileNameDisplay = document.querySelector('.profile-name');
+        const profileEmailDisplay = document.querySelector('.profile-email');
+        const profileAvatar = document.querySelector('.profile-avatar');
+
+        // ==================== LOAD PROFILE FROM localStorage ====================
+        const loadProfileFromStorage = () => {
+            console.log('🔄 loadProfileFromStorage called');
+            const savedName = localStorage.getItem('profileName');
+            const savedBio = localStorage.getItem('profileBio');
+            const savedAvatar = localStorage.getItem('profileAvatar');
+            const currentUserEmail = profileEmailDisplay.textContent || '';
+
+            localStorage.setItem('currentUserId', currentUserEmail);
+            console.log('📦 Loaded from localStorage - Name:', savedName, 'Bio:', savedBio, 'Avatar:', savedAvatar ? 'Yes' : 'No');
+
+            if (savedName) {
+                console.log('✅ Setting name to:', savedName);
+                profileNameDisplay.textContent = savedName;
+            }
+            if (savedBio) {
+                console.log('✅ Setting bio to:', savedBio);
+                profileEmailDisplay.textContent = savedBio;
+            }
+            if (savedAvatar) {
+                console.log('✅ Setting avatar');
+                profileAvatar.src = savedAvatar;
+            }
+        };
+
+        // ==================== EDIT PROFILE MODAL MANAGEMENT ====================
+        if (editProfileBtn) {
+            editProfileBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                editProfileModal.classList.add('active');
+                editNameInput.value = localStorage.getItem('profileName') || '';
+                editBioInput.value = localStorage.getItem('profileBio') || '';
+                const savedAvatar = localStorage.getItem('profileAvatar');
+                if (savedAvatar) avatarPreview.src = savedAvatar;
+            });
+        }
+
+        if (closeEditModal) {
+            closeEditModal.addEventListener('click', function() {
+                editProfileModal.classList.remove('active');
+            });
+        }
+
+        if (cancelEditBtn) {
+            cancelEditBtn.addEventListener('click', function() {
+                editProfileModal.classList.remove('active');
+            });
+        }
+
+        editProfileModal.addEventListener('click', function(e) {
+            if (e.target === editProfileModal) {
+                editProfileModal.classList.remove('active');
+            }
+        });
+
+        // ==================== SAVE PROFILE CHANGES ====================
+        if (saveProfileBtn) {
+            saveProfileBtn.addEventListener('click', function() {
+                alert('To change your profile, please navigate to the Feed page (course.html). Click on your profile picture in the sidebar to edit your profile there.');
+                editProfileModal.classList.remove('active');
+            });
+        }
+
+        loadProfileFromStorage();
+        window.addEventListener('load', loadProfileFromStorage);
+
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                const savedAvatar = localStorage.getItem('profileAvatar');
+                
+                if (mutation.type === 'attributes') {
+                    const target = mutation.target;
+                    const targetId = target.id;
+                    const attrName = mutation.attributeName;
+                    
+                    console.log('🔍 Attribute changed - Element:', targetId, 'Attribute:', attrName);
+                    console.log('   Current src:', target.src);
+                    console.log('   Saved avatar:', savedAvatar ? 'Yes' : 'No');
+                    
+                    if (savedAvatar && profileAvatar.src !== savedAvatar) {
+                        console.log('⚠️ Profile avatar changed, restoring from localStorage');
+                        profileAvatar.src = savedAvatar;
+                    }
+                } else if (mutation.type === 'characterData' || mutation.type === 'childList') {
+                    const savedName = localStorage.getItem('profileName');
+                    const savedBio = localStorage.getItem('profileBio');
+                    
+                    if (savedName && profileNameDisplay.textContent !== savedName) {
+                        console.log('📝 Restoring name from localStorage');
+                        profileNameDisplay.textContent = savedName;
+                    }
+                    if (savedBio && profileEmailDisplay.textContent !== savedBio) {
+                        console.log('📝 Restoring bio from localStorage');
+                        profileEmailDisplay.textContent = savedBio;
+                    }
+                }
+            });
+        });
+
+        observer.observe(profileNameDisplay, { characterData: true, childList: true, subtree: true });
+        observer.observe(profileEmailDisplay, { characterData: true, childList: true, subtree: true });
+        observer.observe(profileAvatar, { attributes: true, attributeFilter: ['src'] });
+
+        setInterval(() => {
+            const savedAvatar = localStorage.getItem('profileAvatar');
+            const savedName = localStorage.getItem('profileName');
+            const savedBio = localStorage.getItem('profileBio');
+            
+            if (savedAvatar && profileAvatar.src !== savedAvatar) {
+                console.log('🔄 Periodic check: Restoring avatar');
+                profileAvatar.src = savedAvatar;
+            }
+            if (savedName && profileNameDisplay.textContent !== savedName) {
+                console.log('🔄 Periodic check: Restoring name');
+                profileNameDisplay.textContent = savedName;
+            }
+            if (savedBio && profileEmailDisplay.textContent !== savedBio) {
+                console.log('🔄 Periodic check: Restoring bio');
+                profileEmailDisplay.textContent = savedBio;
+            }
+        }, 1000);
+
+        // ==================== LOGOUT BUTTON ====================
+        const logoutBtn = document.querySelector('.logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                try {
+                    // Clear all local storage
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    
+                    // Sign out from Supabase globally
+                    const supabaseClient = await getSupabaseClient();
+                    const { error } = await supabaseClient.auth.signOut({ scope: 'global' });
+                    if (error) {
+                        console.error('Supabase signOut error:', error);
+                    }
+                } catch (error) {
+                    console.error('Logout error:', error);
+                } finally {
+                    // Force redirect to index after clearing everything
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        // ==================== LEFT SIDEBAR TOGGLE ====================
+        document.getElementById('toggleSidebar').onclick = function(e) {
+            e.stopPropagation();
+            const sidebar = document.getElementById('leftSidebar');
+            sidebar.classList.toggle('mobile-open');
+        };
+
+        // Check authentication on page load
+        checkAuth();
+    </script>
+</body>
+</html>
+
+
+
+
+
+

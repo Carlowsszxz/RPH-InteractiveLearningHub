@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cry of Rebellion - Readings in Philippine History</title>
+    <link rel="icon" href="Images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="Styles/course.css">
+    <link rel="stylesheet" href="Styles/cry-of-rebellion.css">
+    <link rel="stylesheet" href="Styles/first-mass.css">
+    <link rel="stylesheet" href="Styles/course-feed.css">
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="JS/supabase-config.js"></script>
+    <script src="JS/db-helpers.js"></script>
+    <script src="JS/course.js"></script>
+</head>
+<body class="page-course">
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <button class="sidebar-toggle-btn" id="cryRebellionToggleSidebar" style="background: none; border: none; color: #5C3422; cursor: pointer; font-size: 24px; width: 40px; height: 40px; display: none; align-items: center; justify-content: center; z-index: 1001;">
+                ☰
+            </button>
+
+            <div class="header-logo">
+                <img src="Images/favicon.png" alt="RPH Logo" class="header-logo-img">
+                <h1 class="header-title"><a href="home.html" class="header-title-link">RPH Interactive Learning Hub
+</a></h1>
+            </div>
+
+            <div class="header-actions">
+                <button class="sidebar-toggle-right" id="sidebarToggleRight" title="Show more">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="15" y1="3" x2="15" y2="21"></line>
+                        <line x1="9" y1="9" x2="9" y2="9.01"></line>
+                        <line x1="9" y1="15" x2="9" y2="15.01"></line>
+                    </svg>
+                </button>
+                <button class="logout-btn" title="Logout">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Left Sidebar Navigation -->
+        <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
+            <!-- User Profile Section -->
+            <div class="user-profile">
+                <img src="https://i.pravatar.cc/80?img=20"alt="User avatar" class="profile-avatar" id="cryProfileAvatar">
+                <div class="profile-info">
+                    <h4 class="profile-name" id="cryProfileName">Loading</h4>
+                    <p class="profile-email" id="cryProfileEmail">Loading</p>
+                </div>
+                
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="course.html" class="nav-item" data-section="feed">
+                    <i data-lucide="radio" class="nav-icon-svg"></i>
+                    <span>Feed</span>
+                </a>
+                <div class="nav-item-dropdown open">
+                    <div class="nav-item" data-section="topic">
+                        <i data-lucide="book-open" class="nav-icon-svg"></i>
+                        <span>Topic</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                           <a href="first-mass.html" class="dropdown-item">First Mass</a>
+                        <a href="cavite-mutiny.html" class="dropdown-item">Cavite Mutiny</a>
+
+                        <a href="retraction-of-rizal.html" class="dropdown-item">Retraction of Rizal</a>
+                        <a href="cry-of-rebellion.html" class="dropdown-item active">Cry of Rebellion</a>
+                   </div>
+                </div>
+                <div class="nav-item-dropdown">
+                    <div class="nav-item" data-section="activities">
+                        <i data-lucide="calendar" class="nav-icon-svg"></i>
+                        <span>Learning Hub</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="games.html" class="dropdown-item" data-section="games">
+                            <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
+                            Games
+                        </a>
+                        
+                        <a href="quizzes.html" class="dropdown-item" data-section="quizzes">
+                            <i data-lucide="clipboard-list" style="width: 16px; height: 16px;"></i>
+                            Quizzes
+                        </a>
+                        
+                        <a href="interactive-tasks.html" class="dropdown-item" data-section="interactive">
+                            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                            Interactive Tasks
+                        </a>
+
+                        <a href="worksheets.html" class="dropdown-item" data-section="worksheets">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Worksheets
+                        </a>
+
+                        <a href="Handouts.html" class="dropdown-item" data-section="handouts">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Handouts
+                        </a>
+                    </div>
+                </div>
+
+
+                <a href="videos.html" class="nav-item" data-section="videos">
+                    <i data-lucide="play-circle" class="nav-icon-svg"></i>
+                    <span>Videos</span>
+                </a>
+
+                <a href="reference.html" class="nav-item" data-section="reference">
+                    <i data-lucide="book-open" class="nav-icon-svg"></i>
+                    <span>Reference</span>
+                </a>
+            </nav>
+
+        </aside>
+
+        <main class="main-content">
+            <!-- Discussion/Post Section -->
+            <section class="discussion-section">
+                <!-- Topic Header -->
+                
+
+                <!-- Topic Content with Infographic -->
+                <div class="content-with-infographic">
+                    <!-- Infographic Section - Stacked gallery (replaces slideshow) -->
+                    <div class="infographic-container">
+                        <div class="infographic-wrapper" id="infographicWrapper">
+                            <div class="infographic-gallery stack" id="infographicGallery">
+                                <figure>
+                                    <a href="Images/Cry of Rebellion/1.png">
+                                        <img src="Images/Cry of Rebellion/1.png" alt="Cry of Rebellion Image 1" class="infographic-image" loading="lazy" decoding="async">
+                                    </a>
+                                    <figcaption class="sr-only">August 1896: Katipunan leaders gather in secret locations northeast of Manila.</figcaption>
+                                </figure>
+
+                                <figure>
+                                    <a href="Images/Cry of Rebellion/3.png">
+                                        <img src="Images/Cry of Rebellion/3.png" alt="Cry of Rebellion Image 2" class="infographic-image" loading="lazy" decoding="async">
+                                    </a>
+                                    <figcaption class="sr-only">Date and location remain debated: Balintawak, Kangkong, Pugad Lawin, or Bahay Toro.</figcaption>
+                                </figure>
+
+                                <figure>
+                                    <a href="Images/Cry of Rebellion/4.png">
+                                        <img src="Images/Cry of Rebellion/4.png" alt="Cry of Rebellion Image 3" class="infographic-image" loading="lazy" decoding="async">
+                                    </a>
+                                    <figcaption class="sr-only">Andres Bonifacio leads the revolutionary movement.</figcaption>
+                                </figure>
+
+                                <figure>
+                                    <a href="Images/Cry of Rebellion/5.png">
+                                        <img src="Images/Cry of Rebellion/5.png" alt="Cry of Rebellion Image 4" class="infographic-image" loading="lazy" decoding="async">
+                                    </a>
+                                    <figcaption class="sr-only">The Cry continues to inspire national pride.</figcaption>
+                                </figure>
+
+                                <figure>
+                                    <a href="Images/Cry of Rebellion/6.png">
+                                        <img src="Images/Cry of Rebellion/6.png" alt="Cry of Rebellion Image 5" class="infographic-image" loading="lazy" decoding="async">
+                                    </a>
+                                    <figcaption class="sr-only">The Cry marked the beginning of the Philippine Revolution.</figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Educational Content Section -->
+                <div class="educational-content">
+                    <h3>Where Did the Cry of Rebellion Happen?</h3>
+                    
+                    <section class="content-section">
+                        <h4>Historical Context and Significance</h4>
+                        <p>In the late nineteenth century, <span class="emphasis">revolutionary movements spread across Spanish colonies</span>, including the Philippines. Journalists at the time used the phrase <span class="key-term">El Grito de Rebelión</span> or <span class="key-term">Cry of Rebellion</span> to signify the <span class="emphasis">symbolic beginning of uprisings against colonial rule</span>. In the Philippine context, the Cry marked the <span class="emphasis">formal declaration of resistance</span> against the Spanish colonial government and is traditionally associated with the outbreak of the <span class="key-term">Philippine Revolution</span> in <span class="highlight">August 1896</span>, northeast of Manila.</p>
+                        <p>The Cry of Rebellion is considered a <span class="emphasis">crucial turning point</span> in Philippine history because it represented the collective decision of Filipino revolutionaries to abandon peaceful reform and openly challenge Spanish authority. However, despite its importance, historians continue to debate the exact date and location of the event, making it one of the most <span class="emphasis">contested episodes in Philippine historiography</span>.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h4>The Nature of the Controversy</h4>
+                        <div class="fact-callout">
+                            <strong>Central Symbol:</strong> The <span class="key-term">cedula tearing</span> - destruction of Spanish tax certificates as a sign of severing ties with Spain
+                        </div>
+                        <p>The controversy surrounding the Cry of Rebellion arises from <span class="emphasis">conflicting eyewitness accounts</span> and later historical interpretations. Central to many narratives is the symbolic act of <span class="emphasis">tearing the cedula</span>, the residence certificate imposed by the Spanish government, which signified the rejection of Spanish sovereignty. Historian <strong>Teodoro Agoncillo</strong> emphasized this act as the <span class="emphasis">defining moment</span> of the Cry.</p>
+                        <p>Other writers, however, associated the Cry with the <span class="emphasis">first armed encounter</span> between Filipino revolutionaries and Spanish forces. Following this interpretation, <strong>Emilio Aguinaldo</strong> later commissioned the <span class="key-term">Himno de Balintawak</span> to inspire revolutionary spirit after the failure of the <span class="key-term">Pact of Biak-na-Bato</span>. A <span class="key-term">monument to the Heroes of 1896</span> was erected in what is now the intersection of EDSA and Andres Bonifacio Drive, and for many years - until 1962 - the Cry of Balintawak was officially commemorated every <span class="highlight">26 August</span>, despite uncertainty regarding why the monument site was chosen.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h4>Multiple Locations and Dates: The Historical Debate</h4>
+                        <p>Various historians and eyewitnesses identified <span class="emphasis">different locations and dates</span> for the Cry of Rebellion, reflecting the complexity of reconstructing revolutionary events. The debate centers on <strong>four major locations</strong> and <strong>four different dates</strong>:</p>
+                        <ul style="margin-left: 20px; color: #51513E; line-height: 1.8;">
+                            <li><strong>Lt. Olegario Diaz</strong> (guardia civil): <span class="key-term">Balintawak</span>, <span class="highlight">August 25, 1896</span></li>
+                            <li><strong>Teodoro Kalaw</strong> (historian): <span class="key-term">Kangkong, Balintawak</span>, <span class="highlight">last week of August 1896</span></li>
+                            <li><strong>Santiago Alvarez</strong> (Katipunero): <span class="key-term">Bahay Toro, Quezon City</span>, <span class="highlight">August 24, 1896</span></li>
+                            <li><strong>Pio Valenzuela</strong> (Katipunero): <span class="key-term">Pugad Lawin</span>, <span class="highlight">August 23, 1896</span></li>
+                            <li><strong>Gregorio Zaide</strong> (historian): <span class="key-term">Balintawak</span>, <span class="highlight">August 26, 1896</span></li>
+                            <li><strong>Teodoro Agoncillo</strong> (historian): <span class="key-term">Pugad Lawin</span>, <span class="highlight">August 23, 1896</span></li>
+                            <li><strong>Guerrero, Encarnacion, Villegas</strong> (historians): <span class="key-term">Tandang Sora's barn, Gulod</span>, <span class="highlight">August 24, 1896</span></li>
+                        </ul>
+                    </section>
+
+                    <section class="content-section perspective-section historians-perspective">
+                        <div class="perspective-label">EYEWITNESS ACCOUNT 1</div>
+                        <h4>Primary Source: Guillermo Masangkay's Account</h4>
+                        <p>Guillermo Masangkay narrated that a <span class="emphasis">large meeting of Katipunan leaders</span> was held on <span class="highlight">August 26, 1896</span> at the house of Apolonio Samson in <span class="key-term">Balintawak</span>. <strong>Andres Bonifacio</strong> presided over the meeting, with <strong>Emilio Jacinto</strong> serving as secretary. The discussion centered on whether the revolution should begin immediately.</p>
+                        <blockquote>
+                            <p>If we don't start the uprising, the Spaniards will get us anyway. What then, do you say? Bonifacio asked the masses outside. <span class="emphasis">Revolt! the people shouted as one.</span> Bonifacio then called on them to destroy their cedulas as <span class="emphasis">a sign of severing ties with Spain</span> - an act that became one of the most enduring symbols of the Cry.</p>
+                            <footer>� Guillermo Masangkay</footer>
+                        </blockquote>
+                    </section>
+
+                    <section class="content-section perspective-section historians-perspective">
+                        <div class="perspective-label">EYEWITNESS ACCOUNT 2</div>
+                        <h4>Primary Source: Pio Valenzuela's Account</h4>
+                        <p><strong>Pio Valenzuela</strong> provided a more detailed chronological account of events. According to him, Katipunan leaders sought refuge in <span class="key-term">Balintawak</span> beginning <span class="highlight">August 19-20, 1896</span>. Initial meetings were held on <span class="highlight">August 22, 1896</span> at Apolonio Samson's house in <span class="key-term">Kangkong</span>, but no formal decision to revolt was made.</p>
+                        <p>Valenzuela emphasized that the <span class="emphasis">decisive meeting occurred</span> on <span class="highlight">August 23, 1896</span> at <span class="key-term">Pugad Lawin</span>, the property of Juan Ramos (son of <strong>Melchora Aquino/Tandang Sora</strong>). During this gathering of <span class="emphasis">more than 1,000 Katipuneros</span>, intense debate took place regarding the start of the revolution.</p>
+                        <blockquote>
+                            <p>Following the discussion, many of those present <span class="emphasis">tore their cedula certificates</span> and shouted, <span class="emphasis">'Long live the Philippines! Long live the Philippines!'</span></p>
+                            <footer>� Pio Valenzuela</footer>
+                        </blockquote>
+                    </section>
+
+                    <section class="content-section">
+                        <h4>Critical Analysis: Evaluating Conflicting Sources</h4>
+                        <div class="fact-callout" importance-high>
+                            <strong>Red Flag:</strong> <span class="emphasis">Valenzuela's inconsistency</span> - He first told Spanish investigators the Cry happened in Balintawak on August 26, but later wrote in his memoirs it was Pugad Lawin on August 23
+                        </div>
+                        <p>Valenzuela's testimony, in particular, must be treated with caution. In an earlier statement to Spanish investigators, he claimed that the Cry occurred in <span class="key-term">Balintawak</span> on <span class="highlight">August 26, 1896</span>, while in his later memoirs, he identified <span class="key-term">Pugad Lawin</span> on <span class="highlight">August 23, 1896</span>. <span class="emphasis">Such inconsistencies highlight the limitations of memory</span> and the need for <span class="emphasis">critical evaluation of primary sources</span>.</p>
+                        <p>According to historians <strong>Guerrero, Encarnacion, and Villegas</strong>, all the sites mentioned were part of <span class="key-term">Balintawak</span> during the Spanish period (then under Caloocan, now in Quezon City). They suggested that the <span class="emphasis">variation in dates may be explained by the continuous movement</span> of Bonifacio and his followers as they attempted to evade Spanish authorities, resulting in <span class="emphasis">multiple gatherings that were later remembered differently</span> by witnesses.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h4>Conclusion: The Significance Beyond the Debate</h4>
+                        <div class="fact-callout" conclusion-box>
+                            <strong>Key Insight:</strong> The Cry may be understood as <span class="emphasis">a series of related events</span> unfolding over several days in different locations, rather than a single dramatic moment.
+                        </div>
+                        <p>The debate over where and when the Cry of Rebellion occurred demonstrates that <span class="emphasis">historical events are often complex and difficult to pinpoint</span> with absolute certainty. Rather than a single dramatic moment, the Cry may be understood as a <span class="emphasis">series of related events</span> that unfolded over several days in different locations.</p>
+                        <p>This case study underscores the importance of <span class="emphasis">critical historical inquiry</span>, showing how historians analyze conflicting accounts, assess source reliability, and contextualize evidence. Ultimately, the <span class="key-term">Cry of Rebellion</span> remains a powerful symbol of <span class="emphasis">Filipino resistance</span> and the collective resolve to fight for independence, regardless of the continuing debate over its exact date and place.</p>
+                    </section>
+                </div>
+
+            </section>
+        </main>
+
+        <!-- Edit Profile Modal -->
+        <div class="modal" id="editProfileModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Profile</h2>
+                    <button class="modal-close" id="closeEditModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">👤</div>
+                        <h3 style="margin: 0 0 16px 0; color: #333;">Edit Your Profile</h3>
+                        <p style="margin: 0 0 20px 0; color: #666; line-height: 1.6;">
+                            To edit your profile information, please visit the <a href="course.html" style="color: #5C3422; text-decoration: underline; font-weight: 500;">Feed page</a>.
+                        </p>
+                        <p style="margin: 0; color: #999; font-size: 14px;">
+                            You can update your profile picture, name, and bio there.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" id="cancelEditBtn">Cancel</button>
+                    <button class="btn-save" onclick="window.location.href='course.html'">Go to Feed</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Key Facts Section -->
+            <div class="widget learning-tips-widget" aria-labelledby="keyFactsTitle">
+                <div class="widget-header">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i data-lucide="lightbulb" class="widget-header-icon"></i>
+                        <div>
+                            <h3 id="keyFactsTitle">Key Facts</h3>
+                            <p class="widget-subtitle">Quick facts about this topic</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-content learning-tips-list">
+                    <article class="tip-card" tabindex="0" role="article">
+                        <div class="tip-icon" aria-hidden="true"><i data-lucide="calendar"></i></div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Date</h4>
+                            <p class="tip-desc">August 23-26, 1896</p>
+                        </div>
+                    </article>
+
+                    <article class="tip-card" tabindex="0" role="article">
+                        <div class="tip-icon" aria-hidden="true"><i data-lucide="map-pin"></i></div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Location</h4>
+                            <p class="tip-desc">Northeast of Manila</p>
+                        </div>
+                    </article>
+
+                    <article class="tip-card" tabindex="0" role="article">
+                        <div class="tip-icon" aria-hidden="true"><i data-lucide="flag"></i></div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Leader &amp; Movement</h4>
+                            <p class="tip-desc">Andres Bonifacio led the Katipunan revolution</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    </style>
+    <script src="JS/cry-of-rebellion.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+        if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+            try { lucide.createIcons(); } catch(e){}
+        }
+    });
+    </script>
+    <script type="module">
+    import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
+
+    const anchors = Array.from(document.querySelectorAll('#infographicGallery figure > a'));
+    const sizePromises = anchors.map(a => new Promise(resolve => {
+        const img = new Image();
+        img.src = a.href;
+        if (img.complete) {
+            a.dataset.pswpWidth = img.naturalWidth || img.width || 1200;
+            a.dataset.pswpHeight = img.naturalHeight || img.height || 800;
+            resolve();
+            return;
+        }
+        img.onload = () => {
+            a.dataset.pswpWidth = img.naturalWidth || img.width || 1200;
+            a.dataset.pswpHeight = img.naturalHeight || img.height || 800;
+            resolve();
+        };
+        img.onerror = () => {
+            a.dataset.pswpWidth = 1200;
+            a.dataset.pswpHeight = 800;
+            resolve();
+        };
+    }));
+
+    Promise.all(sizePromises).then(() => {
+        const lightbox = new PhotoSwipeLightbox({
+            gallery: '#infographicGallery',
+            children: 'figure > a',
+            pswpModule: () => import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js')
+        });
+
+        lightbox.init();
+
+        const galleryEl = document.getElementById('infographicGallery');
+        if (galleryEl) {
+            galleryEl.addEventListener('click', (e) => {
+                const figure = e.target.closest('figure');
+                if (!figure) return;
+                const link = e.target.closest('a');
+                if (link) e.preventDefault();
+                const wasTop = (figure === galleryEl.lastElementChild);
+                if (!wasTop) {
+                    figure.classList.add('brought');
+                    setTimeout(() => figure.classList.remove('brought'), 380);
+                    return;
+                }
+                const anchorsList = Array.from(galleryEl.querySelectorAll('figure > a'));
+                const idx = anchorsList.indexOf(figure.querySelector('a'));
+                setTimeout(() => {
+                    if (typeof lightbox.loadAndOpen === 'function') {
+                        lightbox.loadAndOpen(idx >= 0 ? idx : 0);
+                        return;
+                    }
+                    const anchor = anchorsList[idx] || anchorsList[0];
+                    if (anchor) anchor.click();
+                }, 120);
+            });
+        }
+    });
+    </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Catholic Mass - Readings in Philippine History</title>
+    <link rel="icon" href="Images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="Styles/course.css">
+    <link rel="stylesheet" href="Styles/course-feed.css">
+    <link rel="stylesheet" href="Styles/first-mass.css">
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="JS/supabase-config.js" defer></script>
+    <script src="JS/db-helpers.js" defer></script>
+    <script src="JS/course.js" defer></script>
+</head>
+<body class="page-course">
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <button class="sidebar-toggle-btn" id="firstMassToggleSidebar" style="background: none; border: none; color: #5C3422; cursor: pointer; font-size: 24px; width: 40px; height: 40px; display: none; align-items: center; justify-content: center; z-index: 1001;">
+                ☰
+            </button>
+
+            <div class="header-logo">
+                <img src="Images/favicon.png" alt="RPH Logo" class="header-logo-img" loading="lazy" decoding="async">
+                <h1 class="header-title"><a href="home.html" class="header-title-link">RPH Interactive Learning Hub</a></h1>
+            </div>
+
+            <div class="header-actions">
+                <button class="sidebar-toggle-right" id="sidebarToggleRight" title="Show more">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="15" y1="3" x2="15" y2="21"></line>
+                        <line x1="9" y1="9" x2="9" y2="9.01"></line>
+                        <line x1="9" y1="15" x2="9" y2="15.01"></line>
+                    </svg>
+                </button>
+                <button class="logout-btn" title="Logout">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
+            <div class="user-profile">
+                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" loading="lazy" decoding="async">
+                <div class="profile-info">
+                    <h4 class="profile-name" id="profileName">Loading</h4>
+                    <p class="profile-email" id="profileEmail">Loading</p>
+                </div>
+                
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="course.html" class="nav-item" data-section="feed">
+                    <i data-lucide="radio" class="nav-icon-svg"></i>
+                    <span>Feed</span>
+                </a>
+                <div class="nav-item-dropdown open">
+                    <div class="nav-item" data-section="topic">
+                        <i data-lucide="book-open" class="nav-icon-svg"></i>
+                        <span>Topic</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                           <a href="first-mass.html" class="dropdown-item active">First Mass</a>
+                        <a href="cavite-mutiny.html" class="dropdown-item">Cavite Mutiny</a>
+
+                        <a href="retraction-of-rizal.html" class="dropdown-item">Retraction of Rizal</a>
+                        <a href="cry-of-rebellion.html" class="dropdown-item">Cry of Rebellion</a>
+                   </div>
+                </div>
+                <div class="nav-item-dropdown">
+                    <div class="nav-item" data-section="activities">
+                        <i data-lucide="calendar" class="nav-icon-svg"></i>
+                        <span>Learning Hub</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="games.html" class="dropdown-item" data-section="games">
+                            <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
+                            Games
+                        </a>
+                        
+                        <a href="quizzes.html" class="dropdown-item" data-section="quizzes">
+                            <i data-lucide="clipboard-list" style="width: 16px; height: 16px;"></i>
+                            Quizzes
+                        </a>
+
+                        <a href="interactive-tasks.html" class="dropdown-item" data-section="interactive">
+                            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                            Interactive Tasks
+                        </a>
+
+                        <a href="worksheets.html" class="dropdown-item" data-section="worksheets">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Worksheets
+                        </a>
+
+                        <a href="Handouts.html" class="dropdown-item" data-section="handouts">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Handouts
+                        </a>
+                    </div>
+                </div>
+
+
+                <a href="videos.html" class="nav-item" data-section="videos">
+                    <i data-lucide="play-circle" class="nav-icon-svg"></i>
+                    <span>Videos</span>
+                </a>
+
+                <a href="reference.html" class="nav-item" data-section="reference">
+                    <i data-lucide="book-open" class="nav-icon-svg"></i>
+                    <span>Reference</span>
+                </a>
+            </nav>
+
+        </aside>
+
+        <main class="main-content">
+            <!-- Discussion/Post Section -->
+            <section class="discussion-section">
+                <!-- Topic Header -->
+                
+
+                <!-- Topic Content with Infographic -->
+                <div class="content-with-infographic">
+                    <!-- Infographic Section - Gallery (all images visible) -->
+                    <div class="infographic-container">
+                        <div class="infographic-wrapper" id="infographicWrapper">
+                            <div class="infographic-gallery stack" id="infographicGallery">
+                                <figure>
+                                    <a href="Images/6.png">
+                                        <img src="Images/6.png" alt="First Mass Image 1" class="infographic-image" loading="lazy" decoding="async">
+                                    </a>
+                                    <figcaption class="sr-only">March 16, 1521: Magellan's expedition sights land in the Philippines near Ladrones.</figcaption>
+                                </figure>
+
+                                <figure>
+                                    <a href="Images/7.png">
+                                        <img src="Images/7.png" alt="First Mass Image 2" class="infographic-image" loading="lazy" decoding="async">
+                                    </a>
+                                    <figcaption class="sr-only">March 31, 1521 (Easter Sunday): A priest prepares for Mass on an island.</figcaption>
+                                </figure>
+
+                                <figure>
+                                    <a href="Images/8.png">
+                                        <img src="Images/8.png" alt="First Mass Image 3" class="infographic-image" loading="lazy" decoding="async">
+                                    </a>
+                                    <figcaption class="sr-only">Debate over Butuan vs Limasawa as site of the first Mass.</figcaption>
+                                </figure>
+
+                                <figure>
+                                    <a href="Images/9.png">
+                                        <img src="Images/9.png" alt="First Mass Image 4" class="infographic-image" loading="lazy" decoding="async">
+                                    </a>
+                                    <figcaption class="sr-only">Primary sources: Francisco Albo and Antonio Pigafetta.</figcaption>
+                                </figure>
+
+                                <figure>
+                                    <a href="Images/10.png">
+                                        <img src="Images/10.png" alt="First Mass Image 5" class="infographic-image" loading="lazy" decoding="async">
+                                    </a>
+                                    <figcaption class="sr-only">The planting of the cross on Mazaua after the first Mass.</figcaption>
+                                </figure>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Educational Content Section -->
+                <div class="educational-content">
+                    <h3>Where Did the First Mass Take Place?</h3>
+                    
+                    <section class="content-section">
+                        <h4>Historical Context: Beyond the "Firsts"</h4>
+                        <p>The obsession with identifying historical <span class="key-term">"firsts"</span> often leads to oversimplification of complex events. However, this case study transcends mere trivia. Rather than focusing on the symbolic prestige of the location, we examine the <span class="emphasis">First Catholic Mass as a historiographical exercise</span>—demonstrating how historians use <span class="emphasis">evidence, compare sources, and apply critical interpretation</span> in reconstructing the past. The question of where the Mass occurred reveals the <span class="emphasis">evolving nature of historical scholarship</span> and the importance of rigorous source analysis.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h4>The Three-Century Butuan Claim</h4>
+                        <p>For more than <span class="highlight">three centuries</span>, Butuan was accepted as the site of the first Catholic Mass in the Philippines. This widespread belief culminated in the erection of a <span class="emphasis">monument in 1872</span> near the Agusan River, commemorating the arrival of Magellan's expedition and the celebration of Mass on <span class="highlight">April 8, 1521</span>. The Butuan claim was based largely on an <span class="emphasis">elementary reading of primary sources</span> that was accepted and repeated in historical narratives.</p>
+                        <p>However, as historical research methods improved toward the <span class="emphasis">end of the nineteenth century and the beginning of the twentieth century</span>, scholars began to reexamine these sources more critically. This reassessment challenged the long-accepted interpretation and opened a significant debate between <span class="key-term">Butuan and Limasawa</span> as the possible site of the first Mass.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h4>Primary Sources: The Foundation of the Debate</h4>
+                        <p>Historians rely on only <span class="highlight">two major primary sources</span> to determine the site of the first Catholic Mass in the Philippines:</p>
+                        <div class="fact-callout">
+                            <strong>Source 1:</strong> <span class="key-term">Francisco Albo's Log</span> — A pilot who survived the circumnavigation and recorded navigational details, distances, and latitudes.
+                        </div>
+                        <div class="fact-callout">
+                            <strong>Source 2:</strong> <span class="key-term">Antonio Pigafetta's Account</span> — The most detailed narrative, "Primo viaggio intorno al mondo" (First Voyage Around the World), providing eyewitness testimony of events and activities during the voyage.
+                        </div>
+                        <p>Both sources were written by <span class="emphasis">members of Magellan's expedition who witnessed the events firsthand</span>. Analyzing these accounts provides crucial insights into where the Mass actually occurred.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h4>Albo's Geographical Evidence</h4>
+                        <p>Francisco Albo's log describes the expedition's movement from the Ladrones (Marianas) to Suluan, then to Homonhon, and later to an island called <span class="key-term">Mazava</span>, located at approximately <span class="highlight">9°40' North latitude</span>. In Mazava, Albo noted the <span class="emphasis">planting of a cross on a mountain-top</span> from which three islands to the west and southwest could be seen.</p>
+                        <p>Critically, Albo's geographical descriptions <span class="emphasis">strongly correspond to the location of Limasawa</span>, situated at the southern tip of Leyte. His account does <span class="emphasis">not align with Butuan's riverine geography</span>, as <span class="key-term">no river was mentioned</span> in relation to Mazava—a striking omission for a site as geographically significant as Butuan.</p>
+                    </section>
+
+                    <section class="content-section perspective-section historians-perspective">
+                        <div class="perspective-label">📜 EYEWITNESS ACCOUNT 1</div>
+                        <h4>📄 Pigafetta on the Route and Arrival at Mazaua</h4>
+                        <p>Antonio Pigafetta provided the most detailed narrative of the expedition's movements. He documented that the expedition traveled from <span class="key-term">Homonhon</span> (reached on <span class="highlight">March 17, 1521</span>) westward toward Leyte, then southward, and finally to an island called <span class="key-term">Mazaua</span> on <span class="highlight">March 28, 1521</span> (Holy Thursday).</p>
+                        <blockquote>
+                            <p>"It is twenty-five leagues from the Acquada, and is called Mazaua. It lies at a latitude of nine and two-thirds degrees towards the Arctic Pole (i.e., North)."</p>
+                            <footer>— Antonio Pigafetta</footer>
+                        </blockquote>
+                        <p>Pigafetta's geographical descriptions—particularly the <span class="emphasis">island setting, coastal features, and proximity to Leyte and Cebu</span>—corroborate Albo's log and further support the identification of Mazaua as <span class="key-term">Limasawa</span>.</p>
+                    </section>
+
+                    <section class="content-section perspective-section historians-perspective">
+                        <div class="perspective-label">📜 EYEWITNESS ACCOUNT 2</div>
+                        <h4>📄 Pigafetta's Account: Easter Sunday and the First Mass</h4>
+                        <p>Pigafetta provided crucial details about the celebration of the Mass. On <span class="highlight">Sunday, March 31, 1521 (Easter Sunday)</span>, Magellan sent a priest ashore in the early morning to prepare for the celebration. Later that day:</p>
+                        <blockquote>
+                            <p>"Early in the morning of Sunday, the last of March and Easter day, Magellan sent the priest ashore with some men to prepare for the Mass. Later in the morning Magellan landed with some fifty men and Mass was celebrated, after which a cross was venerated. In the afternoon they returned ashore to plant the cross on the summit of the highest hill. In attendance both at the Mass and at the planting of the cross were the king of Mazaua and the king of Butuan."</p>
+                            <footer>— Antonio Pigafetta</footer>
+                        </blockquote>
+                        <p>This detailed description <span class="emphasis">firmly situates the celebration of the Mass on an island</span>, further weakening the claim that it occurred in Butuan, which was a settlement located <span class="key-term">along a river</span>.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h4>Critical Analysis: The River Question</h4>
+                        <div class="fact-callout importance-high">
+                            <strong>Key Evidence:</strong> The <span class="emphasis">absence of any mention of a river</span> in Pigafetta's account of Mazaua undermines the Butuan claim. Butuan was a riverine settlement along the Agusan River—a geographical feature too significant to overlook.
+                        </div>
+                        <p>Jesuit historian <strong>Miguel A. Bernad</strong>, in his work "Butuan or Limasawa? The Site of the First Mass in the Philippines: A Reexamination of Evidence" (1981), emphasized a critical omission in Pigafetta's account that undermines the Butuan hypothesis. Pigafetta <span class="emphasis">made no reference to a river</span> in describing Mazaua or the activities there. This silence is particularly significant because:</p>
+                        <ul style="margin-left: 20px; color: #51513E; line-height: 1.8;">
+                            <li>Butuan's defining geographical feature was the <span class="key-term">Agusan River</span>, where it was situated</li>
+                            <li>A riverine environment would have been <span class="emphasis">difficult for an eyewitness to overlook</span></li>
+                            <li>Pigafetta later described a <span class="emphasis">river journey to Mindanao after Magellan's death</span>, demonstrating that he was attentive to riverine environments when present</li>
+                        </ul>
+                        <p>This contrast strongly supports the conclusion that <span class="key-term">Mazaua was not Butuan but Limasawa</span>.</p>
+                    </section>
+
+                    <section class="content-section">
+                        <h4>Conclusion: Methodology Over Tradition</h4>
+                        <div class="fact-callout conclusion-box">
+                            <strong>Central Insight:</strong> The question of where the first Catholic Mass occurred demonstrates that <span class="emphasis">history is not fixed by tradition but refined through disciplined analysis of evidence</span>.
+                        </div>
+                        <p>While Butuan was long accepted as the site due to tradition and commemoration, <span class="emphasis">careful reexamination of primary sources</span>—particularly the accounts of Francisco Albo and Antonio Pigafetta—demonstrates that <span class="key-term">Limasawa</span> more accurately fits the geographical and narrative evidence. The shift from Butuan to Limasawa as the scholarly consensus illustrates the <span class="emphasis">evolving nature of historical knowledge</span>.</p>
+                        <p>More importantly, this case study shows that history is not merely about celebrating "firsts" or identifying locations. Instead, it is about <span class="emphasis">understanding how historical knowledge is constructed, challenged, and refined</span> through disciplined analysis of evidence. The First Catholic Mass in the Philippines remains a powerful moment in Philippine history—and examining where it took place teaches us how to be better historians.</p>
+                    </section>
+                </div>
+            </section>
+        </main>
+
+        <!-- Right Sidebar -->
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Key Facts Section (use same structure as course.html for uniform look) -->
+            <div class="widget learning-tips-widget" aria-labelledby="keyFactsTitle">
+                <div class="widget-header">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="lightbulb" class="lucide lucide-lightbulb widget-header-icon" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>
+                        <div>
+                            <h3 id="keyFactsTitle">Key Facts</h3>
+                            <p class="widget-subtitle">Quick facts about this topic</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-content learning-tips-list">
+                    <article class="tip-card" tabindex="0" role="article">
+                        <div class="tip-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" aria-hidden="true" class="lucide lucide-calendar"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+                        </div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Date</h4>
+                            <p class="tip-desc">March 31, 1521</p>
+                        </div>
+                    </article>
+
+                    <article class="tip-card" tabindex="0" role="article">
+                        <div class="tip-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="map-pin" aria-hidden="true" class="lucide lucide-map-pin"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Location</h4>
+                            <p class="tip-desc">Limasawa Island</p>
+                        </div>
+                    </article>
+
+                    <article class="tip-card" tabindex="0" role="article">
+                        <div class="tip-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" aria-hidden="true" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                        </div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Key Figures</h4>
+                            <p class="tip-desc">Father Pedro Valderama and Chief Rajah Humabon</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+
+
+
+
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Profile</h2>
+                    <button class="modal-close" id="closeEditModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">👤</div>
+                        <h3 style="margin: 0 0 16px 0; color: #333;">Edit Your Profile</h3>
+                        <p style="margin: 0 0 20px 0; color: #666; line-height: 1.6;">
+                            To edit your profile information, please visit the <a href="course.html" style="color: #5C3422; text-decoration: underline; font-weight: 500;">Feed page</a>.
+                        </p>
+                        <p style="margin: 0; color: #999; font-size: 14px;">
+                            You can update your profile picture, name, and bio there.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" id="cancelEditBtn">Cancel</button>
+                    <button class="btn-save" onclick="window.location.href='course.html'">Go to Feed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/first-mass.js" defer></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+        if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+            try { lucide.createIcons(); } catch(e){}
+        }
+    });
+    </script>
+    <script type="module">
+    import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
+
+    // Find gallery anchors and ensure each anchor has data-pswp-width/height
+    const anchors = Array.from(document.querySelectorAll('#infographicGallery figure > a'));
+
+    // Load natural sizes for each image; return a promise that resolves when all sizes set
+    const sizePromises = anchors.map(a => new Promise(resolve => {
+        const img = new Image();
+        img.src = a.href;
+        if (img.complete) {
+            a.dataset.pswpWidth = img.naturalWidth || img.width || 1200;
+            a.dataset.pswpHeight = img.naturalHeight || img.height || 800;
+            resolve();
+            return;
+        }
+        img.onload = () => {
+            a.dataset.pswpWidth = img.naturalWidth || img.width || 1200;
+            a.dataset.pswpHeight = img.naturalHeight || img.height || 800;
+            resolve();
+        };
+        img.onerror = () => {
+            // fallback sizes
+            a.dataset.pswpWidth = 1200;
+            a.dataset.pswpHeight = 800;
+            resolve();
+        };
+    }));
+
+    Promise.all(sizePromises).then(() => {
+        const lightbox = new PhotoSwipeLightbox({
+            gallery: '#infographicGallery',
+            children: 'figure > a',
+            pswpModule: () => import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js')
+        });
+
+        lightbox.init();
+
+        // Clicking a stacked card will bring that card to the top (append to the gallery)
+        // then open the lightbox for the top item. This mimics messenger-style stacks.
+        const galleryEl = document.getElementById('infographicGallery');
+        if (galleryEl) {
+            galleryEl.addEventListener('click', (e) => {
+                const figure = e.target.closest('figure');
+                if (!figure) return;
+
+                // Prevent default anchor behavior
+                const link = e.target.closest('a');
+                if (link) e.preventDefault();
+
+                // Check whether the clicked figure is currently the top (last) card
+                const wasTop = (figure === galleryEl.lastElementChild);
+
+                // If the clicked figure is NOT the top card, show the "brought" visual
+                // but DO NOT change DOM order (preserves original order on refresh).
+                if (!wasTop) {
+                    figure.classList.add('brought');
+                    setTimeout(() => figure.classList.remove('brought'), 380);
+                    return; // decorative sliver only
+                }
+
+                // If it was already top, open PhotoSwipe for that specific item
+                const anchorsList = Array.from(galleryEl.querySelectorAll('figure > a'));
+                const idx = anchorsList.indexOf(figure.querySelector('a'));
+                setTimeout(() => {
+                    if (typeof lightbox.loadAndOpen === 'function') {
+                        lightbox.loadAndOpen(idx >= 0 ? idx : 0);
+                        return;
+                    }
+                    const anchor = anchorsList[idx] || anchorsList[0];
+                    if (anchor) anchor.click();
+                }, 120);
+            });
+        }
+    });
+    </script>
+</body>
+</html>

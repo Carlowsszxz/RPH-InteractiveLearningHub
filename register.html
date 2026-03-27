@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Readings in Philippine History</title>
+    <link rel="icon" href="Images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="Styles/register.css?v=7">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img src="Images/favicon.png" alt="RPH Logo" class="auth-logo">
+                <h1>Create Account</h1>
+                <p>Join our learning community</p>
+            </div>
+
+            <form id="registerForm">
+                <div class="error-message" id="errorMessage"></div>
+                <div class="success-message" id="successMessage"></div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="studentId">Student ID</label>
+                        <input 
+                            type="text" 
+                            id="studentId" 
+                            placeholder="e.g., STU-2024-001" 
+                            required 
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            placeholder="Your full name" 
+                            required 
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="your@email.com" 
+                        required 
+                    />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            placeholder="Enter a strong password" 
+                            required 
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            placeholder="Confirm your password" 
+                            required 
+                        />
+                    </div>
+                </div>
+
+                <div class="password-requirements">
+                    <strong style="color: #51513E; display: block; margin-bottom: 6px;">Password Requirements:</strong>
+                    <div class="requirement unmet" id="lengthReq">
+                        <i data-lucide="check" class="requirement-icon"></i>
+                        <span>At least 8 characters</span>
+                    </div>
+                    <div class="requirement unmet" id="uppercaseReq">
+                        <i data-lucide="check" class="requirement-icon"></i>
+                        <span>Contains uppercase letter</span>
+                    </div>
+                    <div class="requirement unmet" id="lowercaseReq">
+                        <i data-lucide="check" class="requirement-icon"></i>
+                        <span>Contains lowercase letter</span>
+                    </div>
+                    <div class="requirement unmet" id="numberReq">
+                        <i data-lucide="check" class="requirement-icon"></i>
+                        <span>Contains a number</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="register-btn" id="registerBtn">Create Account</button>
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? 
+                <a href="index.html">Sign in here</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="JS/supabase-config.js"></script>
+    <script src="JS/register.js"></script>
+</body>
+</html>
+
+

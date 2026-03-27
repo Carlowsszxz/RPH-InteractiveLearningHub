@@ -1,0 +1,548 @@
+/* Cavite Mutiny - Educational Content Styles */
+
+.content-with-infographic {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    justify-items: center;
+}
+
+.infographic-container {
+    grid-column: 1;
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+}
+
+.infographic-wrapper {
+    background: #ffffff;
+    border: 3px solid #D6DCE1;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(92, 52, 34, 0.12);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.infographic-wrapper:hover {
+    box-shadow: 0 16px 56px rgba(92, 52, 34, 0.18);
+    border-color: #51513E;
+    transform: translateY(-2px);
+}
+
+/* Slideshow Container */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    background: #f9f9f9;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+}
+
+.slide.fade {
+    animation: fade 1s ease-in-out;
+}
+
+@keyframes fade {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
+
+.infographic-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: linear-gradient(135deg, #D6DCE1 0%, #D6DCE1 100%);
+    object-fit: contain;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slideshow-container:hover .infographic-image {
+    transform: scale(1.02);
+}
+
+/* Navigation Arrows */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: 48px;
+    height: 48px;
+    margin-top: -24px;
+    padding: 0;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.3s ease;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    z-index: 10;
+}
+
+.next {
+    right: 16px;
+}
+
+.prev {
+    left: 16px;
+}
+
+.prev:hover, .next:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+
+/* Fullscreen Button */
+.fullscreen-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.fullscreen-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+
+/* Slide Counter */
+.slide-counter {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: rgba(92, 52, 34, 0.8);
+    font-weight: 600;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+}
+
+.slide-description {
+    font-style: italic;
+    color: #555 !important;
+    transition: opacity 0.3s ease;
+}
+
+/* Slide Dots */
+.slideshow-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 0;
+    background: #ffffff;
+}
+
+.dot {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 4px;
+    background-color: #ddd;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+}
+
+.dot.active {
+    background-color: #51513E;
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background-color: #999;
+}
+
+.infographic-caption {
+    padding: 28px 28px;
+    background: linear-gradient(135deg, #D6DCE1 0%, #ffffff 100%);
+    border-top: 2px solid #D6DCE1;
+    transition: all 0.4s ease;
+}
+
+.infographic-caption h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #51513E;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.3px;
+}
+
+.infographic-caption p {
+    font-size: 14px;
+    color: #423833;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Image Modal Styles */
+.image-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out;
+}
+
+.image-modal.active {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+body.modal-open {
+    overflow: hidden;
+    width: 100%;
+}
+
+.image-modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-image {
+    width: 100%;
+    height: 100%;
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 1001;
+    backdrop-filter: blur(4px);
+}
+
+.modal-close-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.modal-close-btn:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .image-modal-content {
+        max-width: 95vw;
+        max-height: 85vh;
+    }
+
+    .modal-image {
+        max-width: 95vw;
+        max-height: 85vh;
+    }
+
+    .modal-close-btn {
+        width: 44px;
+        height: 44px;
+        top: 16px;
+        right: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-with-infographic {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .infographic-container {
+        grid-column: 1;
+        max-width: 650px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-with-infographic {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 24px;
+        margin-bottom: 24px;
+    }
+
+    .infographic-container {
+        grid-column: 1;
+        max-width: 100%;
+    }
+
+    .infographic-wrapper {
+        border-radius: 16px;
+        border-width: 2px;
+    }
+
+    .infographic-image {
+        height: 300px;
+    }
+
+    .infographic-caption {
+        padding: 24px 20px;
+    }
+
+    .infographic-caption h4 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .infographic-caption p {
+        font-size: 13px;
+    }
+
+    .prev, .next {
+        width: 44px;
+        height: 44px;
+        margin-top: -22px;
+        font-size: 20px;
+    }
+}
+
+/* Educational Content Styling */
+.educational-content {
+    background: linear-gradient(135deg, #E2D5C2 0%, #D4BBAC 100%);
+    border: 2px solid #98755B;
+    border-radius: 12px;
+    padding: 40px;
+    margin-top: 48px;
+    line-height: 1.8;
+    color: #442913;
+}
+
+.educational-content h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #5C3422;
+    margin-bottom: 32px;
+    text-align: center;
+    border-bottom: 3px solid #5C3422;
+    padding-bottom: 16px;
+}
+
+.content-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #D4BBAC;
+}
+
+.content-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.content-section h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #442913;
+    margin-bottom: 16px;
+}
+
+.content-section p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #442913;
+    margin-bottom: 12px;
+    text-align: justify;
+}
+
+.content-section p:last-child {
+    margin-bottom: 0;
+}
+
+.content-section ul {
+    margin-left: 20px;
+    color: #442913;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.content-section li {
+    text-align: justify;
+}
+
+blockquote {
+    background: #D4BBAC;
+    border-left: 4px solid #5C3422;
+    padding: 20px 24px;
+    margin: 20px 0;
+    border-radius: 6px;
+    font-style: italic;
+    color: #442913;
+}
+
+blockquote p {
+    margin-bottom: 12px;
+    color: #442913;
+}
+
+blockquote footer {
+    font-size: 12px;
+    color: #98755B;
+    margin-top: 12px;
+    font-style: normal;
+}
+
+blockquote em {
+    font-style: italic;
+}
+
+/* New Engagement Styles */
+.highlight {
+    background: #D4BBAC;
+    color: #5C3422;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.key-term {
+    color: #5C3422;
+    font-weight: 700;
+    border-bottom: 2px solid #D4BBAC;
+    padding-bottom: 2px;
+}
+
+.emphasis {
+    color: #5C3422;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.fact-callout {
+    background: linear-gradient(135deg, #FEF5E7 0%, #F9F0E3 100%);
+    border-left: 4px solid #51513E;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #423833;
+    box-shadow: 0 2px 8px rgba(81, 81, 62, 0.1);
+}
+
+.fact-callout strong {
+    color: #51513E;
+}
+
+.fact-callout.importance-high {
+    background: linear-gradient(135deg, #FCE8E4 0%, #F9E4DF 100%);
+    border-left-color: #423833;
+    box-shadow: 0 4px 12px rgba(92, 52, 34, 0.15);
+}
+
+.fact-callout.conclusion-box {
+    background: linear-gradient(135deg, #E8F4F0 0%, #E0EEEA 100%);
+    border-left-color: #423833;
+    text-align: center;
+    font-weight: 600;
+}
+
+.perspective-section {
+    position: relative;
+    border-left: 4px solid #D4BBAC;
+    padding-left: 20px;
+    margin-left: 0;
+}
+
+.perspective-section.spanish-perspective {
+    border-left-color: #98755B;
+    background: rgba(226, 213, 194, 0.3);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.perspective-section.filipino-perspective {
+    border-left-color: #5C3422;
+    background: rgba(92, 52, 34, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.perspective-label {
+    font-weight: 700;
+    color: #5C3422;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(226, 213, 194, 0.8);
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .educational-content {
+        padding: 24px;
+    }
+
+    .educational-content h3 {
+        font-size: 22px;
+    }
+
+    .content-section h4 {
+        font-size: 16px;
+    }
+
+    blockquote {
+        padding: 16px 20px;
+    }
+
+    .perspective-section {
+        padding-left: 16px;
+    }
+
+    .fact-callout {
+        padding: 14px 16px;
+    }
+
+    .sidebar-toggle-btn {
+        display: flex !important;
+    }
+}

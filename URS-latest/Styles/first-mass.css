@@ -1,0 +1,333 @@
+.content-with-infographic {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    justify-items: center;
+}
+
+.infographic-container {
+    grid-column: 1;
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+}
+
+.infographic-wrapper {
+    background: #ffffff;
+    border: 3px solid #D6DCE1;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(92, 52, 34, 0.12);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: #D6DCE1;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    animation: fade 1s;
+}
+
+.slide.fade {
+    display: block;
+    animation: fade 1s;
+}
+
+@keyframes fade {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+.infographic-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.slide:hover .infographic-image {
+    transform: scale(1.05);
+}
+
+.slide:hover .infographic-image {
+    transform: scale(1.02);
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: #51513E;
+    font-weight: bold;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+    background-color: rgba(92, 52, 34, 0.7);
+    user-select: none;
+    z-index: 10;
+}
+
+.next {
+    right: 0;
+}
+
+.prev {
+    left: 0;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(92, 52, 34, 0.95);
+    transform: scale(1.1);
+}
+
+.slide-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(81, 81, 62, 0.8);
+    color: #D6DCE1;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.fullscreen-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(81, 81, 62, 0.8);
+    color: #D6DCE1;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fullscreen-btn:hover {
+    background: rgba(81, 81, 62, 1);
+    transform: scale(1.1);
+}
+
+.slideshow-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    background: #ffffff;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #D6DCE1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: #51513E;
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background-color: #999;
+}
+
+.infographic-caption {
+    padding: 28px 28px;
+    background: linear-gradient(135deg, #D6DCE1 0%, #ffffff 100%);
+    border-top: 2px solid #D6DCE1;
+    transition: all 0.4s ease;
+}
+
+.infographic-caption h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #423833;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.3px;
+}
+
+.infographic-caption p {
+    font-size: 14px;
+    color: #423833;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.educational-content {
+    background: linear-gradient(135deg, #E2D5C2 0%, #D4BBAC 100%);
+    border: 2px solid #98755B;
+    border-radius: 12px;
+    padding: 40px;
+    margin-top: 40px;
+    line-height: 1.8;
+    color: #442913;
+}
+
+.educational-content h3 {
+    font-size: 28px;
+    color: #5C3422;
+    margin-bottom: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    border-bottom: 3px solid #5C3422;
+    padding-bottom: 16px;
+    text-align: center;
+}
+
+.content-section {
+    margin-bottom: 32px;
+    line-height: 1.8;
+}
+
+.content-section h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #51513E;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+}
+
+.content-section p {
+    font-size: 15px;
+    color: #51513E;
+    margin-bottom: 16px;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.content-section ul {
+    font-size: 15px;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.content-section li {
+    text-align: justify;
+}
+
+.highlight {
+    background: #D6DCE1;
+    color: #423833;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.key-term {
+    color: #51513E;
+    font-weight: 700;
+    border-bottom: 2px solid #D6DCE1;
+    padding-bottom: 2px;
+}
+
+.emphasis {
+    color: #423833;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.fact-callout {
+    background: linear-gradient(135deg, #FEF5E7 0%, #F9F0E3 100%);
+    border-left: 4px solid #51513E;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #423833;
+    box-shadow: 0 2px 8px rgba(81, 81, 62, 0.1);
+}
+
+.fact-callout strong {
+    color: #51513E;
+}
+
+.fact-callout.importance-high {
+    background: linear-gradient(135deg, #FCE8E4 0%, #F9E4DF 100%);
+    border-left-color: #423833;
+    box-shadow: 0 4px 12px rgba(92, 52, 34, 0.15);
+}
+
+.fact-callout.conclusion-box {
+    background: linear-gradient(135deg, #E8F4F0 0%, #E0EEEA 100%);
+    border-left-color: #423833;
+    text-align: center;
+    font-weight: 600;
+}
+
+.perspective-section {
+    position: relative;
+    border-left: 4px solid #D6DCE1;
+    padding-left: 20px;
+    margin-left: 0;
+}
+
+.perspective-section.historians-perspective {
+    border-left-color: #423833;
+    background: rgba(92, 52, 34, 0.04);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.perspective-label {
+    font-weight: 700;
+    color: #51513E;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.perspective-section h4 {
+    margin-top: 0;
+}
+
+.perspective-section blockquote {
+    margin: 16px 0;
+    padding: 16px 20px;
+    border-left: 3px solid #51513E;
+    background: rgba(214, 220, 225, 0.3);
+    font-style: italic;
+    color: #51513E;
+}
+
+.perspective-section blockquote footer {
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+    font-weight: 600;
+    color: #423833;
+    font-size: 13px;
+}
+
+@media (max-width: 1200px) {
+    .content-with-infographic {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar-toggle-btn {
+        display: flex !important;
+    }
+}

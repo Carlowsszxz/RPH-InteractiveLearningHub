@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readings in Philippine History</title>
+    <link rel="icon" href="Images/favicon.png" type="image/png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
+    <!-- Lottie Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <link rel="stylesheet" href="Styles/home.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <img src="Images/favicon.png" alt="RPH Logo" class="header-logo-img">
+                RPH Interactive Learning Hub
+            </div>
+            <div class="header-actions">
+                <button class="logout-btn" onclick="logout()" title="Sign out">
+                    <i data-lucide="log-out" stroke-width="1.5"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Readings in Philippine History</h1>
+            <p class="hero-subtitle">Embark on an immersive journey through the rich heritage and pivotal moments that shaped the Philippines</p>
+        </div>
+
+        <!-- FACTS SECTION -->
+        <div class="facts-section">
+            <h2 class="facts-heading">Did You Know?</h2>
+            <div class="facts-carousel" id="factsCarousel">
+                <div class="fact active">Jose Rizal was a true <strong>polymath</strong>, speaking 22 languages fluently and earning degrees in <em>medicine, philosophy, and letters</em> across Europe</div>
+                <div class="fact">The <strong>Cavite Mutiny of 1872</strong> sparked by just 200 soldiers shook Spanish colonial rule and led to executions that <em>ignited the revolution</em></div>
+                <div class="fact"><strong>Emilio Aguinaldo</strong> declared Philippine independence on <strong>June 12, 1898</strong>, establishing <em>Asia's first democratic republic</em></div>
+                <div class="fact"><strong>Andres Bonifacio</strong>, a humble typesetter, founded the secret <strong>Katipunan</strong> society that became a <em>revolutionary force</em></div>
+                <div class="fact">The <strong>Philippine Revolution</strong> (1896-1898) lasted only <em>2 years</em> but <strong>fundamentally transformed</strong> Asian history forever</div>
+                <div class="fact"><strong>Apolinario Mabini</strong>, paralyzed yet unbreakable, served as Prime Minister and <em>architect of independence</em> while confined to a wheelchair</div>
+                <div class="fact"><strong>Gregorio del Pilar</strong>, the 'Boy General,' heroically died at just <strong>26 years old</strong> defending the Republic at <em>Tirad Pass</em></div>
+                <div class="fact">Jose Rizal's groundbreaking novel <strong>Noli Me Tángere</strong> was so revolutionary that Spanish authorities <em>banned it immediately</em> upon publication</div>
+                <div class="fact">Rizal's final masterpiece <strong>Mi Último Adiós</strong>, written the night before his execution, remains one of <em>literature's most powerful farewell poems</em></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURE GRID -->
+    <div class="main-content" style="padding-top: 60px;">
+        
+
+        <!-- STATS SECTION -->
+      
+
+        <!-- NAVIGATION MENU -->
+        <h2 class="content-title">Quick Navigation</h2>
+        <div class="nav-menu" id="topics">
+            <!-- Feed -->
+            <a href="course.html" class="nav-item-card">
+                <div class="nav-icon">
+                    <div id="wifiLottie" style="width:28px;height:28px; filter: brightness(0) invert(1);"></div>
+                </div>
+                <h3>Feed</h3>
+                <p>Latest historical updates and news</p>
+            </a>
+
+            <!-- Topics -->
+            <a href="first-mass.html" class="nav-item-card">
+                <div class="nav-icon">
+                    <div id="articleLottie" style="width:28px;height:28px; filter: brightness(0) invert(1);"></div>
+                </div>
+                <h3>Topics</h3>
+                <p>Explore Philippine history subjects</p>
+            </a>
+
+            <!-- Learning Hub -->
+            <a href="games.html" class="nav-item-card">
+                <div class="nav-icon">
+                    <div id="folderLottie" style="width:28px;height:28px; filter: brightness(0) invert(1);"></div>
+                </div>
+                <h3>Learning Hub</h3>
+                <p>Access worksheets, games, and activities</p>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2026 Readings in Philippine History. All rights reserved.</p>
+        <p style="font-size: 12px; opacity: 0.6;">Immerse yourself in the legacy that shaped a nation</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="JS/supabase-config.js"></script>
+    <script src="JS/home.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wifiAnimation = lottie.loadAnimation({
+                container: document.getElementById('wifiLottie'),
+                renderer: 'svg',
+                loop: false, // Disable automatic looping
+                autoplay: true,
+                path: 'JSON/Wi-fi.json'
+            });
+            
+            // Add delay between loops for Wi-fi animation
+            wifiAnimation.addEventListener('complete', () => {
+                setTimeout(() => {
+                    wifiAnimation.goToAndPlay(0);
+                }, 2000); // 2 second delay
+            });
+            
+            const articleAnimation = lottie.loadAnimation({
+                container: document.getElementById('articleLottie'),
+                renderer: 'svg',
+                loop: false, // Disable automatic looping
+                autoplay: true,
+                path: 'JSON/Article.json'
+            });
+            
+            // Add delay between loops for Article animation
+            articleAnimation.addEventListener('complete', () => {
+                setTimeout(() => {
+                    articleAnimation.goToAndPlay(0);
+                }, 2000); // 2 second delay
+            });
+            
+            const folderAnimation = lottie.loadAnimation({
+                container: document.getElementById('folderLottie'),
+                renderer: 'svg',
+                loop: false, // Disable automatic looping
+                autoplay: true,
+                path: 'JSON/Folder.json'
+            });
+            
+            // Add delay between loops for Folder animation
+            folderAnimation.addEventListener('complete', () => {
+                setTimeout(() => {
+                    folderAnimation.goToAndPlay(0);
+                }, 2000); // 2 second delay
+            });
+            
+            document.querySelector('[href="course.html"]').addEventListener('mouseenter', () => {
+                wifiAnimation.play();
+            });
+            
+            // Removed mouseleave event to keep animation active
+            
+            document.querySelector('[href="first-mass.html"]').addEventListener('mouseenter', () => {
+                articleAnimation.play();
+            });
+            
+            document.querySelector('[href="games.html"]').addEventListener('mouseenter', () => {
+                folderAnimation.play();
+            });
+            
+            // Removed mouseleave events to keep animations active
+        });
+    </script>
+</body>
+</html>
+
+

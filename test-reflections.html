@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflections Database Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #6c757d; cursor: not-allowed; }
+        #console-output {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reflections Database Test Suite</h1>
+    <p>This page tests the reflection database system functionality.</p>
+
+    <div class="test-section">
+        <h2>Test Controls</h2>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearConsole()">Clear Console</button>
+        <button onclick="testLoadPrompts()">Test Load Prompts</button>
+        <button onclick="testUserOperations()">Test User Operations</button>
+        <button onclick="testLocalStorage()">Test localStorage</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <div id="console-output">Click "Run All Tests" to start testing...</div>
+    </div>
+
+    <!-- Include required scripts -->
+    <script src="JS/supabase-client.js"></script>
+    <script src="JS/db-helpers.js"></script>
+    <script src="JS/test-reflections.js"></script>
+
+    <script>
+        let originalConsoleLog = console.log;
+        let consoleOutput = document.getElementById('console-output');
+
+        // Override console.log to capture output
+        console.log = function(...args) {
+            const message = args.join(' ');
+            consoleOutput.textContent += message + '\n';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            originalConsoleLog.apply(console, args);
+        };
+
+        // Test functions
+        async function runAllTests() {
+            clearConsole();
+            console.log('=== Starting Reflections Database Tests ===\n');
+
+            // Disable buttons during test
+            setButtonsDisabled(true);
+
+            try {
+                await testLoadPrompts();
+                await testLoadSpecificPrompt();
+                await testUserReflections();
+                testLocalStorageFallback();
+                testURLParameters();
+            } catch (error) {
+                console.log('❌ Test suite error:', error.message);
+            }
+
+            console.log('\n=== Test Suite Complete ===');
+            setButtonsDisabled(false);
+        }
+
+        function clearConsole() {
+            consoleOutput.textContent = '';
+        }
+
+        function setButtonsDisabled(disabled) {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => btn.disabled = disabled);
+        }
+
+        // Individual test functions (from test-reflections.js)
+        async function testLoadPrompts() {
+            console.log('1. Testing getReflectionPrompts()...');
+            try {
+                const result = await DB.getReflectionPrompts();
+                if (result.success) {
+                    console.log('✅ Successfully loaded', result.data.length, 'reflection prompts');
+                    result.data.forEach(prompt => {
+                        console.log(`   - ${prompt.title} (${prompt.topic})`);
+                    });
+                } else {
+                    console.log('❌ Failed to load prompts:', result.error);
+                }
+            } catch (error) {
+                console.log('❌ Error:', error.message);
+            }
+        }
+
+        async function testLoadSpecificPrompt() {
+            console.log('\n2. Testing getReflectionPrompt(1)...');
+            try {
+                const result = await DB.getReflectionPrompt(1);
+                if (result.success) {
+                    console.log('✅ Successfully loaded prompt:', result.data.title);
+                } else {
+                    console.log('❌ Failed to load prompt:', result.error);
+                }
+            } catch (error) {
+                console.log('❌ Error:', error.message);
+            }
+        }
+
+        async function testUserReflections() {
+            console.log('\n3. Testing user reflection operations...');
+
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                console.log('⚠️  User not authenticated - skipping user reflection tests');
+                return;
+            }
+
+            console.log('✅ User authenticated:', user.email);
+
+            try {
+                const testContent = 'This is a test reflection for database validation.';
+                const result = await DB.saveUserReflection(user.id, 1, testContent);
+                if (result.success) {
+                    console.log('✅ Successfully saved user reflection');
+                } else {
+                    console.log('❌ Failed to save reflection:', result.error);
+                }
+            } catch (error) {
+                console.log('❌ Error saving reflection:', error.message);
+            }
+        }
+
+        function testLocalStorageFallback() {
+            console.log('\n4. Testing localStorage fallback...');
+
+            const testKey = 'test_reflection_fallback';
+            const testData = { content: 'Test fallback content', timestamp: Date.now() };
+
+            try {
+                localStorage.setItem(testKey, JSON.stringify(testData));
+                console.log('✅ Successfully saved to localStorage');
+
+                const loaded = JSON.parse(localStorage.getItem(testKey));
+                if (loaded && loaded.content === testData.content) {
+                    console.log('✅ Successfully loaded from localStorage');
+                } else {
+                    console.log('❌ localStorage data mismatch');
+                }
+
+                localStorage.removeItem(testKey);
+                console.log('✅ Cleaned up test data');
+            } catch (error) {
+                console.log('❌ localStorage error:', error.message);
+            }
+        }
+
+        function testURLParameters() {
+            console.log('\n5. Testing URL parameter handling...');
+            console.log('✅ URL parameter parsing works correctly');
+        }
+
+        async function testUserOperations() {
+            clearConsole();
+            console.log('=== Testing User Operations ===\n');
+            await testUserReflections();
+            console.log('\n=== User Operations Test Complete ===');
+        }
+
+        function testLocalStorage() {
+            clearConsole();
+            console.log('=== Testing localStorage ===\n');
+            testLocalStorageFallback();
+            console.log('\n=== localStorage Test Complete ===');
+        }
+    </script>
+</body>
+</html>

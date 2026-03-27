@@ -1,0 +1,739 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - Readings in Philippine History</title>
+    <link rel="icon" href="Images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="Styles/course.css">
+    <link rel="stylesheet" href="Styles/games.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="JS/supabase-config.js"></script>
+    <script src="JS/db-helpers.js"></script>
+</head>
+<body class="page-games">
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <button id="toggleSidebar" class="header-toggle-btn" type="button" aria-label="Toggle navigation">
+                ☰
+            </button>
+
+            <div class="header-logo">
+                <img src="Images/favicon.png" alt="RPH Logo" class="header-logo-img">
+                <h1 class="header-title"><a href="home.html" class="header-title-link">RPH Interactive Learning Hub
+</a></h1>
+            </div>
+
+            <div class="header-actions">
+                <button class="sidebar-toggle-right" id="sidebarToggleRight" title="Show more">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="15" y1="3" x2="15" y2="21"></line>
+                        <line x1="9" y1="9" x2="9" y2="9.01"></line>
+                        <line x1="9" y1="15" x2="9" y2="15.01"></line>
+                    </svg>
+                </button>
+                <button class="logout-btn" title="Logout">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Left Sidebar Navigation -->
+        <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
+            <!-- User Profile Section -->
+            <div class="user-profile">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect fill='%23e0e0e0' width='48' height='48'/%3E%3Ctext x='50%25' y='50%25' font-size='20' fill='%23999' text-anchor='middle' dy='.3em'%3E??%3C/text%3E%3C/svg%3E" alt="User avatar" class="profile-avatar" id="profileAvatar" />
+                <div class="profile-info">
+                    <h4 class="profile-name" id="profileName">Loading...</h4>
+                    <p class="profile-email" id="profileEmail">Loading...</p>
+                </div>
+                
+            </div>
+
+             <nav class="sidebar-nav">
+                <a href="course.html" class="nav-item" data-section="feed">
+                    <i data-lucide="radio" class="nav-icon-svg"></i>
+                    <span>Feed</span>
+                </a>
+                
+                <div class="nav-item-dropdown">
+                    <div class="nav-item" data-section="topic">
+                        <i data-lucide="book-open" class="nav-icon-svg"></i>
+                        <span>Topic</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                           <a href="first-mass.html" class="dropdown-item">First Mass</a>
+                        <a href="cavite-mutiny.html" class="dropdown-item">Cavite Mutiny</a>
+
+                        <a href="retraction-of-rizal.html" class="dropdown-item">Retraction of Rizal</a>
+                        <a href="cry-of-rebellion.html" class="dropdown-item">Cry of Rebellion</a>
+                   </div>
+                </div>
+                <div class="nav-item-dropdown open">
+                    <div class="nav-item" data-section="activities">
+                        <i data-lucide="calendar" class="nav-icon-svg"></i>
+                        <span>Learning Hub</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="games.html" class="dropdown-item active" data-section="games">
+                            <i data-lucide="gamepad-2" class="nav-icon"></i>
+                            Games
+                        </a>
+                        
+                        <a href="quizzes.html" class="dropdown-item" data-section="quizzes">
+                            <i data-lucide="clipboard-list" class="nav-icon"></i>
+                            Quizzes
+                        </a>
+
+                        <a href="interactive-tasks.html" class="dropdown-item" data-section="interactive">
+                            <i data-lucide="clock" class="nav-icon"></i>
+                            Interactive Tasks
+                        </a>
+
+                        <a href="worksheets.html" class="dropdown-item" data-section="worksheets">
+                            <i data-lucide="file-text" class="nav-icon"></i>
+                            Worksheets
+                        </a>
+
+                        <a href="Handouts.html" class="dropdown-item" data-section="handouts">
+                            <i data-lucide="file-text" class="nav-icon"></i>
+                            Handouts
+                        </a>
+                    </div>
+                </div>
+
+
+                <a href="videos.html" class="nav-item" data-section="videos">
+                    <i data-lucide="play-circle" class="nav-icon-svg"></i>
+                    <span>Videos</span>
+                </a>
+
+                <a href="reference.html" class="nav-item" data-section="reference">
+                    <i data-lucide="book-open" class="nav-icon-svg"></i>
+                    <span>Reference</span>
+                </a>
+            </nav>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="games-container">
+                <div class="page-title">
+                    <h1>Interactive Games</h1>
+                    <p>Test your knowledge and have fun with Philippine history!</p>
+                </div>
+
+                <div class="games-grid">
+                    <!-- Historical Trivia Race Game Card -->
+                    <div class="game-card trivia-race" id="triviaRaceCard">
+                        <div class="game-card-background"></div>
+                        <div class="game-card-title">Historical Trivia Race</div>
+                        <div class="game-card-meta">
+                            <span class="difficulty-badge">Progressive</span>
+                            <span class="time-badge">10-15 min</span>
+                        </div>
+                        <div class="game-card-overlay">
+                            <div class="game-controller-icon">
+                                <i data-lucide="zap"></i>
+                            </div>
+                        </div>
+                        <div class="game-card-description">
+                            Race against time! Answer rapid-fire questions and climb the leaderboard.
+                        </div>
+                    </div>
+
+                    <!-- Timeline Quest Card -->
+                    <div class="game-card voices" id="timelineQuestCard">
+                        <div class="game-card-background"></div>
+                        <div class="game-card-title">Timeline Quest</div>
+                        <div class="game-card-meta">
+                            <span class="difficulty-badge">Progressive</span>
+                            <span class="time-badge">10-15 min</span>
+                        </div>
+                        <div class="game-card-overlay">
+                            <div class="game-controller-icon">
+                                <i data-lucide="clock"></i>
+                            </div>
+                        </div>
+                        <div class="game-card-description">
+                            Arrange historical events in chronological order.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Timeline Quest Game Modal -->
+            <div class="timeline-modal" id="timelineModal">
+                <div class="timeline-modal-content">
+                    <button class="timeline-close-btn" id="timelineCloseBtn">
+                        <i data-lucide="x"></i>
+                    </button>
+
+                    <!-- Start Screen -->
+                    <div class="timeline-screen timeline-start-screen active" id="timelineStartScreen">
+                        <div class="timeline-start-content">
+                            <div class="timeline-icon-large">
+                                <i data-lucide="clock"></i>
+                            </div>
+                            <h2>Timeline Quest</h2>
+                            <p class="timeline-description">Arrange Philippine historical events in the correct chronological order!</p>
+                            
+                            <!-- Era Selection -->
+                            <div class="timeline-era-select">
+                                <h3><i data-lucide="calendar"></i> Choose Topic</h3>
+                                <div class="era-chips" id="eraChips">
+                                    <button class="era-chip active" data-era="mixed">
+                                        <i data-lucide="shuffle"></i> All Topics
+                                    </button>
+                                    <button class="era-chip" data-era="first-mass">
+                                        <i data-lucide="church"></i> First Mass
+                                    </button>
+                                    <button class="era-chip" data-era="cavite-mutiny">
+                                        <i data-lucide="flame"></i> Cavite Mutiny
+                                    </button>
+                                    <button class="era-chip" data-era="cry-rebellion">
+                                        <i data-lucide="sword"></i> Cry of Rebellion
+                                    </button>
+                                    <button class="era-chip" data-era="retraction-rizal">
+                                        <i data-lucide="scroll"></i> Retraction of Rizal
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="timeline-rules">
+                                <h3><i data-lucide="info"></i> How to Play</h3>
+                                <ul>
+                                    <li>Drag and drop event cards onto the timeline</li>
+                                    <li>Arrange events from earliest to latest (left to right)</li>
+                                    <li>Complete 5 rounds with increasing difficulty</li>
+                                    <li>Earn bonus points for perfect accuracy</li>
+                                    <li>Race against time for maximum score</li>
+                                    <li>Compete on the leaderboard!</li>
+                                </ul>
+                            </div>
+
+                            <!-- Sound Toggle -->
+                            <div class="timeline-sound-toggle">
+                                <button class="sound-btn active" id="timelineSoundToggleBtn" title="Toggle Sound">
+                                    <i data-lucide="volume-2"></i>
+                                    <span>Sound ON</span>
+                                </button>
+                            </div>
+
+                            <button class="timeline-btn-primary" id="timelineStartBtn">
+                                <i data-lucide="play"></i>
+                                Start Quest
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Game Screen -->
+                    <div class="timeline-screen timeline-game-screen" id="timelineGameScreen">
+                        <div class="timeline-game-header">
+                            <div class="timeline-stat">
+                                <i data-lucide="trophy"></i>
+                                <span>Score: <strong id="timelineScore">0</strong></span>
+                            </div>
+                            <div class="timeline-stat">
+                                <i data-lucide="layers"></i>
+                                <span>Round: <strong><span id="timelineCurrentRound">1</span>/5</strong></span>
+                            </div>
+                            <div class="timeline-stat">
+                                <i data-lucide="clock"></i>
+                                <span>Time: <strong id="timelineTimer">0:00</strong></span>
+                            </div>
+                        </div>
+
+                        <!-- Round Progress -->
+                        <div class="timeline-round-progress">
+                            <div class="round-progress-label">
+                                <span class="round-phase" id="roundPhaseLabel">Warm Up Phase</span>
+                                <span class="round-difficulty" id="roundDifficultyLabel">4 Events</span>
+                            </div>
+                            <div class="round-progress-dots" id="roundProgressDots">
+                                <div class="progress-dot active"></div>
+                                <div class="progress-dot"></div>
+                                <div class="progress-dot"></div>
+                                <div class="progress-dot"></div>
+                                <div class="progress-dot"></div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Track -->
+                        <div class="timeline-track-container">
+                            <div class="timeline-instructions">
+                                <i data-lucide="info"></i>
+                                <span>Drag events onto the timeline • Earliest to Latest (Left to Right)</span>
+                            </div>
+                            
+                            <div class="timeline-track" id="timelineTrack">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-markers">
+                                    <div class="timeline-marker start">
+                                        <div class="marker-dot"></div>
+                                        <div class="marker-label">Start</div>
+                                    </div>
+                                    <div class="timeline-marker end">
+                                        <div class="marker-dot"></div>
+                                        <div class="marker-label">End</div>
+                                    </div>
+                                </div>
+                                <!-- Drop zones will be dynamically inserted here -->
+                                <div class="timeline-drop-zones" id="timelineDropZones">
+                                    <!-- Drop zone slots will be created by JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Event Cards Area -->
+                        <div class="timeline-cards-container">
+                            <div class="timeline-cards-header">
+                                <h3><i data-lucide="grip-vertical"></i> Historical Events</h3>
+                                <button class="timeline-hint-btn" id="timelineHintBtn" title="Get a hint (-50 points)">
+                                    <i data-lucide="lightbulb"></i>
+                                    Hint
+                                </button>
+                            </div>
+                            <div class="timeline-cards-area" id="timelineCardsArea">
+                                <!-- Event cards will be dynamically inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="timeline-actions">
+                            <button class="timeline-btn-secondary" id="timelineResetBtn">
+                                <i data-lucide="rotate-ccw"></i>
+                                Reset
+                            </button>
+                            <button class="timeline-btn-primary" id="timelineSubmitBtn" disabled>
+                                <i data-lucide="check-circle"></i>
+                                Submit Answer
+                            </button>
+                        </div>
+
+                        <!-- Feedback Overlay -->
+                        <div class="timeline-feedback" id="timelineFeedback">
+                            <!-- Feedback will be shown here -->
+                        </div>
+                    </div>
+
+                    <!-- End Screen -->
+                    <div class="timeline-screen timeline-end-screen" id="timelineEndScreen">
+                        <div class="timeline-end-content">
+                            <div class="timeline-icon-large success">
+                                <i data-lucide="award"></i>
+                            </div>
+                            <h2>Quest Complete!</h2>
+                            
+                            <div class="timeline-performance-grade" id="timelinePerformanceGrade">
+                                <div class="grade-letter">A</div>
+                                <div class="grade-label">Excellent Historian!</div>
+                            </div>
+
+                            <div class="timeline-final-stats">
+                                <div class="timeline-final-stat">
+                                    <div class="stat-icon"><i data-lucide="trophy"></i></div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="timelineFinalScore">0</div>
+                                        <div class="stat-label">Total Score</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-final-stat">
+                                    <div class="stat-icon"><i data-lucide="check-circle"></i></div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="timelinePerfectRounds">0/5</div>
+                                        <div class="stat-label">Perfect Rounds</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-final-stat">
+                                    <div class="stat-icon"><i data-lucide="percent"></i></div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="timelineAccuracy">0%</div>
+                                        <div class="stat-label">Accuracy</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-final-stat">
+                                    <div class="stat-icon"><i data-lucide="clock"></i></div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="timelineTotalTime">0:00</div>
+                                        <div class="stat-label">Total Time</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-rank-display" id="timelineRankDisplay">
+                                <i data-lucide="bar-chart-2"></i>
+                                <span>Checking leaderboard position...</span>
+                            </div>
+
+                            <div class="timeline-end-actions">
+                                <button class="timeline-btn-secondary" id="timelineViewLeaderboardBtn">
+                                    <i data-lucide="bar-chart-2"></i>
+                                    View Leaderboard
+                                </button>
+                                <button class="timeline-btn-primary" id="timelinePlayAgainBtn">
+                                    <i data-lucide="refresh-cw"></i>
+                                    Play Again
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Leaderboard Screen -->
+                    <div class="timeline-screen timeline-leaderboard-screen" id="timelineLeaderboardScreen">
+                        <div class="leaderboard-header">
+                            <h2><i data-lucide="bar-chart-2"></i> Timeline Quest Leaderboard</h2>
+                            <div class="leaderboard-filters">
+                                <button class="filter-btn active" data-filter="all-time">All Time</button>
+                                <button class="filter-btn" data-filter="this-week">This Week</button>
+                                <button class="filter-btn" data-filter="today">Today</button>
+                            </div>
+                        </div>
+
+                        <div class="leaderboard-list" id="timelineLeaderboardList">
+                            <!-- Leaderboard entries will be dynamically inserted here -->
+                            <div class="leaderboard-loading">
+                                <i data-lucide="loader" class="spin"></i>
+                                <p>Loading leaderboard...</p>
+                            </div>
+                        </div>
+
+                        <button class="timeline-btn-secondary" id="timelineBackToEndBtn">
+                            <i data-lucide="arrow-left"></i>
+                            Back to Results
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Trivia Race Game Modal -->
+            <div class="trivia-modal" id="triviaModal">
+                <div class="trivia-modal-content">
+                    <button class="trivia-close-btn" id="triviaCloseBtn">
+                        <i data-lucide="x"></i>
+                    </button>
+
+                    <!-- Start Screen -->
+                    <div class="trivia-screen trivia-start-screen active" id="triviaStartScreen">
+                        <div class="trivia-start-content">
+                            <div class="trivia-icon-large">
+                                <i data-lucide="zap"></i>
+                            </div>
+                            <h2>Historical Trivia Race</h2>
+                            <p class="trivia-description">Test your knowledge of Philippine history in this fast-paced trivia challenge!</p>
+                            
+                            <!-- Category Filter -->
+                            <div class="category-filter">
+                                <h3>Filter by Topic</h3>
+                                <div class="category-chips" id="categoryChips">
+                                    <button class="category-chip active" data-topic="all">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="globe" aria-hidden="true" class="lucide lucide-globe"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg> All Topics
+                                    </button>
+                                    <button class="category-chip" data-topic="First Mass">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="church" aria-hidden="true" class="lucide lucide-church"><path d="M10 9h4"></path><path d="M12 7v5"></path><path d="M14 21v-3a2 2 0 0 0-4 0v3"></path><path d="m18 9 3.52 2.147a1 1 0 0 1 .48.854V19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6.999a1 1 0 0 1 .48-.854L6 9"></path><path d="M6 21V7a1 1 0 0 1 .376-.782l5-3.999a1 1 0 0 1 1.249.001l5 4A1 1 0 0 1 18 7v14"></path></svg> First Mass
+                                    </button>
+                                    <button class="category-chip" data-topic="Cavite Mutiny">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="swords" aria-hidden="true" class="lucide lucide-swords"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"></polyline><line x1="13" x2="19" y1="19" y2="13"></line><line x1="16" x2="20" y1="16" y2="20"></line><line x1="19" x2="21" y1="21" y2="19"></line><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"></polyline><line x1="5" x2="9" y1="14" y2="18"></line><line x1="7" x2="4" y1="17" y2="20"></line><line x1="3" x2="5" y1="19" y2="21"></line></svg> Cavite Mutiny
+                                    </button>
+                                    <button class="category-chip" data-topic="Retraction of Rizal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="scroll-text" aria-hidden="true" class="lucide lucide-scroll-text"><path d="M15 12h-5"></path><path d="M15 8h-5"></path><path d="M19 17V5a2 2 0 0 0-2-2H4"></path><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"></path></svg> Retraction of Rizal
+                                    </button>
+                                    <button class="category-chip" data-topic="Cry of Rebellion">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="flame" aria-hidden="true" class="lucide lucide-flame"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"></path></svg> Cry of Rebellion
+                                    </button>
+                                    <button class="category-chip" data-topic="surprise">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shuffle" aria-hidden="true" class="lucide lucide-shuffle"><path d="m18 14 4 4-4 4"></path><path d="m18 2 4 4-4 4"></path><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"></path><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"></path><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"></path></svg> Surprise Topics
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="trivia-rules">
+                                <h3><i data-lucide="info"></i> How to Play</h3>
+                                <ul>
+                                    <li>Answer multiple-choice questions about Philippine history</li>
+                                    <li>Each question has a 30-second timer</li>
+                                    <li>Earn more points for faster answers</li>
+                                    <li>Questions get harder as you progress</li>
+                                    <li>Use power-ups wisely — you only get one of each!</li>
+                                    <li>Compete for the top spot on the leaderboard!</li>
+                                </ul>
+                            </div>
+
+                            <!-- Sound Toggle -->
+                            <div class="trivia-sound-toggle">
+                                <button class="sound-btn active" id="soundToggleBtn" title="Toggle Sound">
+                                    <i data-lucide="volume-2"></i>
+                                    <span>Sound ON</span>
+                                </button>
+                            </div>
+
+                            <button class="trivia-btn-primary" id="triviaStartBtn">
+                                <i data-lucide="play"></i>
+                                Start Game
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Game Screen -->
+                    <div class="trivia-screen trivia-game-screen" id="triviaGameScreen">
+                        <div class="trivia-game-header">
+                            <div class="trivia-stat">
+                                <i data-lucide="trophy"></i>
+                                <span>Score: <strong id="triviaScore">0</strong></span>
+                            </div>
+                            <div class="trivia-stat">
+                                <i data-lucide="target"></i>
+                                <span>Question: <strong><span id="triviaCurrentQ">1</span>/<span id="triviaTotalQ">10</span></strong></span>
+                            </div>
+                            <div class="trivia-stat">
+                                <i data-lucide="zap"></i>
+                                <span>Streak: <strong id="triviaStreak">0</strong></span>
+                            </div>
+                        </div>
+
+                        <!-- Difficulty Progress Bar -->
+                        <div class="difficulty-progress-container">
+                            <div class="difficulty-progress-label">
+                                <span class="current-phase" id="currentPhaseLabel">Warm Up</span>
+                                <span class="phase-indicator" id="phaseIndicator">Phase 1 of 3</span>
+                            </div>
+                            <div class="difficulty-progress-track">
+                                <div class="difficulty-progress-fill" id="difficultyProgressFill"></div>
+                                    <div class="difficulty-milestone pos-40">
+                                    <div class="milestone-marker"></div>
+                                    <div class="milestone-label">Medium</div>
+                                </div>
+                                    <div class="difficulty-milestone pos-80">
+                                    <div class="milestone-marker"></div>
+                                    <div class="milestone-label">Hard</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Power-Ups Bar -->
+                        <div class="trivia-powerups-bar" id="triviaPowerupsBar">
+                            <button class="powerup-btn" id="powerup5050" title="Remove 2 wrong answers">
+                                <div class="powerup-icon">50/50</div>
+                                <div class="powerup-label">Eliminate</div>
+                            </button>
+                            <button class="powerup-btn" id="powerupSkip" title="Skip this question">
+                                <div class="powerup-icon"><i data-lucide="skip-forward"></i></div>
+                                <div class="powerup-label">Skip</div>
+                            </button>
+                            <button class="powerup-btn" id="powerupTime" title="Add 15 seconds">
+                                <div class="powerup-icon"><i data-lucide="clock"></i></div>
+                                <div class="powerup-label">+15s</div>
+                            </button>
+                        </div>
+
+                        <div class="trivia-timer-container">
+                            <div class="trivia-timer-bar" id="triviaTimerBar"></div>
+                            <div class="trivia-timer-text" id="triviaTimerText">30s</div>
+                        </div>
+
+                        <div class="trivia-question-container">
+                            <div class="trivia-difficulty-badge" id="triviaDifficultyBadge">Easy</div>
+                            <h3 class="trivia-question" id="triviaQuestion">Loading question...</h3>
+                        </div>
+
+                        <div class="trivia-answers" id="triviaAnswers">
+                            <!-- Answer buttons will be dynamically inserted here -->
+                        </div>
+
+                        <div class="trivia-feedback" id="triviaFeedback">
+                            <!-- Feedback will be shown here -->
+                        </div>
+                    </div>
+
+                    <!-- End Screen -->
+                    <div class="trivia-screen trivia-end-screen" id="triviaEndScreen">
+                        <div class="trivia-end-content">
+                            <div class="trivia-icon-large success">
+                                <i data-lucide="trophy"></i>
+                            </div>
+                            <h2>Game Complete!</h2>
+                            
+                            <div class="trivia-final-stats">
+                                <div class="trivia-final-stat">
+                                    <div class="stat-value" id="triviaFinalScore">0</div>
+                                    <div class="stat-label">Final Score</div>
+                                </div>
+                                <div class="trivia-final-stat">
+                                    <div class="stat-value" id="triviaCorrectAnswers">0</div>
+                                    <div class="stat-label">Correct Answers</div>
+                                </div>
+                                <div class="trivia-final-stat">
+                                    <div class="stat-value" id="triviaAccuracy">0%</div>
+                                    <div class="stat-label">Accuracy</div>
+                                </div>
+                            </div>
+
+                            <div class="trivia-rank-display" id="triviaRankDisplay">
+                                <i data-lucide="award"></i>
+                                <span>Checking leaderboard position...</span>
+                            </div>
+
+                            <div class="trivia-end-actions">
+                                <button class="trivia-btn-secondary" id="triviaViewLeaderboardBtn">
+                                    <i data-lucide="bar-chart-2"></i>
+                                    View Leaderboard
+                                </button>
+                                <button class="trivia-btn-primary" id="triviaPlayAgainBtn">
+                                    <i data-lucide="refresh-cw"></i>
+                                    Play Again
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Leaderboard Screen -->
+                    <div class="trivia-screen trivia-leaderboard-screen" id="triviaLeaderboardScreen">
+                        <div class="leaderboard-header">
+                            <h2><i data-lucide="bar-chart-2"></i> Historical Trivia Race Leaderboard</h2>
+                            <div class="leaderboard-filters">
+                                <button class="filter-btn active" data-filter="all-time">All Time</button>
+                                <button class="filter-btn" data-filter="this-week">This Week</button>
+                                <button class="filter-btn" data-filter="today">Today</button>
+                            </div>
+                        </div>
+
+                        <div class="leaderboard-list" id="triviaLeaderboardList">
+                            <!-- Leaderboard entries will be dynamically inserted here -->
+                            <div class="leaderboard-loading">
+                                <i data-lucide="loader" class="spin"></i>
+                                <p>Loading leaderboard...</p>
+                            </div>
+                        </div>
+
+                        <button class="trivia-btn-secondary" id="triviaBackToEndBtn">
+                            <i data-lucide="arrow-left"></i>
+                            Back to Results
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Edit Profile Modal -->
+        <div class="modal" id="editProfileModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Profile</h2>
+                    <button class="modal-close" id="closeEditModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                        <div class="profile-preview">
+                        <div class="profile-emoji">👤</div>
+                        <h3 class="profile-title">Edit Your Profile</h3>
+                        <p class="profile-desc">
+                            To edit your profile information, please visit the <a href="course.html" class="profile-link">Feed page</a>.
+                        </p>
+                        <p class="profile-note">
+                            You can update your profile picture, name, and bio there.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" id="cancelEditBtn">Cancel</button>
+                    <button class="btn-save" onclick="window.location.href='course.html'">Go to Feed</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- To-do Section -->
+            
+
+            <!-- Game Tips Section -->
+            <div class="widget">
+                <div class="widget-header">
+                    <i data-lucide="lightbulb" class="widget-icon" aria-hidden="true"></i>
+                    <h3>Game Tips</h3>
+                </div>
+
+                <div class="widget-content ideas-list">
+                    <div class="idea-card" data-tooltip="Quick answers earn 2x points!">
+                        <div class="idea-inner">
+                            <i data-lucide="zap" class="idea-icon"></i>
+                            <div class="idea-info">
+                                <strong>Trivia Race</strong>
+                                <p>Answer quickly for bonus points! Each question has a 30-second timer.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card" data-tooltip="Remember: chronological order matters!">
+                        <div class="idea-inner">
+                            <i data-lucide="clock" class="idea-icon"></i>
+                            <div class="idea-info">
+                                <strong>Timeline Quest</strong>
+                                <p>Drag events from earliest to latest (left to right) on the timeline.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card" data-tooltip="3-in-a-row = triple points!">
+                        <div class="idea-inner">
+                            <i data-lucide="target" class="idea-icon"></i>
+                            <div class="idea-info">
+                                <strong>Build Streaks</strong>
+                                <p>Consecutive correct answers multiply your score in Trivia Race.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card" data-tooltip="Hints cost 50 points but save time">
+                        <div class="idea-inner">
+                            <i data-lucide="lightbulb" class="idea-icon"></i>
+                            <div class="idea-info">
+                                <strong>Use Hints Wisely</strong>
+                                <p>In Timeline Quest, hints cost points but can help when you're stuck.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card" data-tooltip="50/50 removes 2 wrong answers">
+                        <div class="idea-inner">
+                            <i data-lucide="settings" class="idea-icon"></i>
+                            <div class="idea-info">
+                                <strong>Power-ups</strong>
+                                <p>Use 50/50, Skip, and Time Boost strategically in Trivia Race.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card" data-tooltip="Beat your high score!">
+                        <div class="idea-inner">
+                            <i data-lucide="trophy" class="idea-icon"></i>
+                            <div class="idea-info">
+                                <strong>Leaderboard</strong>
+                                <p>Compete with other players and climb the rankings!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard Preview Section -->
+            
+        </aside>
+    </div>
+
+    <script src="JS/course.js?v=20260211e"></script>
+    <script src="JS/games.js?v=20260211e"></script>
+</body>
+</html>
+

@@ -1,0 +1,741 @@
+        .content-with-infographic {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            align-items: center;
+            margin-top: 32px;
+            margin-bottom: 32px;
+            justify-items: center;
+        }
+
+        .infographic-container {
+            grid-column: 1;
+            width: 100%;
+            max-width: 700px;
+            position: relative;
+        }
+
+        .infographic-wrapper {
+            background: #ffffff;
+            border: 3px solid #D6DCE1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(92, 52, 34, 0.12);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+            background: #D6DCE1;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            animation: fade 1s;
+        }
+
+        .slide.fade {
+            animation: fade 1s;
+        }
+
+        @keyframes fade {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        .infographic-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .slide:hover .infographic-image {
+            transform: scale(1.05);
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 50px;
+            margin-top: -25px;
+            padding: 0;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            background: rgba(92, 52, 34, 0.7);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .next {
+            right: 16px;
+        }
+
+        .prev {
+            left: 16px;
+        }
+
+        .prev:hover, .next:hover {
+            background: rgba(92, 52, 34, 0.95);
+            transform: scale(1.1);
+        }
+
+        /* Fullscreen Button */
+        .fullscreen-btn {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(92, 52, 34, 0.8);
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(92, 52, 34, 0.95);
+            transform: scale(1.1);
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(92, 52, 34, 0.8);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 9;
+        }
+
+        /* Slide Dots */
+        .slideshow-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 0;
+            background: #ffffff;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 12px;
+            width: 12px;
+            margin: 0 4px;
+            background-color: #ddd;
+            border-radius: 50%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
+        }
+
+        .dot.active {
+            background-color: #51513E;
+            transform: scale(1.2);
+        }
+
+        .dot:hover {
+            background-color: #999;
+        }
+
+        /* Infographic Caption */
+        .infographic-caption {
+            padding: 28px 28px;
+            background: linear-gradient(135deg, #D6DCE1 0%, #ffffff 100%);
+            border-top: 2px solid #D6DCE1;
+            transition: all 0.4s ease;
+        }
+
+        .infographic-caption h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #423833;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .infographic-caption p {
+            font-size: 14px;
+            color: #423833;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* ===== HORIZONTAL TIMELINE STYLES ===== */
+        .timeline-container {
+            width: 100%;
+            padding: 40px 0;
+            background: #ffffff;
+            border-radius: 12px;
+        }
+
+        .timeline-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #423833;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: -0.5px;
+        }
+
+        .horizontal-timeline {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 20px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .horizontal-timeline::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .horizontal-timeline::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .horizontal-timeline::-webkit-scrollbar-thumb {
+            background: #5C3422;
+            border-radius: 10px;
+        }
+
+        .horizontal-timeline::-webkit-scrollbar-thumb:hover {
+            background: #442913;
+        }
+
+        .timeline-event {
+            min-width: 320px;
+            background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%);
+            border: 2px solid #D6DCE1;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            flex: 1 1 calc(50% - 10px);
+        }
+
+        .timeline-event:hover {
+            border-color: #5C3422;
+            box-shadow: 0 12px 24px rgba(92, 52, 34, 0.15);
+            transform: translateY(-4px);
+        }
+
+        @media (max-width: 1200px) {
+            .timeline-event {
+                flex: 1 1 calc(50% - 10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-event {
+                flex: 1 1 100%;
+            }
+
+            .event-image {
+                height: 220px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .horizontal-timeline {
+                padding: 16px;
+                gap: 16px;
+            }
+
+            .timeline-event {
+                flex: 1 1 100%;
+                min-width: auto;
+            }
+
+            .event-image {
+                height: 160px;
+            }
+
+            .event-info {
+                padding: 16px;
+            }
+
+            .event-title {
+                font-size: 15px;
+            }
+
+            .event-description {
+                font-size: 12px;
+            }
+        }
+
+        .timeline-marker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #5C3422 0%, #98755B 100%);
+            z-index: 2;
+        }
+
+        .timeline-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .event-image {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background: #D6DCE1;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-event:hover .event-image img {
+            transform: scale(1.05);
+        }
+
+        .event-info {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-info h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #5C3422;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+        }
+
+        .event-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #423833;
+            margin: 0 0 12px 0;
+        }
+
+        .event-description {
+            font-size: 13px;
+            color: #51513E;
+            line-height: 1.5;
+            margin: 0;
+            flex: 1;
+        }
+
+        /* ===== END TIMELINE STYLES ===== */
+
+        /* ===== IMAGE MODAL STYLES ===== */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease-in-out;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .image-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F9F7F4 100%);
+            border-radius: 16px;
+            max-width: 900px;
+            width: 100%;
+            height: auto;
+            max-height: none;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(92, 52, 34, 0.3);
+            animation: slideUp 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #5C3422;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.2s ease;
+            background: rgba(255, 255, 255, 0.9);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #442913;
+            transform: scale(1.1);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px 12px 0 0;
+            object-fit: contain;
+            max-height: 75vh;
+        }
+
+        .modal-info {
+            padding: 24px;
+            text-align: center;
+            background: #FFFFFF;
+            border-radius: 0 0 12px 12px;
+            flex-shrink: 0;
+        }
+
+        .modal-info h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #423833;
+            margin: 0 0 12px 0;
+        }
+
+        .modal-info p {
+            font-size: 14px;
+            color: #51513E;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .image-modal {
+                padding: 10px;
+            }
+
+            .modal-content {
+                max-width: 100%;
+            }
+
+            .modal-image {
+                max-height: 70vh;
+            }
+
+            .modal-info {
+                padding: 16px;
+            }
+
+            .modal-info h3 {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            .modal-info p {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+            .modal-close {
+                right: 12px;
+                top: 12px;
+                width: 36px;
+                height: 36px;
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-image {
+                max-height: 65vh;
+            }
+
+            .modal-info {
+                padding: 12px;
+            }
+
+            .modal-info h3 {
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+
+            .modal-info p {
+                font-size: 12px;
+                line-height: 1.5;
+            }
+        }
+        /* ===== END MODAL STYLES ===== */
+
+        /* Educational Content Styling */
+        .educational-content {
+            background: linear-gradient(135deg, #E2D5C2 0%, #D4BBAC 100%);
+            border: 2px solid #98755B;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 48px;
+            line-height: 1.8;
+            color: #442913;
+        }
+
+        .educational-content h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #5C3422;
+            margin-bottom: 32px;
+            text-align: center;
+            border-bottom: 3px solid #5C3422;
+            padding-bottom: 16px;
+        }
+
+        .content-section {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #D6DCE1;
+        }
+
+        .content-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .content-section h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #51513E;
+            margin-bottom: 16px;
+        }
+
+        .content-section p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #51513E;
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        .content-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-section ul {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+            text-align: justify;
+        }
+
+        blockquote {
+            background: #D6DCE1;
+            border-left: 4px solid #51513E;
+            padding: 20px 24px;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-style: italic;
+            color: #423833;
+        }
+
+        blockquote p {
+            margin-bottom: 12px;
+            color: #423833;
+        }
+
+        blockquote footer {
+            font-size: 12px;
+            color: #7A5B47;
+            margin-top: 12px;
+            font-style: normal;
+        }
+
+        blockquote em {
+            font-style: italic;
+        }
+
+        /* Engagement Styles */
+        .highlight {
+            background: #D6DCE1;
+            color: #423833;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .key-term {
+            color: #51513E;
+            font-weight: 700;
+            border-bottom: 2px solid #D6DCE1;
+            padding-bottom: 2px;
+        }
+
+        .emphasis {
+            color: #423833;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .fact-callout {
+            background: linear-gradient(135deg, #FEF5E7 0%, #F9F0E3 100%);
+            border-left: 4px solid #51513E;
+            border-radius: 6px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #423833;
+            box-shadow: 0 2px 8px rgba(81, 81, 62, 0.1);
+        }
+
+        .fact-callout strong {
+            color: #51513E;
+        }
+
+        .fact-callout.importance-high {
+            background: linear-gradient(135deg, #FCE8E4 0%, #F9E4DF 100%);
+            border-left-color: #423833;
+            box-shadow: 0 4px 12px rgba(92, 52, 34, 0.15);
+        }
+
+        .fact-callout.conclusion-box {
+            background: linear-gradient(135deg, #E8F4F0 0%, #E0EEEA 100%);
+            border-left-color: #423833;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .perspective-section {
+            position: relative;
+            border-left: 4px solid #D6DCE1;
+            padding-left: 20px;
+            margin-left: 0;
+        }
+
+        .perspective-section.historians-perspective {
+            border-left-color: #423833;
+            background: rgba(92, 52, 34, 0.04);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .perspective-label {
+            font-weight: 700;
+            color: #51513E;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 1200px) {
+            .slideshow-container {
+                margin-bottom: 8px;
+            }
+
+            .infographic-caption {
+                padding: 20px;
+            }
+
+            .infographic-caption h4 {
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+
+            .infographic-caption p {
+                font-size: 13px;
+            }
+
+            .prev, .next {
+                width: 44px;
+                height: 44px;
+                margin-top: -22px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .educational-content {
+                padding: 24px;
+            }
+
+            .educational-content h3 {
+                font-size: 22px;
+            }
+
+            .content-section h4 {
+                font-size: 16px;
+            }
+
+            blockquote {
+                padding: 16px 20px;
+            }
+
+            .perspective-section {
+                padding-left: 16px;
+            }
+
+            .fact-callout {
+                padding: 14px 16px;
+            }
+
+            .sidebar-toggle-btn {
+                display: flex !important;
+            }
+        }

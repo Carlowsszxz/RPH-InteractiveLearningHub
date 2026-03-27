@@ -1,0 +1,561 @@
+.content-with-infographic {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    justify-items: center;
+}
+
+.infographic-container {
+    grid-column: 1;
+    width: 100%;
+    /* increased to accommodate portrait/large images */
+    max-width: 1200px;
+    position: relative;
+}
+
+.infographic-wrapper {
+    background: transparent; /* no plate behind the stacked cards */
+    border: none; /* removed border as requested */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: none; /* removed shadow */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gallery layout: show thumbnails side-by-side */
+.infographic-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    padding: 18px;
+    align-items: start;
+}
+
+.infographic-gallery.stack {
+    display: block;
+    position: relative;
+    /* taller area so portrait/full images can display without cropping */
+    height: 560px;
+    /* add extra bottom-only space so the gallery feels lower and leaves more breathing room below */
+    padding: 28px 0 120px;
+}
+
+/* main card width and sliver spacing */
+
+:root { --stack-card-w: 380px; --stack-card-h: 520px; --stack-s: 16px; }
+
+.infographic-gallery.stack figure {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--stack-card-w);
+    height: var(--stack-card-h);
+    margin: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: none; /* remove card shadow */
+    transition: transform 0.28s ease;
+    cursor: pointer;
+}
+
+/* centered stagger: each subsequent card shifts by --stack-s to the right */
+.infographic-gallery.stack figure:nth-child(1) { z-index: 10; transform: translate(calc(-50% + 0px), -50%) rotate(-0.6deg); }
+.infographic-gallery.stack figure:nth-child(2) { z-index: 9; transform: translate(calc(-50% + calc(var(--stack-s) * 1)), calc(-50% + 8px)) rotate(-0.3deg); }
+.infographic-gallery.stack figure:nth-child(3) { z-index: 8; transform: translate(calc(-50% + calc(var(--stack-s) * 2)), calc(-50% + 16px)) rotate(0.2deg); }
+.infographic-gallery.stack figure:nth-child(4) { z-index: 7; transform: translate(calc(-50% + calc(var(--stack-s) * 3)), calc(-50% + 24px)) rotate(0.6deg); }
+.infographic-gallery.stack figure:nth-child(5) { z-index: 6; transform: translate(calc(-50% + calc(var(--stack-s) * 4)), calc(-50% + 32px)) rotate(1.0deg); }
+.infographic-gallery.stack figure:nth-child(6) { z-index: 5; transform: translate(calc(-50% + calc(var(--stack-s) * 5)), calc(-50% + 40px)) rotate(1.4deg); }
+.infographic-gallery.stack figure:nth-child(7) { z-index: 4; transform: translate(calc(-50% + calc(var(--stack-s) * 6)), calc(-50% + 48px)) rotate(1.8deg); }
+.infographic-gallery.stack figure:nth-child(8) { z-index: 3; transform: translate(calc(-50% + calc(var(--stack-s) * 7)), calc(-50% + 56px)) rotate(2.2deg); }
+.infographic-gallery.stack figure:nth-child(9) { z-index: 2; transform: translate(calc(-50% + calc(var(--stack-s) * 8)), calc(-50% + 64px)) rotate(2.6deg); }
+.infographic-gallery.stack figure:nth-child(10) { z-index: 1; transform: translate(calc(-50% + calc(var(--stack-s) * 9)), calc(-50% + 72px)) rotate(3.0deg); }
+.infographic-gallery.stack figure:nth-child(11) { z-index: 0; transform: translate(calc(-50% + calc(var(--stack-s) * 10)), calc(-50% + 80px)) rotate(3.4deg); }
+.infographic-gallery.stack figure:nth-child(12) { z-index: -1; transform: translate(calc(-50% + calc(var(--stack-s) * 11)), calc(-50% + 88px)) rotate(3.8deg); }
+
+.infographic-gallery.stack figure:first-child:hover { transform: translate(calc(-50% + 0px), -50%) scale(1.03); z-index: 12; box-shadow: none; }
+
+/* Make images fill the card */
+.infographic-gallery.stack figure {
+    background: transparent; /* ensure no white plate behind contained images */
+}
+
+.infographic-gallery.stack img {
+    width: 100%;
+    height: 100%;
+    /* show the whole image inside the card instead of cropping */
+    object-fit: contain;
+    display: block;
+    background: transparent; /* remove white background so letterbox shows underlying figure/wrapper */
+}
+
+/* Visual feedback when a card is brought to front */
+.infographic-gallery.stack figure.brought {
+    transform: translate(calc(-50% + 0px), -50%) scale(1.04) !important;
+    box-shadow: none !important;
+    transition: transform 0.36s cubic-bezier(.2,.9,.3,1);
+}
+
+/* ensure any hover/active states do not reintroduce shadows */
+.infographic-gallery.stack figure:hover { box-shadow: none; }
+
+/* Make sliver (non-top) cards decorative only: anchors/images are not interactive
+   Only the top (last) figure remains clickable. */
+.infographic-gallery.stack figure:not(:first-child) {
+    /* Make every figure except the first non-interactive so only the
+       first (top) card responds to hover/click. */
+    pointer-events: none;
+}
+.infographic-gallery.stack figure:first-child {
+    /* Ensure the first card is interactive. */
+    pointer-events: auto;
+}
+
+/* Keep anchors/images inside non-first figures visually inert as a fallback */
+.infographic-gallery.stack figure:not(:first-child) a,
+.infographic-gallery.stack figure:not(:first-child) img {
+    cursor: default;
+    opacity: 0.98;
+}
+.infographic-gallery.stack figure:first-child a,
+.infographic-gallery.stack figure:first-child img {
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    /* Keep the stacked layout but scale slightly for medium screens (tablets) */
+    :root { --stack-card-w: 340px; --stack-card-h: 460px; --stack-s: 12px; }
+    .infographic-gallery.stack { height: 520px; padding: 18px 0 72px; }
+    .infographic-gallery.stack figure {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: var(--stack-card-w);
+        height: var(--stack-card-h);
+        margin: 0;
+        transform-origin: center center;
+        box-shadow: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .infographic-gallery {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 12px;
+    }
+    .infographic-gallery figure { aspect-ratio: 16 / 9; }
+}
+
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: #D6DCE1;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    animation: fade 1s;
+}
+
+.slide.fade {
+    display: block;
+    animation: fade 1s;
+}
+
+@keyframes fade {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+.infographic-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.slide:hover .infographic-image {
+    transform: scale(1.05);
+}
+
+.slide:hover .infographic-image {
+    transform: scale(1.02);
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.35));
+    box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+    user-select: none;
+    z-index: 30;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.next { right: 12px; }
+.prev { left: 12px; }
+
+.prev:hover, .next:hover,
+.prev:focus, .next:focus {
+    transform: translateY(-50%) scale(1.06);
+    background: linear-gradient(135deg, rgba(92,52,34,0.95), rgba(72,44,32,0.9));
+    box-shadow: 0 14px 30px rgba(0,0,0,0.28);
+}
+
+.prev:focus-visible, .next:focus-visible {
+    outline: 3px solid rgba(92,52,34,0.14);
+    outline-offset: 4px;
+}
+
+/* Ensure Lucide SVGs (or inline <i> elements) are sized and perfectly centered */
+.prev i, .next i,
+.prev svg, .next svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    flex: 0 0 18px;
+}
+
+.prev, .next {
+    /* enforce no extra vertical offset from fonts */
+    line-height: 1;
+    padding: 0;
+}
+
+/* Zoom controls overlay */
+.zoom-controls {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 28px;
+    z-index: 60;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(4px);
+}
+.zoom-controls[aria-hidden="false"] { display: flex; }
+.zoom-controls-inner { display: flex; align-items: center; gap: 8px; }
+.zoom-slider { width: 160px; height: 28px; appearance: none; background: transparent; }
+.zoom-slider::-webkit-slider-runnable-track { height: 6px; background: linear-gradient(90deg,#D6DCE1,#51513E); border-radius: 4px; }
+.zoom-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #fff; margin-top: -4px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+.zoom-reset { background: rgba(255,255,255,0.06); color: #fff; border: none; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+.zoom-percent { font-weight: 600; font-size: 13px; min-width: 42px; text-align: center; }
+
+/* When zooming, allow image to be transformed without being clipped by overflow */
+.infographic-wrapper { overflow: visible; }
+.slideshow-container { touch-action: none; }
+
+.slide-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(81, 81, 62, 0.8);
+    color: #D6DCE1;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.fullscreen-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(81, 81, 62, 0.8);
+    color: #D6DCE1;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fullscreen-btn:hover {
+    background: rgba(81, 81, 62, 1);
+    transform: scale(1.1);
+}
+
+.slideshow-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    background: #ffffff;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #D6DCE1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: #51513E;
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background-color: #999;
+}
+
+.infographic-caption {
+    padding: 28px 28px;
+    background: linear-gradient(135deg, #D6DCE1 0%, #ffffff 100%);
+    border-top: 2px solid #D6DCE1;
+    transition: all 0.4s ease;
+}
+
+.infographic-caption h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #423833;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.3px;
+}
+
+.infographic-caption p {
+    font-size: 14px;
+    color: #423833;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.educational-content {
+    background: linear-gradient(180deg, #FBF9F7 0%, #F3EDE6 100%);
+    border: 1px solid rgba(148,120,92,0.14);
+    border-radius: 12px;
+    padding: 36px;
+    margin-top: 36px;
+    line-height: 1.85;
+    color: #3f2f27;
+    box-shadow: 0 8px 24px rgba(50,30,20,0.06);
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.educational-content h3 {
+    font-size: 30px;
+    color: #493427;
+    margin-bottom: 22px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    border-bottom: 3px solid rgba(92,52,34,0.12);
+    padding-bottom: 14px;
+    text-align: left;
+}
+
+.content-section {
+    margin-bottom: 28px;
+    line-height: 1.9;
+    font-size: 16px;
+}
+
+.content-section h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #3f2f27;
+    margin-bottom: 12px;
+    letter-spacing: -0.2px;
+}
+
+.content-section p {
+    font-size: 15.5px;
+    color: #51443b;
+    margin-bottom: 16px;
+    line-height: 1.9;
+    text-align: left;
+}
+
+.content-section ul {
+    font-size: 15px;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.content-section li {
+    text-align: justify;
+}
+
+.highlight {
+    background: #D6DCE1;
+    color: #423833;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.key-term {
+    color: #51513E;
+    font-weight: 700;
+    border-bottom: 2px solid #D6DCE1;
+    padding-bottom: 2px;
+}
+
+.emphasis {
+    color: #423833;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.fact-callout {
+    background: linear-gradient(180deg,#FFFDF9 0%, #FBF6EE 100%);
+    border-left: 4px solid rgba(81,81,62,0.12);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 15px;
+    color: #423833;
+    box-shadow: 0 6px 16px rgba(60,40,24,0.04);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.fact-callout strong {
+    color: #3f2f27;
+    min-width: 120px;
+}
+
+/* Section separators inside educational block */
+.educational-content .content-section + .content-section {
+    border-top: 1px solid rgba(148,120,92,0.06);
+    padding-top: 20px;
+}
+
+/* Emphasized perspective sections stand out */
+.perspective-section.historians-perspective {
+    background: linear-gradient(180deg, rgba(92,52,34,0.03), rgba(92,52,34,0.01));
+    border-left: 4px solid rgba(92,52,34,0.12);
+    padding: 18px;
+    border-radius: 8px;
+}
+
+.perspective-label {
+    background: rgba(92,52,34,0.08);
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    color: #423833;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+blockquote {
+    background: rgba(245,240,236,0.6);
+    border-left: 4px solid rgba(92,52,34,0.14);
+    padding: 12px 16px;
+    margin: 12px 0 18px 0;
+    font-style: italic;
+    color: #3b2b22;
+}
+
+blockquote footer {
+    margin-top: 8px;
+    font-style: normal;
+    font-weight: 700;
+    color: #3b2b22;
+}
+
+.fact-callout.importance-high {
+    background: linear-gradient(135deg, #FCE8E4 0%, #F9E4DF 100%);
+    border-left-color: #423833;
+    box-shadow: 0 4px 12px rgba(92, 52, 34, 0.15);
+}
+
+.fact-callout.conclusion-box {
+    background: linear-gradient(135deg, #E8F4F0 0%, #E0EEEA 100%);
+    border-left-color: #423833;
+    text-align: center;
+    font-weight: 600;
+}
+
+.perspective-section {
+    position: relative;
+    border-left: 4px solid #D6DCE1;
+    padding-left: 20px;
+    margin-left: 0;
+}
+
+.perspective-section.historians-perspective {
+    border-left-color: #423833;
+    background: rgba(92, 52, 34, 0.04);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.perspective-label {
+    font-weight: 700;
+    color: #51513E;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.perspective-section h4 {
+    margin-top: 0;
+}
+
+.perspective-section blockquote {
+    margin: 16px 0;
+    padding: 16px 20px;
+    border-left: 3px solid #51513E;
+    background: rgba(214, 220, 225, 0.3);
+    font-style: italic;
+    color: #51513E;
+}
+
+.perspective-section blockquote footer {
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+    font-weight: 600;
+    color: #423833;
+    font-size: 13px;
+}
+
+@media (max-width: 1200px) {
+    .content-with-infographic {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar-toggle-btn {
+        display: flex !important;
+    }
+}
+
+/* Use `course.css` widget styles for uniform look; remove local overrides */
+/* Local overrides removed so shared `course.css` rules apply. */

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Tasks - Readings in Philippine History</title>
+    <link rel="icon" href="Images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="Styles/course.css">
+    <link rel="stylesheet" href="Styles/interactive-tasks.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="JS/supabase-config.js"></script>
+    <script src="JS/db-helpers.js"></script>
+
+</head>
+<body class="page-interactive-tasks">
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <button class="sidebar-toggle-btn" id="interactiveTasksToggleSidebar" style="background: none; border: none; color: #5C3422; cursor: pointer; font-size: 24px; width: 40px; height: 40px; display: none; align-items: center; justify-content: center; z-index: 1001;">
+                ☰
+            </button>
+
+            <div class="header-logo">
+                <img src="Images/favicon.png" alt="RPH Logo" class="header-logo-img">
+                <h1 class="header-title"><a href="home.html" class="header-title-link">RPH Interactive Learning Hub
+</a></h1>
+            </div>
+
+            <div class="header-actions">
+                <button class="sidebar-toggle-right" id="sidebarToggleRight" title="Show more">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="15" y1="3" x2="15" y2="21"></line>
+                        <line x1="9" y1="9" x2="9" y2="9.01"></line>
+                        <line x1="9" y1="15" x2="9" y2="15.01"></line>
+                    </svg>
+                </button>
+                <button class="logout-btn" title="Logout">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Left Sidebar Navigation -->
+        <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
+            <!-- User Profile Section -->
+            <div class="user-profile">
+                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" />
+                <div class="profile-info">
+                    <h4 class="profile-name" id="profileName">Loading...</h4>
+                    <p class="profile-email" id="profileEmail">Loading...</p>
+                </div>
+                
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="course.html" class="nav-item" data-section="feed">
+                    <i data-lucide="radio" class="nav-icon-svg"></i>
+                    <span>Feed</span>
+                </a>
+                <div class="nav-item-dropdown">
+                    <div class="nav-item" data-section="topic">
+                        <i data-lucide="book-open" class="nav-icon-svg"></i>
+                        <span>Topic</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="first-mass.html" class="dropdown-item">First Mass</a>
+                        <a href="cavite-mutiny.html" class="dropdown-item">Cavite Mutiny</a>
+                        <a href="retraction-of-rizal.html" class="dropdown-item">Retraction of Rizal</a>
+                        <a href="cry-of-rebellion.html" class="dropdown-item">Cry of Rebellion</a>
+                    </div>
+                </div>
+                <div class="nav-item-dropdown open">
+                    <div class="nav-item" data-section="activities">
+                        <i data-lucide="calendar" class="nav-icon-svg"></i>
+                        <span>Learning Hub</span>
+                        <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="games.html" class="dropdown-item" data-section="games">
+                            <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
+                            Games
+                        </a>
+                        
+                        <a href="quizzes.html" class="dropdown-item" data-section="quizzes">
+                            <i data-lucide="clipboard-list" style="width: 16px; height: 16px;"></i>
+                            Quizzes
+                        </a>
+
+                        <a href="interactive-tasks.html" class="dropdown-item active" data-section="interactive">
+                            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                            Interactive Tasks
+                        </a>
+
+                        <a href="worksheets.html" class="dropdown-item" data-section="worksheets">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Worksheets
+                        </a>
+
+                        <a href="Handouts.html" class="dropdown-item" data-section="handouts">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            Handouts
+                        </a>
+                    </div>
+                </div>
+
+
+                <a href="videos.html" class="nav-item" data-section="videos">
+                    <i data-lucide="play-circle" class="nav-icon-svg"></i>
+                    <span>Videos</span>
+                </a>
+
+                <a href="reference.html" class="nav-item" data-section="reference">
+                    <i data-lucide="book-open" class="nav-icon-svg"></i>
+                    <span>Reference</span>
+                </a>
+            </nav>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Interactive Tasks</h1>
+                <p>Practice and strengthen your understanding through hands-on learning</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <div class="stat-icon-box">
+                            <i data-lucide="list-checks" style="width: 24px; height: 24px; color: #3b82f6;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Tasks</h3>
+                            <p class="number" id="totalTasks">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-trend" id="totalTasksTrend">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <div class="stat-icon-box">
+                            <i data-lucide="check-circle" style="width: 24px; height: 24px; color: #10b981;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Completed</h3>
+                            <p class="number" id="completedTasks">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-trend" id="completedTrend">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <div class="stat-icon-box">
+                            <i data-lucide="trending-up" style="width: 24px; height: 24px; color: #8b5cf6;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Progress</h3>
+                            <p class="number" id="progressPercent">0%</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar-mini" id="progressBar" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="controls-left">
+                    <h2>Available Activities</h2>
+                </div>
+            </div>
+
+            <!-- Topic Section: Cavite Mutiny -->
+            <div class="topic-section">
+                <div class="topic-header" data-topic="cavite">
+                    <div class="topic-header-left">
+                        <i data-lucide="book-open" style="width: 24px; height: 24px;"></i>
+                        <h3>Cavite Mutiny</h3>
+                        <span class="topic-count">3 tasks</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="topic-toggle"></i>
+                </div>
+                <div class="topic-content">
+                    <!-- Easy Tasks -->
+                    <div class="difficulty-group">
+                        <div class="difficulty-label">
+                            <span class="difficulty-indicator easy"></span>
+                            <h4>Easy Tasks</h4>
+                        </div>
+                        <div class="tasks-grid">
+                            <div class="task-card" data-topic="cavite">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Timeline</span>
+                                        <span class="badge badge-difficulty badge-easy">Easy</span>
+                                    </div>
+                                    <h3 class="task-title">Cavite Mutiny Timeline</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Arrange historical events of the Cavite Mutiny in correct chronological order to strengthen your grasp of the timeline.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>10 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>5 events</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('timeline-cavite')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task-card" data-topic="cavite">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Fill Blanks</span>
+                                        <span class="badge badge-difficulty badge-easy">Easy</span>
+                                    </div>
+                                    <h3 class="task-title">Complete the Narrative</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Fill in critical terms in historical passages to reinforce vocabulary and contextual understanding.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>10 blanks</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('fillblank-cavite')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medium Tasks -->
+                    <div class="difficulty-group">
+                        <div class="difficulty-label">
+                            <span class="difficulty-indicator medium"></span>
+                            <h4>Average Tasks</h4>
+                        </div>
+                        <div class="tasks-grid">
+                            <div class="task-card" data-topic="cavite">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Matching</span>
+                                        <span class="badge badge-difficulty badge-medium">Average</span>
+                                    </div>
+                                    <h3 class="task-title">Match Historical Figures</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Pair key individuals with their roles during the Cavite Mutiny to understand leadership dynamics.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>8 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>5 pairs</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('matching-figures')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topic Section: First Mass -->
+            <div class="topic-section">
+                <div class="topic-header" data-topic="first-mass">
+                    <div class="topic-header-left">
+                        <i data-lucide="book-open" style="width: 24px; height: 24px;"></i>
+                        <h3>First Mass</h3>
+                        <span class="topic-count">3 tasks</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="topic-toggle"></i>
+                </div>
+                <div class="topic-content">
+                    <!-- Easy Tasks -->
+                    <div class="difficulty-group">
+                        <div class="difficulty-label">
+                            <span class="difficulty-indicator easy"></span>
+                            <h4>Easy Tasks</h4>
+                        </div>
+                        <div class="tasks-grid">
+                            <div class="task-card" data-topic="first-mass">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Timeline</span>
+                                        <span class="badge badge-difficulty badge-easy">Easy</span>
+                                    </div>
+                                    <h3 class="task-title">First Mass Historical Events</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Arrange key events related to the First Mass debate in chronological order to understand the historiographical journey.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>10 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>6 events</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('timeline-first-mass')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task-card" data-topic="first-mass">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Fill Blanks</span>
+                                        <span class="badge badge-difficulty badge-easy">Easy</span>
+                                    </div>
+                                    <h3 class="task-title">Complete the Geographical Analysis</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Fill in geographical and historical terms to strengthen understanding of the Butuan vs. Limasawa debate.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>6 blanks</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('fillblank-first-mass')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medium Tasks -->
+                    <div class="difficulty-group">
+                        <div class="difficulty-label">
+                            <span class="difficulty-indicator medium"></span>
+                            <h4>Average Tasks</h4>
+                        </div>
+                        <div class="tasks-grid">
+                            <div class="task-card" data-topic="first-mass">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Matching</span>
+                                        <span class="badge badge-difficulty badge-medium">Average</span>
+                                    </div>
+                                    <h3 class="task-title">Match Historical Figures & Evidence</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Pair explorers and historians with their key contributions to the First Mass debate and historical accounts.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>8 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>5 pairs</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('matching-first-mass')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topic Section: Retraction of Rizal -->
+            <div class="topic-section">
+                <div class="topic-header" data-topic="rizal">
+                    <div class="topic-header-left">
+                        <i data-lucide="book-open" style="width: 24px; height: 24px;"></i>
+                        <h3>Retraction of Rizal</h3>
+                        <span class="topic-count">3 tasks</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="topic-toggle"></i>
+                </div>
+                <div class="topic-content">
+                    <!-- Medium Tasks -->
+                    <div class="difficulty-group">
+                        <div class="difficulty-label">
+                            <span class="difficulty-indicator medium"></span>
+                            <h4>Average Tasks</h4>
+                        </div>
+                        <div class="tasks-grid">
+                            <div class="task-card" data-topic="rizal">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Timeline</span>
+                                        <span class="badge badge-difficulty badge-medium">Average</span>
+                                    </div>
+                                    <h3 class="task-title">Rizal's Final Days Timeline</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Arrange the sequence of events during Rizal's execution and the alleged retraction in correct chronological order.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>12 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>8 events</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('timeline-rizal')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task-card" data-topic="rizal">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Fill Blanks</span>
+                                        <span class="badge badge-difficulty badge-medium">Average</span>
+                                    </div>
+                                    <h3 class="task-title">Complete the Historical Account</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Fill in critical details about Rizal's retraction document and the surrounding historical events.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>8 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>7 blanks</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('fillblank-rizal')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hard Tasks -->
+                    <div class="difficulty-group">
+                        <div class="difficulty-label">
+                            <span class="difficulty-indicator hard"></span>
+                            <h4>Hard Tasks</h4>
+                        </div>
+                        <div class="tasks-grid">
+                            <div class="task-card" data-topic="rizal">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Matching</span>
+                                        <span class="badge badge-difficulty badge-hard">Hard</span>
+                                    </div>
+                                    <h3 class="task-title">Identify Key Figures in Retraction</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Match Jesuit priests and officials with their roles during Rizal's final hours and the retraction controversy.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>10 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>9 pairs</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('matching-rizal')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topic Section: Cry of Rebellion -->
+            <div class="topic-section">
+                <div class="topic-header" data-topic="cry-rebellion">
+                    <div class="topic-header-left">
+                        <i data-lucide="book-open" style="width: 24px; height: 24px;"></i>
+                        <h3>Cry of Rebellion</h3>
+                        <span class="topic-count">3 tasks</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="topic-toggle"></i>
+                </div>
+                <div class="topic-content">
+                    <!-- Medium Tasks -->
+                    <div class="difficulty-group">
+                        <div class="difficulty-label">
+                            <span class="difficulty-indicator medium"></span>
+                            <h4>Average Tasks</h4>
+                        </div>
+                        <div class="tasks-grid">
+                            <div class="task-card" data-topic="cry-rebellion">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Timeline</span>
+                                        <span class="badge badge-difficulty badge-medium">Average</span>
+                                    </div>
+                                    <h3 class="task-title">Cry of Rebellion Timeline</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Arrange events of the Cry of Rebellion and its aftermath in the correct sequence to understand the revolution's progression.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>12 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>5 events</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('timeline-cry-rebellion')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hard Tasks -->
+                    <div class="difficulty-group">
+                        <div class="difficulty-label">
+                            <span class="difficulty-indicator hard"></span>
+                            <h4>Hard Tasks</h4>
+                        </div>
+                        <div class="tasks-grid">
+                            <div class="task-card" data-topic="cry-rebellion">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Matching</span>
+                                        <span class="badge badge-difficulty badge-hard">Hard</span>
+                                    </div>
+                                    <h3 class="task-title">Match Revolutionary Leaders & Actions</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Pair revolutionary leaders and rebels with their significant contributions and actions during the Cry of Rebellion.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>10 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>10 pairs</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('matching-cry-rebellion')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task-card" data-topic="cry-rebellion">
+                                <div class="task-top">
+                                    <div class="task-badges">
+                                        <span class="badge badge-type">Fill Blanks</span>
+                                        <span class="badge badge-difficulty badge-hard">Hard</span>
+                                    </div>
+                                    <h3 class="task-title">Complete Revolutionary Accounts</h3>
+                                </div>
+                                <div class="task-body">
+                                    <p class="task-desc">Fill in historical details from primary sources and accounts of the Cry of Rebellion and revolutionary events.</p>
+                                    <div class="task-meta">
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>10 min</div>
+                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>8 blanks</div>
+                                    </div>
+                                    <div class="task-footer">
+                                        <span class="status status-new">Not Started</span>
+                                        <button class="task-btn" onclick="openTask('fillblank-cry-rebellion')">Start</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Activities Section -->
+            <div class="topic-section">
+                <div class="topic-header" data-topic="special">
+                    <div class="topic-header-left">
+                        <i data-lucide="star" style="width: 24px; height: 24px;"></i>
+                        <h3>Special Activities</h3>
+                        <span class="topic-count">1 task</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="topic-toggle"></i>
+                </div>
+                <div class="topic-content">
+                    <div class="tasks-grid">
+                        <div class="task-card" data-topic="all">
+                            <div class="task-top">
+                                <div class="task-badges">
+                                    <span class="badge badge-type">Concept Map</span>
+                                    <span class="badge badge-difficulty badge-medium">Average</span>
+                                </div>
+                                <h3 class="task-title">Interactive Concept Map</h3>
+                            </div>
+                            <div class="task-body">
+                                <p class="task-desc">Build connections between concepts collaboratively. Add words, create hierarchies, and explore relationships in Philippine history topics.</p>
+                                <div class="task-meta">
+                                    <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>15 min</div>
+                                    <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>Multi-user</div>
+                                </div>
+                                <div class="task-footer">
+                                    <span class="status status-collaborative">Collaborative</span>
+                                    <button class="task-btn" onclick="window.location.href='structured-concept-map.html'">Open</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Edit Profile Modal -->
+        <div class="modal" id="editProfileModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Profile</h2>
+                    <button class="modal-close" id="closeEditModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">👤</div>
+                        <h3 style="margin: 0 0 16px 0; color: #333;">Edit Your Profile</h3>
+                        <p style="margin: 0 0 20px 0; color: #666; line-height: 1.6;">
+                            To edit your profile information, please visit the <a href="course.html" style="color: #5C3422; text-decoration: underline; font-weight: 500;">Feed page</a>.
+                        </p>
+                        <p style="margin: 0; color: #999; font-size: 14px;">
+                            You can update your profile picture, name, and bio there.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" id="cancelEditBtn">Cancel</button>
+                    <button class="btn-save" onclick="window.location.href='course.html'">Go to Feed</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Task Tips Section -->
+            <div class="widget">
+                <div class="widget-header">
+                    <i data-lucide="lightbulb" style="width: 20px; height: 20px; color: #F4A460;"></i>
+                    <h3>Task Tips</h3>
+                </div>
+
+                <div class="widget-content ideas-list">
+                    <div class="idea-card">
+                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
+                            <i data-lucide="clock" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
+                                <strong>Timeline</strong>
+                                <p>Click events in chronological order, earliest first</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card">
+                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
+                            <i data-lucide="link" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
+                                <strong>Matching</strong>
+                                <p>Match each figure to their correct role</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="idea-card">
+                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
+                            <i data-lucide="edit-3" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
+                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
+                                <strong>Fill Blanks</strong>
+                                <p>Complete sentences using historical context</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content task-modal">
+            <div class="modal-header">
+                <h2 id="taskTitle">Task Name</h2>
+                <button class="modal-close" id="closeTaskModal">&times;</button>
+            </div>
+            <div class="modal-body" id="taskContent">
+                <!-- Task content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelTaskBtn">Close</button>
+                <button class="btn-save" id="submitTaskBtn">Submit Answer</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="JS/course.js"></script>
+    <script src="JS/interactive-tasks.js"></script>
+</body>
+</html>

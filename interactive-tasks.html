@@ -6,6 +6,7 @@
     <title>Interactive Tasks - Readings in Philippine History</title>
     <link rel="icon" href="Images/favicon.png" type="image/png">
     <link rel="stylesheet" href="Styles/course.css">
+    <link rel="stylesheet" href="Styles/course-feed.css">
     <link rel="stylesheet" href="Styles/interactive-tasks.css">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -14,7 +15,7 @@
     <script src="JS/db-helpers.js"></script>
 
 </head>
-<body class="page-interactive-tasks">
+<body class="page-course page-interactive-tasks">
     <!-- Header Navigation -->
     <header class="header">
         <div class="header-container">
@@ -53,12 +54,14 @@
         <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
             <!-- User Profile Section -->
             <div class="user-profile">
-                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" />
+                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" loading="lazy" />
                 <div class="profile-info">
                     <h4 class="profile-name" id="profileName">Loading...</h4>
                     <p class="profile-email" id="profileEmail">Loading...</p>
                 </div>
-                
+                <button class="edit-profile-btn" id="editProfileBtn" title="Edit profile">
+                    <i data-lucide="edit-2" style="width: 16px; height: 16px;"></i>
+                </button>
             </div>
 
             <nav class="sidebar-nav">
@@ -185,7 +188,7 @@
                     <div class="topic-header-left">
                         <i data-lucide="book-open" style="width: 24px; height: 24px;"></i>
                         <h3>Cavite Mutiny</h3>
-                        <span class="topic-count">3 tasks</span>
+                        <span class="topic-count">2 tasks</span>
                     </div>
                     <i data-lucide="chevron-down" class="topic-toggle"></i>
                 </div>
@@ -197,26 +200,7 @@
                             <h4>Easy Tasks</h4>
                         </div>
                         <div class="tasks-grid">
-                            <div class="task-card" data-topic="cavite">
-                                <div class="task-top">
-                                    <div class="task-badges">
-                                        <span class="badge badge-type">Timeline</span>
-                                        <span class="badge badge-difficulty badge-easy">Easy</span>
-                                    </div>
-                                    <h3 class="task-title">Cavite Mutiny Timeline</h3>
-                                </div>
-                                <div class="task-body">
-                                    <p class="task-desc">Arrange historical events of the Cavite Mutiny in correct chronological order to strengthen your grasp of the timeline.</p>
-                                    <div class="task-meta">
-                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>10 min</div>
-                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>5 events</div>
-                                    </div>
-                                    <div class="task-footer">
-                                        <span class="status status-new">Not Started</span>
-                                        <button class="task-btn" onclick="openTask('timeline-cavite')">Start</button>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="task-card" data-topic="cavite">
                                 <div class="task-top">
                                     <div class="task-badges">
@@ -278,7 +262,7 @@
                     <div class="topic-header-left">
                         <i data-lucide="book-open" style="width: 24px; height: 24px;"></i>
                         <h3>First Mass</h3>
-                        <span class="topic-count">3 tasks</span>
+                        <span class="topic-count">2 tasks</span>
                     </div>
                     <i data-lucide="chevron-down" class="topic-toggle"></i>
                 </div>
@@ -290,26 +274,7 @@
                             <h4>Easy Tasks</h4>
                         </div>
                         <div class="tasks-grid">
-                            <div class="task-card" data-topic="first-mass">
-                                <div class="task-top">
-                                    <div class="task-badges">
-                                        <span class="badge badge-type">Timeline</span>
-                                        <span class="badge badge-difficulty badge-easy">Easy</span>
-                                    </div>
-                                    <h3 class="task-title">First Mass Historical Events</h3>
-                                </div>
-                                <div class="task-body">
-                                    <p class="task-desc">Arrange key events related to the First Mass debate in chronological order to understand the historiographical journey.</p>
-                                    <div class="task-meta">
-                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>10 min</div>
-                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>6 events</div>
-                                    </div>
-                                    <div class="task-footer">
-                                        <span class="status status-new">Not Started</span>
-                                        <button class="task-btn" onclick="openTask('timeline-first-mass')">Start</button>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="task-card" data-topic="first-mass">
                                 <div class="task-top">
                                     <div class="task-badges">
@@ -464,7 +429,7 @@
                     <div class="topic-header-left">
                         <i data-lucide="book-open" style="width: 24px; height: 24px;"></i>
                         <h3>Cry of Rebellion</h3>
-                        <span class="topic-count">3 tasks</span>
+                        <span class="topic-count">2 tasks</span>
                     </div>
                     <i data-lucide="chevron-down" class="topic-toggle"></i>
                 </div>
@@ -476,26 +441,7 @@
                             <h4>Average Tasks</h4>
                         </div>
                         <div class="tasks-grid">
-                            <div class="task-card" data-topic="cry-rebellion">
-                                <div class="task-top">
-                                    <div class="task-badges">
-                                        <span class="badge badge-type">Timeline</span>
-                                        <span class="badge badge-difficulty badge-medium">Average</span>
-                                    </div>
-                                    <h3 class="task-title">Cry of Rebellion Timeline</h3>
-                                </div>
-                                <div class="task-body">
-                                    <p class="task-desc">Arrange events of the Cry of Rebellion and its aftermath in the correct sequence to understand the revolution's progression.</p>
-                                    <div class="task-meta">
-                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>12 min</div>
-                                        <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path></svg>5 events</div>
-                                    </div>
-                                    <div class="task-footer">
-                                        <span class="status status-new">Not Started</span>
-                                        <button class="task-btn" onclick="openTask('timeline-cry-rebellion')">Start</button>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
 
@@ -616,43 +562,53 @@
 
         <!-- Right Sidebar -->
         <aside class="right-sidebar">
-            <!-- Task Tips Section -->
-            <div class="widget">
+            <div class="widget learning-tips-widget" aria-labelledby="learningTipsTitle">
                 <div class="widget-header">
-                    <i data-lucide="lightbulb" style="width: 20px; height: 20px; color: #F4A460;"></i>
-                    <h3>Task Tips</h3>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i data-lucide="lightbulb" class="widget-header-icon" aria-hidden="true"></i>
+                        <div>
+                                    <h3 id="learningTipsTitle">Study Tips — Philippine History</h3>
+                                    <p class="widget-subtitle">Practical steps to read sources, compare accounts, and think historically</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="widget-content ideas-list">
-                    <div class="idea-card">
-                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
-                            <i data-lucide="clock" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
-                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
-                                <strong>Timeline</strong>
-                                <p>Click events in chronological order, earliest first</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="widget-content learning-tips-list">
+                            <article class="tip-card" tabindex="0" role="article" data-tooltip="Contextualize each source: authorship, date, purpose, audience." aria-describedby="tip-desc-1">
+                                <div class="tip-icon" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-text" class="lucide lucide-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg>
+                                </div>
+                                <div class="tip-body">
+                                    <h4 class="tip-title">Contextualize Sources</h4>
+                                    <p class="tip-desc">Ask: who wrote this, when, and why? Use that to weigh reliability and perspective.</p>
+                                </div>
+                                <button class="tip-action" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"></path></svg></button>
+                            </article>
+                            <div id="tip-desc-1" class="sr-only">Contextualize each source: authorship, date, purpose, audience.</div>
 
-                    <div class="idea-card">
-                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
-                            <i data-lucide="link" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
-                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
-                                <strong>Matching</strong>
-                                <p>Match each figure to their correct role</p>
-                            </div>
-                        </div>
-                    </div>
+                            <article class="tip-card" tabindex="0" role="article" data-tooltip="Compare accounts with maps, timelines, and other sources to spot differences." aria-describedby="tip-desc-2">
+                                <div class="tip-icon" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="map" class="lucide lucide-map"><path d="M20.5 3.5l-5 2-6-2-6 2v14l6-2 6 2 5-2v-14z"></path></svg>
+                                </div>
+                                <div class="tip-body">
+                                    <h4 class="tip-title">Cross-check & Visualize</h4>
+                                    <p class="tip-desc">Place events on maps or timelines and compare sources to reveal patterns and contradictions.</p>
+                                </div>
+                                <button class="tip-action" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"></path></svg></button>
+                            </article>
+                            <div id="tip-desc-2" class="sr-only">Compare accounts with maps, timelines, and other sources to spot differences.</div>
 
-                    <div class="idea-card">
-                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
-                            <i data-lucide="edit-3" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
-                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
-                                <strong>Fill Blanks</strong>
-                                <p>Complete sentences using historical context</p>
-                            </div>
-                        </div>
-                    </div>
+                            <article class="tip-card" tabindex="0" role="article" data-tooltip="Discuss interpretations with peers; write a short evidence-based response." aria-describedby="tip-desc-3">
+                                <div class="tip-icon" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                </div>
+                                <div class="tip-body">
+                                    <h4 class="tip-title">Explain & Argue</h4>
+                                    <p class="tip-desc">Summarize your view in 2–3 sentences and support it with specific evidence from sources.</p>
+                                </div>
+                                <button class="tip-action" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"></path></svg></button>
+                            </article>
+                            <div id="tip-desc-3" class="sr-only">Discuss interpretations with peers; write a short evidence-based response.</div>
                 </div>
             </div>
         </aside>

@@ -191,20 +191,6 @@
 
 .nav-item.active {
     background: rgba(226, 213, 194, 0.6);
-    border-left: 3px solid #5C3422;
-}
-
-.nav-item.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3px;
-    height: 60%;
-    background: #5C3422;
-    border-radius: 0 3px 3px 0;
-    animation: slideIn 0.3s ease;
 }
 
 @keyframes slideIn {

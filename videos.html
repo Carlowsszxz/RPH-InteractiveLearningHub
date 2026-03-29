@@ -13,6 +13,17 @@
         .video-placeholder img{display:block;width:100%;height:100%;object-fit:cover}
         .video-play-btn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.6);border-radius:50%;width:64px;height:64px;border:none;color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center}
         .video-placeholder:focus{outline:3px solid #f4a460}
+        /* Modal player styles */
+        .video-modal{display:none;position:fixed;inset:0;z-index:2000;align-items:center;justify-content:center}
+        .video-modal.open{display:flex}
+        .video-modal[aria-hidden="true"]{display:none}
+        .video-modal .video-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.6)}
+        .video-modal .video-modal-content{position:relative;z-index:2;background:#fff;max-width:960px;width:95%;border-radius:8px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.3)}
+        .video-modal .video-modal-player{background:#000}
+        .video-modal .video-modal-close{position:absolute;right:8px;top:8px;background:transparent;border:none;font-size:26px;cursor:pointer}
+        .watch-later-badge{position:absolute;right:8px;top:8px;background:#f4a460;color:#111;padding:4px 6px;border-radius:4px;font-size:12px}
+        .video-modal .video-modal-actions{display:flex;gap:8px;align-items:center;padding:10px}
+        .watch-later-btn{background:#5C3422;color:#fff;border:none;padding:8px 10px;border-radius:6px;cursor:pointer}
     </style>
     <!-- Lucide Icons - Modern Icon Library -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -143,11 +154,25 @@
                 </div>
 
                 <!-- Videos Grid -->
+                <div class="videos-controls" style="display:flex;gap:8px;margin-bottom:16px;align-items:center;flex-wrap:wrap;">
+                    <input id="videoSearch" type="search" placeholder="Search videos, e.g. 'Mass' or 'Rizal'" style="flex:1;min-width:180px;padding:8px;border-radius:6px;border:1px solid #ddd">
+                    <select id="videoCategory" style="padding:8px;border-radius:6px;border:1px solid #ddd">
+                        <option value="">All categories</option>
+                        <option value="Timeline">Historical Timeline</option>
+                        <option value="Documentary">Documentary</option>
+                        <option value="Analysis">Historical Analysis</option>
+                    </select>
+                    <select id="videoSort" style="padding:8px;border-radius:6px;border:1px solid #ddd">
+                        <option value="relevance">Sort: Relevance</option>
+                        <option value="title">Sort: Title</option>
+                    </select>
+                </div>
+
                 <div class="videos-container">
                     <!-- First Catholic Mass -->
                     <div class="video-card">
                         <div class="video-wrapper">
-                            <div class="video-placeholder" tabindex="0" role="button" aria-label="Play First Catholic Mass" data-src="https://www.youtube-nocookie.com/embed/qQgYPV-mAUY" data-title="First Catholic Mass">
+                            <div class="video-placeholder" tabindex="0" role="button" aria-label="Play First Catholic Mass" data-src="https://www.youtube-nocookie.com/embed/qQgYPV-mAUY" data-title="First Catholic Mass" data-transcript="Magellan's expedition lands; a priest prepares for Mass; Magellan and crew celebrate Mass with local leaders present. Debate on Butuan vs Limasawa is discussed." data-category="Timeline">
                                 <img src="https://i.ytimg.com/vi/qQgYPV-mAUY/hqdefault.jpg" alt="First Mass thumbnail">
                                 <button class="video-play-btn" aria-hidden="true">▶</button>
                             </div>
@@ -167,7 +192,7 @@
                     <!-- Cavite Mutiny -->
                     <div class="video-card">
                         <div class="video-wrapper">
-                            <div class="video-placeholder" tabindex="0" role="button" aria-label="Play Cavite Mutiny" data-src="https://www.youtube-nocookie.com/embed/5CwmcUCwuv8" data-title="Cavite Mutiny">
+                            <div class="video-placeholder" tabindex="0" role="button" aria-label="Play Cavite Mutiny" data-src="https://www.youtube-nocookie.com/embed/5CwmcUCwuv8" data-title="Cavite Mutiny" data-transcript="Description of the 1872 Cavite Mutiny: causes among Filipino workers and soldiers, key events at the arsenal, and the mutiny's political consequences under Spanish rule." data-category="Documentary">
                                 <img src="https://i.ytimg.com/vi/5CwmcUCwuv8/hqdefault.jpg" alt="Cavite Mutiny thumbnail">
                                 <button class="video-play-btn" aria-hidden="true">▶</button>
                             </div>
@@ -187,7 +212,7 @@
                     <!-- Cry of Rebellion -->
                     <div class="video-card">
                         <div class="video-wrapper">
-                            <div class="video-placeholder" tabindex="0" role="button" aria-label="Play Cry of Rebellion" data-src="https://www.youtube-nocookie.com/embed/Dtc9q_V8_hs" data-title="Cry of Rebellion">
+                            <div class="video-placeholder" tabindex="0" role="button" aria-label="Play Cry of Rebellion" data-src="https://www.youtube-nocookie.com/embed/Dtc9q_V8_hs" data-title="Cry of Rebellion" data-transcript="Overview of the 1896 Cry of Rebellion: timeline, disputed locations, and the early leaders who sparked the revolution against colonial rule." data-category="Analysis">
                                 <img src="https://i.ytimg.com/vi/Dtc9q_V8_hs/hqdefault.jpg" alt="Cry of Rebellion thumbnail">
                                 <button class="video-play-btn" aria-hidden="true">▶</button>
                             </div>
@@ -207,7 +232,7 @@
                     <!-- Retraction of Rizal -->
                     <div class="video-card">
                         <div class="video-wrapper">
-                            <div class="video-placeholder" tabindex="0" role="button" aria-label="Play Retraction of Rizal" data-src="https://www.youtube-nocookie.com/embed/YPLn_u0x5k4" data-title="Retraction of Rizal">
+                            <div class="video-placeholder" tabindex="0" role="button" aria-label="Play Retraction of Rizal" data-src="https://www.youtube-nocookie.com/embed/YPLn_u0x5k4" data-title="Retraction of Rizal" data-transcript="Examines Jose Rizal's alleged retraction: the evidence, arguments for and against authenticity, and its impact on national memory." data-category="Documentary">
                                 <img src="https://i.ytimg.com/vi/YPLn_u0x5k4/hqdefault.jpg" alt="Retraction of Rizal thumbnail">
                                 <button class="video-play-btn" aria-hidden="true">▶</button>
                             </div>
@@ -298,5 +323,21 @@
 
     <script src="JS/course.js"></script>
     <script src="JS/videos.js"></script>
+    <!-- Modal markup for single video player -->
+    <div id="videoModal" class="video-modal" aria-hidden="true">
+        <div class="video-modal-backdrop" tabindex="-1"></div>
+        <div class="video-modal-content" role="dialog" aria-modal="true" aria-label="Video player">
+            <button class="video-modal-close" aria-label="Close">×</button>
+            <div style="padding:12px 16px; border-bottom:1px solid #eee;">
+                <h3 class="video-modal-title" style="margin:0; font-size:18px;"></h3>
+            </div>
+            <div class="video-modal-player"></div>
+            <div class="video-modal-actions">
+                <button class="watch-later-btn">Add to Watch Later</button>
+                <a href="#" class="transcript-link" style="color:#5C3422; text-decoration:underline;" aria-expanded="false">View transcript</a>
+            </div>
+            <div class="video-modal-transcript" style="display:none;padding:12px;border-top:1px solid #eee;max-height:220px;overflow:auto;background:#fafafa"></div>
+        </div>
+    </div>
 </body>
 </html>

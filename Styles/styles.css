@@ -598,6 +598,45 @@ body {
         font-size: 13px;
     }
     
+/* Accessibility and disabled-state enhancements */
+.login-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(8%);
+    box-shadow: none;
+    transform: none;
+}
+
+.login-button:focus {
+    outline: 3px solid rgba(37,99,235,0.18);
+    outline-offset: 3px;
+}
+
+input:focus, .password-toggle:focus, .remember-me input:focus, .modal-close:focus {
+    outline: 3px solid rgba(37,99,235,0.18);
+    outline-offset: 2px;
+}
+
+/* Make the checkbox hit area larger by styling the label */
+.terms-checkbox, .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.terms-checkbox input, .remember-me input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Visually emphasize the terms error when shown */
+.terms-error-visible {
+    color: #d32f2f;
+    font-weight: 600;
+}
+
     /* Optimize shadows and effects for mobile performance */
     .login-card {
         box-shadow: 

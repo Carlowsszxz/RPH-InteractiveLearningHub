@@ -116,19 +116,67 @@ if (forgotEmailInput && forgotEmailHelper) {
 const termsLink = document.getElementById('termsLink');
 const termsModal = document.getElementById('termsModal');
 const closeTermsModal = document.getElementById('closeTermsModal');
+let _previousActiveElement = null;
+
+function _trapFocusInModal(e) {
+    if (e.key === 'Tab') {
+        const focusable = termsModal.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length === 0) {
+            e.preventDefault();
+            return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+            if (document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            }
+        } else {
+            if (document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
+    } else if (e.key === 'Escape') {
+        _closeTermsModal();
+    }
+}
+
+function _openTermsModal() {
+    if (!termsModal) return;
+    _previousActiveElement = document.activeElement;
+    termsModal.classList.remove('hidden');
+    // prevent background from scrolling
+    document.body.style.overflow = 'hidden';
+    // focus the close button for keyboard users
+    if (closeTermsModal) closeTermsModal.focus();
+    termsModal.addEventListener('keydown', _trapFocusInModal);
+}
+
+function _closeTermsModal() {
+    if (!termsModal) return;
+    termsModal.classList.add('hidden');
+    document.body.style.overflow = '';
+    termsModal.removeEventListener('keydown', _trapFocusInModal);
+    // restore previous focus
+    if (_previousActiveElement && typeof _previousActiveElement.focus === 'function') {
+        _previousActiveElement.focus();
+    }
+}
 
 // Open terms modal
 if (termsLink) {
     termsLink.addEventListener('click', (e) => {
         e.preventDefault();
-        termsModal.classList.remove('hidden');
+        _openTermsModal();
     });
 }
 
 // Close terms modal
 if (closeTermsModal) {
     closeTermsModal.addEventListener('click', () => {
-        termsModal.classList.add('hidden');
+        _closeTermsModal();
     });
 }
 
@@ -136,7 +184,7 @@ if (closeTermsModal) {
 if (termsModal) {
     termsModal.addEventListener('click', (e) => {
         if (e.target === termsModal) {
-            termsModal.classList.add('hidden');
+            _closeTermsModal();
         }
     });
 }
@@ -146,7 +194,22 @@ const loginForm = document.getElementById('loginForm');
 const termsCheckbox = document.getElementById('termsAgreement');
 const termsError = document.getElementById('termsError');
 
+// Also reference the submit button so we can enable/disable it based on terms
+const loginButton = document.getElementById('loginButton');
+
 if (loginForm && termsCheckbox && termsError) {
+    // Disable submit button by default until terms are accepted
+    if (loginButton) {
+        loginButton.disabled = !termsCheckbox.checked;
+    }
+
+    // Toggle button enabled state when checkbox changes
+    termsCheckbox.addEventListener('change', function() {
+        if (loginButton) loginButton.disabled = !this.checked;
+        if (this.checked) {
+            termsError.style.display = 'none';
+        }
+    });
     // Function to validate terms agreement
     function validateTermsAgreement() {
         if (!termsCheckbox.checked) {

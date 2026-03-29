@@ -6,6 +6,7 @@
     <title>Worksheets - Readings in Philippine History</title>
     <link rel="icon" href="Images/favicon.png" type="image/png">
     <link rel="stylesheet" href="Styles/course.css">
+    <link rel="stylesheet" href="Styles/course-feed.css">
     <link rel="stylesheet" href="Styles/worksheets.css">
     <!-- Lucide Icons - Modern Icon Library -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -16,7 +17,7 @@
     <script src="JS/db-helpers.js"></script>
     <script src="JS/course.js"></script>
 </head>
-<body>
+<body class="page-course page-worksheets">
     <!-- Header Navigation -->
     <header class="header">
         <div class="header-container">
@@ -46,12 +47,14 @@
         <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
             <!-- User Profile Section -->
             <div class="user-profile">
-                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" />
+                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" loading="lazy" />
                 <div class="profile-info">
                     <h4 class="profile-name" id="profileName">Loading...</h4>
                     <p class="profile-email" id="profileEmail">Loading...</p>
                 </div>
-                
+                <button class="edit-profile-btn" id="editProfileBtn" title="Edit profile">
+                    <i data-lucide="edit-2" style="width: 16px; height: 16px;"></i>
+                </button>
             </div>
 
             <nav class="sidebar-nav">
@@ -210,8 +213,8 @@
                             </div>
                         </div>
                         <div class="activity-actions">
-                            <button class="btn-download-activity" onclick="downloadImage('Images/Worksheets/4.png')">Download Image</button>
-                            <button class="btn-preview" onclick="previewImage('Images/Worksheets/4.png')">Preview</button>
+                            <button class="btn-download-activity" onclick="downloadImage('Images/Worksheets/5.png')">Download Image</button>
+                            <button class="btn-preview" onclick="previewImage('Images/Worksheets/5.png')">Preview</button>
                         </div>
                     </div>
 
@@ -228,9 +231,10 @@
                                 <span class="activity-duration">35-40 mins</span>
                             </div>
                         </div>
+                        
                         <div class="activity-actions">
-                            <button class="btn-download-activity" onclick="downloadImage('Images/Worksheets/5.png')">Download Image</button>
-                            <button class="btn-preview" onclick="previewImage('Images/Worksheets/5.png')">Preview</button>
+                            <button class="btn-download-activity" onclick="downloadImage('Images/Worksheets/4.png')">Download Image</button>
+                            <button class="btn-preview" onclick="previewImage('Images/Worksheets/4.png')">Preview</button>
                         </div>
                     </div>
                 </div>
@@ -410,46 +414,55 @@
     </main>
 
         <!-- Right Sidebar -->
-        <!-- Right Sidebar -->
         <aside class="right-sidebar">
-            <!-- Key Facts Section -->
-            <div class="widget">
-                <div class="widget-header">
-                    <i data-lucide="lightbulb" style="width: 20px; height: 20px; color: #F4A460;"></i>
-                    <h3>Key Facts</h3>
-                </div>
-
-                <div class="widget-content ideas-list">
-                    <div class="idea-card">
-                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
-                            <i data-lucide="file-text" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
-                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
-                                <strong>Format</strong>
-                                <p>PDF Worksheets</p>
+            <div class="widget learning-tips-widget" aria-labelledby="learningTipsTitle">
+                    <div class="widget-header">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <i data-lucide="book-open" class="widget-header-icon" aria-hidden="true"></i>
+                            <div>
+                                <h3 id="learningTipsTitle">Worksheet Guidance</h3>
+                                <p class="widget-subtitle">Concise recommendations for completing worksheet activities effectively</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="idea-card">
-                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
-                            <i data-lucide="clock" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
-                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
-                                <strong>Duration</strong>
-                                <p>15-30 minutes each</p>
+                    <div class="widget-content learning-tips-list">
+                        <article class="tip-card" tabindex="0" role="article" data-tooltip="Review the learning objectives before starting each worksheet." aria-describedby="tip-desc-1">
+                            <div class="tip-icon" aria-hidden="true">
+                                <i data-lucide="target"></i>
                             </div>
-                        </div>
-                    </div>
+                            <div class="tip-body">
+                                <h4 class="tip-title">Clarify Objectives</h4>
+                                <p class="tip-desc">Before beginning, read the stated learning objectives to ensure your responses align with the intended outcomes.</p>
+                            </div>
+                            <button class="tip-action" aria-hidden="true"><i data-lucide="chevron-right"></i></button>
+                        </article>
+                        <div id="tip-desc-1" class="sr-only">Review the learning objectives before starting each worksheet.</div>
 
-                    <div class="idea-card">
-                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
-                            <i data-lucide="book-open" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
-                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
-                                <strong>Topics</strong>
-                                <p>4 Historical Events</p>
+                        <article class="tip-card" tabindex="0" role="article" data-tooltip="Organize answers with clear numbering, headings, and complete sentences." aria-describedby="tip-desc-2">
+                            <div class="tip-icon" aria-hidden="true">
+                                <i data-lucide="list"></i>
                             </div>
-                        </div>
+                            <div class="tip-body">
+                                <h4 class="tip-title">Organize Responses</h4>
+                                <p class="tip-desc">Provide structured answers using numbered points or labeled sections; use complete sentences and label diagrams where applicable.</p>
+                            </div>
+                            <button class="tip-action" aria-hidden="true"><i data-lucide="chevron-right"></i></button>
+                        </article>
+                        <div id="tip-desc-2" class="sr-only">Organize answers with clear numbering, headings, and complete sentences.</div>
+
+                        <article class="tip-card" tabindex="0" role="article" data-tooltip="Support assertions with brief evidence and cite the source of primary/secondary materials." aria-describedby="tip-desc-3">
+                            <div class="tip-icon" aria-hidden="true">
+                                <i data-lucide="file-text"></i>
+                            </div>
+                            <div class="tip-body">
+                                <h4 class="tip-title">Support With Evidence</h4>
+                                <p class="tip-desc">When referring to sources, note the citation or reference and include concise evidence to substantiate your answer.</p>
+                            </div>
+                            <button class="tip-action" aria-hidden="true"><i data-lucide="chevron-right"></i></button>
+                        </article>
+                        <div id="tip-desc-3" class="sr-only">Support assertions with brief evidence and cite sources.</div>
                     </div>
-                </div>
             </div>
         </aside>
     </div>

@@ -143,10 +143,27 @@ class CourseInterface {
             const nameEl = document.getElementById('profileName');
             const emailEl = document.getElementById('profileEmail');
             const avatarEl = document.getElementById('profileAvatar');
-            
+
             // Also update create post section
             const createPostNameEl = document.getElementById('createPostName');
             const createPostAvatarEl = document.getElementById('createPostAvatar');
+
+            // Debugging: log invocation and element presence
+            console.debug('[CourseInterface] populateUserProfile invoked', {
+                hasNameEl: !!nameEl,
+                hasEmailEl: !!emailEl,
+                hasAvatarEl: !!avatarEl
+            });
+
+            // If elements are not present yet, schedule a one-time retry on DOMContentLoaded
+            if ((!nameEl || !emailEl || !avatarEl) && !this._profilePopulateScheduled) {
+                this._profilePopulateScheduled = true;
+                console.debug('[CourseInterface] profile elements missing, retrying on DOMContentLoaded');
+                document.addEventListener('DOMContentLoaded', () => {
+                    try { this.populateUserProfile(); } catch (e) { console.error(e); }
+                }, { once: true });
+                return;
+            }
 
             // Try to fetch profile from database first
             (async () => {

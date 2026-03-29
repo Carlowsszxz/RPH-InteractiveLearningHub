@@ -6,6 +6,7 @@
     <title>Games - Readings in Philippine History</title>
     <link rel="icon" href="Images/favicon.png" type="image/png">
     <link rel="stylesheet" href="Styles/course.css">
+    <link rel="stylesheet" href="Styles/course-feed.css">
     <link rel="stylesheet" href="Styles/games.css">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -14,11 +15,11 @@
     <script src="JS/supabase-config.js"></script>
     <script src="JS/db-helpers.js"></script>
 </head>
-<body class="page-games">
+<body class="page-course page-games">
     <!-- Header Navigation -->
     <header class="header">
         <div class="header-container">
-            <button id="toggleSidebar" class="header-toggle-btn" type="button" aria-label="Toggle navigation">
+            <button id="toggleSidebar" style="background: none; border: none; color: #5C3422; cursor: pointer; font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; z-index: 1001;">
                 ☰
             </button>
 
@@ -53,12 +54,14 @@
         <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
             <!-- User Profile Section -->
             <div class="user-profile">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect fill='%23e0e0e0' width='48' height='48'/%3E%3Ctext x='50%25' y='50%25' font-size='20' fill='%23999' text-anchor='middle' dy='.3em'%3E??%3C/text%3E%3C/svg%3E" alt="User avatar" class="profile-avatar" id="profileAvatar" />
+                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" loading="lazy" decoding="async">
                 <div class="profile-info">
                     <h4 class="profile-name" id="profileName">Loading...</h4>
                     <p class="profile-email" id="profileEmail">Loading...</p>
                 </div>
-                
+                <button class="edit-profile-btn" id="editProfileBtn" title="Edit profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="edit-2" aria-hidden="true" style="width: 16px; height: 16px;" class="lucide lucide-edit-2"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path></svg>
+                </button>
             </div>
 
              <nav class="sidebar-nav">
@@ -89,27 +92,27 @@
                     </div>
                     <div class="dropdown-menu">
                         <a href="games.html" class="dropdown-item active" data-section="games">
-                            <i data-lucide="gamepad-2" class="nav-icon"></i>
+                            <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
                             Games
                         </a>
                         
                         <a href="quizzes.html" class="dropdown-item" data-section="quizzes">
-                            <i data-lucide="clipboard-list" class="nav-icon"></i>
+                            <i data-lucide="clipboard-list" style="width: 16px; height: 16px;"></i>
                             Quizzes
                         </a>
 
                         <a href="interactive-tasks.html" class="dropdown-item" data-section="interactive">
-                            <i data-lucide="clock" class="nav-icon"></i>
+                            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
                             Interactive Tasks
                         </a>
 
                         <a href="worksheets.html" class="dropdown-item" data-section="worksheets">
-                            <i data-lucide="file-text" class="nav-icon"></i>
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
                             Worksheets
                         </a>
 
                         <a href="Handouts.html" class="dropdown-item" data-section="handouts">
-                            <i data-lucide="file-text" class="nav-icon"></i>
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
                             Handouts
                         </a>
                     </div>
@@ -658,72 +661,41 @@
             
 
             <!-- Game Tips Section -->
-            <div class="widget">
+            <div class="widget learning-tips-widget" aria-labelledby="learningTipsTitle">
                 <div class="widget-header">
-                    <i data-lucide="lightbulb" class="widget-icon" aria-hidden="true"></i>
-                    <h3>Game Tips</h3>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i data-lucide="lightbulb" class="widget-header-icon" aria-hidden="true"></i>
+                        <div>
+                            <h3 id="learningTipsTitle">Learning Tips</h3>
+                            <p class="widget-subtitle">Quick, practical ways to boost study sessions</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="widget-content ideas-list">
-                    <div class="idea-card" data-tooltip="Quick answers earn 2x points!">
-                        <div class="idea-inner">
-                            <i data-lucide="zap" class="idea-icon"></i>
-                            <div class="idea-info">
-                                <strong>Trivia Race</strong>
-                                <p>Answer quickly for bonus points! Each question has a 30-second timer.</p>
-                            </div>
+                <div class="widget-content learning-tips-list">
+                    <article class="tip-card" tabindex="0" role="article" data-tooltip="Summarize each section in your own words to check understanding." aria-describedby="tip-desc-1">
+                        <div class="tip-icon" aria-hidden="true">
+                            <i data-lucide="book-open"></i>
                         </div>
-                    </div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Read Actively</h4>
+                            <p class="tip-desc">Take concise notes and ask questions as you read.</p>
+                        </div>
+                        <button class="tip-action" aria-hidden="true"><i data-lucide="chevron-right"></i></button>
+                    </article>
+                    <div id="tip-desc-1" class="sr-only">Summarize each section in your own words to check understanding.</div>
 
-                    <div class="idea-card" data-tooltip="Remember: chronological order matters!">
-                        <div class="idea-inner">
-                            <i data-lucide="clock" class="idea-icon"></i>
-                            <div class="idea-info">
-                                <strong>Timeline Quest</strong>
-                                <p>Drag events from earliest to latest (left to right) on the timeline.</p>
-                            </div>
+                    <article class="tip-card" tabindex="0" role="article" data-tooltip="Pause videos to take notes; rewatch short segments for clarity." aria-describedby="tip-desc-2">
+                        <div class="tip-icon" aria-hidden="true">
+                            <i data-lucide="video"></i>
                         </div>
-                    </div>
-
-                    <div class="idea-card" data-tooltip="3-in-a-row = triple points!">
-                        <div class="idea-inner">
-                            <i data-lucide="target" class="idea-icon"></i>
-                            <div class="idea-info">
-                                <strong>Build Streaks</strong>
-                                <p>Consecutive correct answers multiply your score in Trivia Race.</p>
-                            </div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Watch Videos</h4>
+                            <p class="tip-desc">Watch actively: pause, note timestamps, and reflect.</p>
                         </div>
-                    </div>
-
-                    <div class="idea-card" data-tooltip="Hints cost 50 points but save time">
-                        <div class="idea-inner">
-                            <i data-lucide="lightbulb" class="idea-icon"></i>
-                            <div class="idea-info">
-                                <strong>Use Hints Wisely</strong>
-                                <p>In Timeline Quest, hints cost points but can help when you're stuck.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="idea-card" data-tooltip="50/50 removes 2 wrong answers">
-                        <div class="idea-inner">
-                            <i data-lucide="settings" class="idea-icon"></i>
-                            <div class="idea-info">
-                                <strong>Power-ups</strong>
-                                <p>Use 50/50, Skip, and Time Boost strategically in Trivia Race.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="idea-card" data-tooltip="Beat your high score!">
-                        <div class="idea-inner">
-                            <i data-lucide="trophy" class="idea-icon"></i>
-                            <div class="idea-info">
-                                <strong>Leaderboard</strong>
-                                <p>Compete with other players and climb the rankings!</p>
-                            </div>
-                        </div>
-                    </div>
+                        <button class="tip-action" aria-hidden="true"><i data-lucide="chevron-right"></i></button>
+                    </article>
+                    <div id="tip-desc-2" class="sr-only">Pause videos to take notes; rewatch short segments for clarity.</div>
                 </div>
             </div>
 

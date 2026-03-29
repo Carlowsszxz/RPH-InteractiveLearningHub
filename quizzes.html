@@ -13,8 +13,9 @@
     <script src="JS/supabase-config.js"></script>
     <script src="JS/db-helpers.js"></script>
     <link rel="stylesheet" href="Styles/quizzes.css">
+    <link rel="stylesheet" href="Styles/course-feed.css">
 </head>
-<body>
+<body class="page-course page-quizzes">
     <!-- Header Navigation -->
     <header class="header">
         <div class="header-container">
@@ -46,12 +47,14 @@
         <aside class="left-sidebar mobile-sidebar" id="leftSidebar">
             <!-- User Profile Section -->
             <div class="user-profile">
-                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" />
+                <img src="https://i.pravatar.cc/80?img=20" alt="User avatar" class="profile-avatar" id="profileAvatar" loading="lazy" />
                 <div class="profile-info">
                     <h4 class="profile-name" id="profileName">Loading...</h4>
                     <p class="profile-email" id="profileEmail">Loading...</p>
                 </div>
-                
+                <button class="edit-profile-btn" id="editProfileBtn" title="Edit profile">
+                    <i data-lucide="edit-2" style="width: 16px; height: 16px;"></i>
+                </button>
             </div>
 
             <nav class="sidebar-nav">
@@ -264,75 +267,53 @@
 
         <!-- Right Sidebar -->
         <aside class="right-sidebar">
-            <!-- Learning Tips Section -->
-            <div class="widget">
+            <div class="widget learning-tips-widget" aria-labelledby="learningTipsTitle">
                 <div class="widget-header">
-                    <i data-lucide="lightbulb" style="width: 20px; height: 20px; color: #F4A460;"></i>
-                    <h3>Learning Tips</h3>
-                </div>
-
-                <div class="widget-content ideas-list">
-                    <div class="idea-card">
-                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
-                            <i data-lucide="book" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
-                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
-                                <strong>Read Actively</strong>
-                                <p>Take notes and ask questions while reading topics</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="idea-card">
-                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
-                            <i data-lucide="video" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
-                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
-                                <strong>Watch Videos</strong>
-                                <p>Watch educational videos to deepen understanding</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="idea-card">
-                        <div style="display: flex; align-items: flex-start; gap: 10px; min-width: 0;">
-                            <i data-lucide="gamepad-2" style="width: 18px; height: 18px; color: #5C3422; flex-shrink: 0; margin-top: 2px;"></i>
-                            <div class="idea-info" style="min-width: 0; word-wrap: break-word; overflow-wrap: break-word;">
-                                <strong>Play Games</strong>
-                                <p>Test your knowledge with fun interactive games</p>
-                            </div>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i data-lucide="lightbulb" class="widget-header-icon" aria-hidden="true"></i>
+                        <div>
+                            <h3 id="learningTipsTitle">Learning Tips</h3>
+                            <p class="widget-subtitle">Quick, practical ways to boost study sessions</p>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Available Quizzes Section -->
-            <div class="widget">
-                <div class="widget-header">
-                    <i data-lucide="clipboard-list" style="width: 20px; height: 20px; color: #F4A460;"></i>
-                    <h3>Available Quizzes</h3>
-                </div>
+                <div class="widget-content learning-tips-list">
+                    <article class="tip-card" tabindex="0" role="article" data-tooltip="Summarize each section in your own words to check understanding." aria-describedby="tip-desc-1">
+                        <div class="tip-icon" aria-hidden="true">
+                            <i data-lucide="book-open"></i>
+                        </div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Read Actively</h4>
+                            <p class="tip-desc">Take concise notes and ask questions as you read.</p>
+                        </div>
+                        <button class="tip-action" aria-hidden="true"><i data-lucide="chevron-right"></i></button>
+                    </article>
+                    <div id="tip-desc-1" class="sr-only">Summarize each section in your own words to check understanding.</div>
 
-                <div class="widget-content">
-                    <div class="quiz-sidebar-item">
-                        <div class="quiz-sidebar-content">
-                            <h4>Cavite Mutiny</h4>
-                            <p>Explore the events and consequences</p>
+                    <article class="tip-card" tabindex="0" role="article" data-tooltip="Pause videos to take notes; rewatch short segments for clarity." aria-describedby="tip-desc-2">
+                        <div class="tip-icon" aria-hidden="true">
+                            <i data-lucide="video"></i>
                         </div>
-                        <button class="quiz-sidebar-btn" data-quiz-id="1">Start</button>
-                    </div>
-                    <div class="quiz-sidebar-item">
-                        <div class="quiz-sidebar-content">
-                            <h4>First Mass</h4>
-                            <p>Historiographical debate on location</p>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Watch Videos</h4>
+                            <p class="tip-desc">Watch actively: pause, note timestamps, and reflect.</p>
                         </div>
-                        <button class="quiz-sidebar-btn" data-quiz-id="3">Start</button>
-                    </div>
-                    <div class="quiz-sidebar-item">
-                        <div class="quiz-sidebar-content">
-                            <h4>Rizal Retraction</h4>
-                            <p>Examine the controversial document</p>
+                        <button class="tip-action" aria-hidden="true"><i data-lucide="chevron-right"></i></button>
+                    </article>
+                    <div id="tip-desc-2" class="sr-only">Pause videos to take notes; rewatch short segments for clarity.</div>
+
+                    <article class="tip-card" tabindex="0" role="article" data-tooltip="Play short sessions focusing on weak topics; track improvement over time." aria-describedby="tip-desc-3">
+                        <div class="tip-icon" aria-hidden="true">
+                            <i data-lucide="gamepad"></i>
                         </div>
-                        <button class="quiz-sidebar-btn" data-quiz-id="2">Start</button>
-                    </div>
+                        <div class="tip-body">
+                            <h4 class="tip-title">Play Games</h4>
+                            <p class="tip-desc">Use games to practice retrieval and identify gaps.</p>
+                        </div>
+                        <button class="tip-action" aria-hidden="true"><i data-lucide="chevron-right"></i></button>
+                    </article>
+                    <div id="tip-desc-3" class="sr-only">Play short sessions focusing on weak topics; track improvement over time.</div>
                 </div>
             </div>
         </aside>

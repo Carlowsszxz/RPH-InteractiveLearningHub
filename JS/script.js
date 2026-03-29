@@ -8,6 +8,13 @@ class LoginForm {
         this.passwordError = document.getElementById('passwordError');
         this.submitButton = this.form.querySelector('button[type="submit"]');
 
+        // Accessibility: initialize password toggle attributes
+        if (this.passwordToggle) {
+            this.passwordToggle.setAttribute('aria-pressed', 'false');
+            this.passwordToggle.setAttribute('aria-label', 'Show password');
+            this.passwordToggle.setAttribute('type', 'button');
+        }
+
         this.init();
     }
 
@@ -88,6 +95,13 @@ class LoginForm {
         } else {
             svg.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
         }
+
+        // Update accessible state and label for the toggle button
+        if (this.passwordToggle) {
+            // When isPassword === true, we just made the password visible
+            this.passwordToggle.setAttribute('aria-pressed', isPassword ? 'true' : 'false');
+            this.passwordToggle.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+        }
     }
 
     async handleSubmit(e) {
@@ -95,6 +109,22 @@ class LoginForm {
 
         const isEmailValid = this.validateEmail();
         const isPasswordValid = this.validatePassword();
+
+        // Ensure terms agreement is checked (if present on the page)
+        const termsEl = document.getElementById('termsAgreement');
+        const termsErrorEl = document.getElementById('termsError');
+        if (termsEl && !termsEl.checked) {
+            // show accessible error
+            if (termsErrorEl) {
+                termsErrorEl.textContent = 'You must agree to the terms and rules to continue.';
+                termsErrorEl.style.display = 'block';
+            } else {
+                // fallback for older markup
+                alert('You must agree to the terms and rules to continue.');
+            }
+            termsEl.focus();
+            return;
+        }
 
         if (!isEmailValid || !isPasswordValid) {
             return;

@@ -63,6 +63,7 @@
             tasks: {
                 'timeline-cavite': {
                     title: 'Cavite Mutiny Timeline',
+                    clues: 'Timeline Tip: Arrange events in chronological order. Look for dates and cause-and-effect relationships: what caused the mutiny, then what happened as a result.',
                     maxScore: 5,
                     content: `
                         <p style="font-size: 16px; color: #51513E; margin-bottom: 24px; font-weight: 500;"><strong>Arrange these events in the correct chronological order by selecting them:</strong></p>
@@ -107,6 +108,7 @@
                 },
                 'matching-figures': {
                     title: 'Match Historical Figures',
+                    clues: 'Matching Tip: Consider each person\'s roles and actions. Ask: Was this person a victim, a leader, a priest, or an official?',
                     maxScore: 5,
                     content: `
                         <p><strong>Select the correct role for each historical figure:</strong></p>
@@ -176,6 +178,7 @@
                 },
                 'fillblank-cavite': {
                     title: 'Complete the Historical Narrative',
+                    clues: 'Fill-in Hints: [year]=a date in the 1800s; [location]=a place in the Philippines; [governor]=a Spanish official\'s name; [leader]=a sergeant\'s surname; [fort]=a military structure; [support]=military reinforcements; [priests]=a group of three priests; [first/second/third]=individual priest names.',
                     maxScore: 10,
                     content: `
                         <p><strong>Fill in the missing words to complete this historical account:</strong></p>
@@ -205,6 +208,7 @@
                 },
                 'timeline-first-mass': {
                     title: 'First Mass Historical Events',
+                    clues: 'Timeline Tip: Arrange events in order of when they happened historically. Think about: When was the Mass celebrated? When did the debate about its location begin?',
                     maxScore: 6,
                     content: `
                         <p style="font-size: 16px; color: #51513E; margin-bottom: 24px; font-weight: 500;"><strong>Arrange these events in the correct chronological order:</strong></p>
@@ -247,6 +251,7 @@
                 },
                 'matching-first-mass': {
                     title: 'Match Historical Figures & Evidence',
+                    clues: 'Matching Tip: Consider what each person contributed—Did they explore? Document? Lead a group? Officiate a religious ceremony?',
                     maxScore: 5,
                     content: `
                         <p><strong>Match explorers and historians with their contributions:</strong></p>
@@ -316,6 +321,7 @@
                 },
                 'fillblank-first-mass': {
                     title: 'Complete the Geographical Analysis',
+                    clues: 'Fill-in Hints: [city]=a major site in the First Mass debate; [island]=an alternative location; [crew member]=primary chronicler of Magellan\'s voyage; [navigator]=someone who recorded coordinates; [navigation data]=what maps and compasses show; [geographic feature]=a river or waterway.',
                     maxScore: 6,
                     content: `
                         <p><strong>Fill in the missing geographical and historical terms:</strong></p>
@@ -340,6 +346,7 @@
                 },
                 'timeline-rizal': {
                     title: 'Rizal\'s Final Days Timeline',
+                    clues: 'Timeline Tip: Sequence the events from Rizal\'s deportation through his execution. Pay attention to key moments: arrest, trial, final hours, and the alleged retraction.',
                     maxScore: 8,
                     content: `
                         <p style="font-size: 16px; color: #51513E; margin-bottom: 24px; font-weight: 500;"><strong>Arrange events from Rizal's final hours in correct sequence:</strong></p>
@@ -388,6 +395,7 @@
                 },
                 'matching-rizal': {
                     title: 'Identify Key Figures in Retraction',
+                    clues: 'Matching Tip: Match based on roles—Who was Rizal? Who were the officials? Which priests were involved? Consider the historical context of each person.',
                     maxScore: 5,
                     content: `
                         <p><strong>Match Jesuit priests and officials with their roles:</strong></p>
@@ -457,6 +465,7 @@
                 },
                 'fillblank-rizal': {
                     title: 'Complete the Historical Account',
+                    clues: 'Fill-in Hints: [date]=the day/month/year of the alleged retraction; [time]=morning hours; [priest name]=Fr. Vicente Balaguer; [organization]=surveillance group that documented events; [time period]=decades after death; [year]=discovery year; [adjective]=describes scholarly disagreement.',
                     maxScore: 7,
                     content: `
                         <p><strong>Fill in critical details about Rizal's retraction:</strong></p>
@@ -482,6 +491,7 @@
                 },
                 'timeline-cry-rebellion': {
                     title: 'Cry of Rebellion Timeline',
+                    clues: 'Timeline Tip: Order events from discovery of Katipunan through the start of armed revolution. Look for: secret society formation → discovery → gathering → symbolic act → uprising.',
                     maxScore: 5,
                     content: `
                         <p style="font-size: 16px; color: #51513E; margin-bottom: 24px; font-weight: 500;"><strong>Arrange revolutionary events in the correct chronological order:</strong></p>
@@ -521,6 +531,7 @@
                 },
                 'matching-cry-rebellion': {
                     title: 'Match Revolutionary Leaders & Actions',
+                    clues: 'Matching Tip: Consider each revolutionary\'s unique role—Who founded the group? Who provided support? Who wrote important documents? Who led militarily?',
                     maxScore: 5,
                     content: `
                         <p><strong>Match revolutionary leaders with their significant contributions:</strong></p>
@@ -590,6 +601,7 @@
                 },
                 'fillblank-cry-rebellion': {
                     title: 'Complete Revolutionary Accounts',
+                    clues: 'Fill-in Hints: [founder]=Andres Bonifacio\'s full name; [organization]=secret society; [ritual]=traditional oath; [city]=Philippine capital; [military leader]=eventual supreme leader; [form]=armed conflict; [verb]=past tense of continue.',
                     maxScore: 8,
                     content: `
                         <p><strong>Fill in historical details from the Cry of Rebellion:</strong></p>
@@ -620,7 +632,35 @@
                 this.currentTask = taskId;
                 this.currentMaxScore = task.maxScore;
                 document.getElementById('taskTitle').textContent = task.title;
-                document.getElementById('taskContent').innerHTML = task.content;
+                
+                // Build task content with clues section
+                let fullContent = '';
+                if (task.clues) {
+                    fullContent = `
+                        <div style="background: linear-gradient(135deg, #FEF3C7 0%, #FEF9E7 100%); border-left: 4px solid #F59E0B; padding: 8px 16px; border-radius: 6px; margin-top: 0; margin-bottom: 20px; position: relative;">
+                            <div style="display: flex; gap: 12px; align-items: flex-start;">
+                                <div style="flex-shrink: 0; font-size: 20px; margin-top: 2px;">💡</div>
+                                <div>
+                                    <h4 style="margin: 0 0 6px 0; color: #B45309; font-weight: 600;">Helpful Hints</h4>
+                                    <p style="margin: 0; color: #92400E; font-size: 14px; line-height: 1.5;">${task.clues}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                fullContent += task.content;
+                
+                const taskContentEl = document.getElementById('taskContent');
+                const modalContent = document.querySelector('.task-modal');
+                
+                // Add gap between modal-header and modal-body
+                if (modalContent) {
+                    modalContent.style.display = 'flex';
+                    modalContent.style.flexDirection = 'column';
+                    modalContent.style.gap = '16px';
+                }
+                
+                taskContentEl.innerHTML = fullContent;
                 document.getElementById('taskModal').style.display = 'flex';
 
                 // Make utility functions available globally

@@ -1,4 +1,4 @@
-        main.main-content {
+main.main-content {
             padding: 40px 32px;
             overflow-y: auto;
             overflow-x: hidden;
@@ -241,10 +241,7 @@
         }
 
         /* ==================== FILTERS & CONTROLS ==================== */
-            font-weight: 700;
-            color: #51513E;
-            margin: 0;
-        }
+        
 
         .filters {
             display: flex;
@@ -432,27 +429,31 @@
 
         .task-btn {
             padding: 8px 16px;
-            border: none;
-            background: #f0f0f0;
-            color: #51513E;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #7A5B47;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
+            transition: all 0.25s ease;
+            white-space: nowrap;
         }
 
         .task-btn:hover {
-            background: #51513E;
-            color: white;
-            transform: translateX(2px);
+            border-color: #7A5B47;
+            color: #333;
+            background: #f8f8f8;
         }
 
         .task-btn.primary {
-            background: #51513E;
+            background: linear-gradient(135deg, #006666 0%, #00a8a8 100%);
             color: white;
+            border-color: transparent;
+        }
+
+        .task-btn.primary:hover {
+            box-shadow: 0 4px 12px rgba(0, 102, 102, 0.3);
         }
 
         /* Widget styles moved to Styles/course-feed.css — keep feed styles authoritative */
@@ -1189,7 +1190,7 @@
             color: #51513E;
         }
 
-        /* Modal Styles */
+        /* ==================== MODAL STYLES - MINIMALIST ELEGANT ====================  */
         .modal {
             display: none;
             position: fixed;
@@ -1197,101 +1198,159 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(68, 41, 19, 0.5);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
             z-index: 1000;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            animation: fadeIn 0.2s ease;
         }
 
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            max-width: 600px;
+        /* The global header in course-feed.css uses z-index: 9999; this must be higher. */
+        #taskModal.modal {
+            z-index: 10000;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content.task-modal {
+            background: #FFFFFF;
+            border-radius: 16px;
+            max-width: 700px;
             width: 100%;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(68, 41, 19, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
             animation: slideUp 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
+            from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-header {
-            padding: 24px;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 32px 32px 0 32px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            gap: 20px;
         }
 
         .modal-header h2 {
-            font-size: 22px;
+            font-size: 26px;
             color: #51513E;
             margin: 0;
             font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            flex: 1;
         }
 
         .modal-close {
             background: none;
             border: none;
-            font-size: 28px;
-            color: #7A5B47;
+            font-size: 32px;
+            color: #D1CCC2;
             cursor: pointer;
             padding: 0;
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            opacity: 0.7;
         }
 
         .modal-close:hover {
-            color: #333;
-            transform: rotate(90deg);
+            color: #9C8B7E;
+            opacity: 1;
         }
 
         .modal-body {
-            padding: 24px;
+            padding: 28px 32px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #D1CCC2;
+            border-radius: 3px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #9C8B7E;
         }
 
         .modal-footer {
-            padding: 16px 24px;
-            border-top: 1px solid #f0f0f0;
+            padding: 28px 32px 32px 32px;
+            border-top: none;
             display: flex;
             gap: 12px;
             justify-content: flex-end;
         }
 
+        /* Button Styles - Minimalist Elegant */
         .btn-cancel,
         .btn-save {
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 12px 28px;
+            border-radius: 8px;
             border: none;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
         }
 
         .btn-cancel {
-            background: #f0f0f0;
-            color: #555;
+            background: #F5F3F0;
+            color: #7A5B47;
+            box-shadow: none;
         }
 
         .btn-cancel:hover {
-            background: #e0e0e0;
-            color: #333;
+            background: #E8E3DC;
+            color: #5C4033;
+        }
+
+        .btn-cancel:active {
+            transform: scale(0.98);
         }
 
         .btn-save {
-            background: linear-gradient(135deg, #5C3422 0%, #7A5B47 100%);
+            background: linear-gradient(135deg, #5C3422 0%, #7A5947 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(92, 52, 34, 0.3);
+            box-shadow: 0 8px 20px rgba(92, 52, 34, 0.2);
+        }
+
+        .btn-save:hover {
+            box-shadow: 0 12px 28px rgba(92, 52, 34, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-save:active {
+            transform: translateY(0);
         }
 
         .btn-save:hover {
@@ -1347,4 +1406,320 @@
             .sidebar-toggle-btn {
                 display: flex !important;
             }
+        }
+
+        /* Task Hints Box Styling - Minimalist Elegant */
+        .task-hints-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.04) 100%);
+            border-left: 4px solid #F59E0B;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 0 0 24px 0;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+
+        .hints-container {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .hints-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            opacity: 0.8;
+        }
+
+        .hints-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #92400E;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hints-paragraph {
+            margin: 0;
+            font-size: 13px;
+            color: #A16207;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .task-instruction {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+            color: #51513E;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .is-hidden {
+            display: none !important;
+        }
+
+        .task-result {
+            margin: 16px 0;
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        .task-result__title {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.2px;
+        }
+
+        .task-result__meta {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .task-result.is-success {
+            background: rgba(212, 237, 218, 0.55);
+            border-color: rgba(40, 167, 69, 0.22);
+            color: #155724;
+        }
+
+        .task-result.is-warning {
+            background: rgba(255, 243, 205, 0.65);
+            border-color: rgba(255, 193, 7, 0.35);
+            color: #856404;
+        }
+
+        /* Fill-in-the-Blank Content Styling - Minimalist Elegant */
+        .fill-blank-content {
+            margin: 20px 0;
+            display: grid;
+            gap: 12px;
+            padding: 14px 16px;
+            background: #FFFFFF;
+            border: 1.5px solid #E8E3DC;
+            border-radius: 10px;
+            line-height: 1.8;
+            color: #51513E;
+            font-size: 15px;
+        }
+
+        .fill-blank-line {
+            margin: 0;
+        }
+
+        .blank-input {
+            display: inline-block;
+            vertical-align: baseline;
+            margin: 0 6px;
+            width: clamp(120px, 20ch, 340px);
+            max-width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #E8E3DC;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: inherit;
+            background: #FDFCFB;
+            color: #51513E;
+            transition: all 0.2s ease;
+        }
+
+        .fill-blank-content .blank-input:first-child {
+            margin-left: 0;
+        }
+
+        .fill-blank-content .blank-input:last-child {
+            margin-right: 0;
+        }
+
+        .blank-input::placeholder {
+            color: #C4BCAF;
+        }
+
+        .blank-input:focus {
+            outline: none;
+            border-color: #5C3422;
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(92, 52, 34, 0.08);
+        }
+
+        .fillblank-feedback {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            display: none;
+            border-left: 4px solid #28a745;
+            background: rgba(212, 237, 218, 0.5);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        /* Timeline Styling - Minimalist Elegant */
+        .timeline-title {
+            font-size: 16px;
+            color: #51513E;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .timeline-container {
+            margin: 20px 0;
+            display: grid;
+            gap: 10px;
+        }
+
+        .timeline-item {
+            padding: 14px 16px;
+            background: #FDFCFB;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1.5px solid #E8E3DC;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .timeline-item:hover {
+            border-color: #D1CCC2;
+            background: #F9F7F4;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .timeline-item:active {
+            transform: scale(0.99);
+        }
+
+        .timeline-item span {
+            color: #51513E;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .timeline-check {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .timeline-feedback {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            display: none;
+            border-left: 4px solid #28a745;
+            background: rgba(212, 237, 218, 0.5);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        /* Matching Container Styling - Minimalist Elegant */
+        .matching-container {
+            margin: 20px 0;
+            display: grid;
+            gap: 14px;
+        }
+
+        .matching-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .matching-item strong {
+            font-size: 14px;
+            color: #51513E;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+
+        .match-answer {
+            padding: 10px 12px;
+            border: 1.5px solid #E8E3DC;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            background: #FDFCFB;
+            color: #51513E;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .match-answer:hover {
+            border-color: #D1CCC2;
+            background: #F9F7F4;
+        }
+
+        .match-answer:focus {
+            outline: none;
+            border-color: #5C3422;
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(92, 52, 34, 0.08);
+        }
+
+        .matching-feedback {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            display: none;
+            border-left: 4px solid #28a745;
+            background: rgba(212, 237, 218, 0.5);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        .matching-item select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            font-family: inherit;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .matching-feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        /* Redesigned Helpful Hints Section */
+        .helpful-hints {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FEF9E7 100%);
+            border-left: 6px solid #F59E0B;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .hints-icon {
+            font-size: 24px;
+            color: #F59E0B;
+            flex-shrink: 0;
+        }
+
+        .hints-content {
+            flex-grow: 1;
+        }
+
+        .hints-title {
+            margin: 0 0 8px 0;
+            color: #B45309;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .hints-text {
+            margin: 0;
+            color: #92400E;
+            font-size: 14px;
+            line-height: 1.6;
         }

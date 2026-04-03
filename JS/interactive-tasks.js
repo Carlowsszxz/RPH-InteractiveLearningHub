@@ -63,28 +63,28 @@
             tasks: {
                 'timeline-cavite': {
                     title: 'Cavite Mutiny Timeline',
-                    clues: 'Timeline Tip: Arrange events in chronological order. Look for dates and cause-and-effect relationships: what caused the mutiny, then what happened as a result.',
+                    clues: 'Focus on the chain from lost privileges to the Cavite uprising, then the arrest and execution of Gomburza.',
                     maxScore: 5,
                     content: `
-                        <p style="font-size: 16px; color: #51513E; margin-bottom: 24px; font-weight: 500;"><strong>Arrange these events in the correct chronological order by selecting them:</strong></p>
-                        <div style="margin: 20px 0; display: grid; gap: 12px;">
-                            <div class="timeline-item" data-order="1" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px; hover-scale: 1.02;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Spanish authorities removed long-enjoyed privileges (like tax exemption and forced labor exemption) of Filipino workers and soldiers in the Cavite arsenal.</span>
+                        <p class="timeline-title"><strong>Arrange these events in the correct chronological order by selecting them:</strong></p>
+                        <div class="timeline-container">
+                            <div class="timeline-item" data-order="1" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Spanish authorities removed long-enjoyed privileges (like tax exemption and forced labor exemption) of Filipino workers and soldiers in the Cavite arsenal.</span>
                             </div>
-                            <div class="timeline-item" data-order="2" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Discontent grew among arsenal workers and troops, leading to plans of protest against the new policies.</span>
+                            <div class="timeline-item" data-order="2" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Discontent grew among arsenal workers and troops, leading to plans of protest against the new policies.</span>
                             </div>
-                            <div class="timeline-item" data-order="3" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">On January 20, 1872, the mutiny broke out at Fort San Felipe in Cavite, led by Sergeant La Madrid and fellow soldiers.</span>
+                            <div class="timeline-item" data-order="3" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>On January 20, 1872, the mutiny broke out at Fort San Felipe in Cavite, led by Sergeant La Madrid and fellow soldiers.</span>
                             </div>
-                            <div class="timeline-item" data-order="4" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">The Spanish government quickly suppressed the uprising and arrested many Filipinos, including priests and suspected reformists.</span>
+                            <div class="timeline-item" data-order="4" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>The Spanish government quickly suppressed the uprising and arrested many Filipinos, including priests and suspected reformists.</span>
                             </div>
-                            <div class="timeline-item" data-order="5" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Gomburza (Gomez, Burgos, and Zamora) were executed on February 17, 1872, after being accused of involvement, which later fueled Filipino nationalism.</span>
+                            <div class="timeline-item" data-order="5" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Gomburza (Gomez, Burgos, and Zamora) were executed on February 17, 1872, after being accused of involvement, which later fueled Filipino nationalism.</span>
                             </div>
                         </div>
-                        <div id="timeline-feedback" style="margin-top: 20px; padding: 16px; border-radius: 8px; display: none; border-left: 4px solid #28a745;"></div>
+                        <div id="timeline-feedback" class="timeline-feedback"></div>
                     `,
                     check: function() {
                         // Check if items were selected in correct chronological order
@@ -108,14 +108,14 @@
                 },
                 'matching-figures': {
                     title: 'Match Historical Figures',
-                    clues: 'Matching Tip: Consider each person\'s roles and actions. Ask: Was this person a victim, a leader, a priest, or an official?',
+                    clues: 'Use the Gomburza story: match the three priests, the governor-general, and the soldier who led the mutiny.',
                     maxScore: 5,
                     content: `
                         <p><strong>Select the correct role for each historical figure:</strong></p>
-                        <div style="margin: 20px 0; display: grid; gap: 15px;">
+                        <div class="matching-container">
                             <div class="matching-item">
                                 <strong>Mariano Gomez</strong>
-                                <select class="match-answer" data-answer="A" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select role...</option>
                                     <option value="D">Jesuit priest who visited Rizal</option>
                                     <option value="A">Filipino priest, elderly member of Gomburza executed in 1872</option>
@@ -125,7 +125,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Jose Burgos</strong>
-                                <select class="match-answer" data-answer="B" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="B">
                                     <option value="">Select role...</option>
                                     <option value="C">Filipino soldier who led the uprising</option>
                                     <option value="D">Governor of Cavite during the mutiny</option>
@@ -135,7 +135,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Jacinto Zamora</strong>
-                                <select class="match-answer" data-answer="C" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="C">
                                     <option value="">Select role...</option>
                                     <option value="B">Governor-General who imposed new taxes</option>
                                     <option value="D">Spanish military commander in Fort San Felipe</option>
@@ -145,7 +145,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Rafael de Izquierdo</strong>
-                                <select class="match-answer" data-answer="D" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="D">
                                     <option value="">Select role...</option>
                                     <option value="C">Parish priest of Bacoor</option>
                                     <option value="A">Filipino reformist writer</option>
@@ -155,7 +155,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Sergeant La Madrid</strong>
-                                <select class="match-answer" data-answer="E" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="E">
                                     <option value="">Select role...</option>
                                     <option value="B">Spanish judge during the trials</option>
                                     <option value="E">Filipino soldier who led the uprising at Fort San Felipe</option>
@@ -164,7 +164,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div id="matching-feedback" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
+                        <div id="matching-feedback" class="matching-feedback"></div>
                     `,
                     check: function() {
                         let score = 0;
@@ -178,23 +178,19 @@
                 },
                 'fillblank-cavite': {
                     title: 'Complete the Historical Narrative',
-                    clues: 'Fill-in Hints: [year]=a date in the 1800s; [location]=a place in the Philippines; [governor]=a Spanish official\'s name; [leader]=a sergeant\'s surname; [fort]=a military structure; [support]=military reinforcements; [priests]=a group of three priests; [first/second/third]=individual priest names.',
+                    clues: 'Look for 1872, Cavite Arsenal, Rafael de Izquierdo, Fort San Felipe, La Madrid, and Gomburza.',
                     maxScore: 10,
                     content: `
-                        <p><strong>Fill in the missing words to complete this historical account:</strong></p>
-                        <div style="margin: 20px 0; line-height: 1.8; color: #555; font-size: 15px;">
-                            In <input type="text" class="blank-input" data-answer="1872" placeholder="[year]" style="width: 80px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>, Filipino soldiers and workers at the arsenal in 
-                            <input type="text" class="blank-input" data-answer="Cavite" placeholder="[location]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> became angry after Spanish authorities removed their privileges such as exemption from tribute and forced labor. These changes were ordered by Governor-General 
-                            <input type="text" class="blank-input" data-answer="Rafael de Izquierdo" placeholder="[governor]" style="width: 160px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>. On the night of January 20, 1872, a group of soldiers led by Sergeant 
-                            <input type="text" class="blank-input" data-answer="La Madrid" placeholder="[leader]" style="width: 120px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> staged an uprising at 
-                            <input type="text" class="blank-input" data-answer="Fort San Felipe" placeholder="[fort]" style="width: 130px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>. They expected support from other Filipino troops, but no 
-                            <input type="text" class="blank-input" data-answer="reinforcements" placeholder="[support]" style="width: 130px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> came, so the mutiny quickly failed. After the revolt was crushed, the Spanish government blamed Filipino priests and reformists. Three priests known as 
-                            <input type="text" class="blank-input" data-answer="Gomburza" placeholder="[priests]" style="width: 110px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> — 
-                            <input type="text" class="blank-input" data-answer="Gomez" placeholder="[first]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>, 
-                            <input type="text" class="blank-input" data-answer="Burgos" placeholder="[second]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>, and 
-                            <input type="text" class="blank-input" data-answer="Zamora" placeholder="[third]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> — were accused of involvement. On February 17, 1872, they were executed by garrote at Bagumbayan, an event that strengthened Filipino nationalism and later inspired heroes like Jose Rizal.
+                        <p class="task-instruction"><strong>Fill in the missing words to complete this historical account:</strong></p>
+                        <div class="fill-blank-content">
+                            <p class="fill-blank-line">In <input type="text" class="blank-input" data-answer="1872" placeholder="[year]" autocomplete="off" spellcheck="false"/>, Filipino soldiers and workers at the arsenal in <input type="text" class="blank-input" data-answer="Cavite" placeholder="[location]" autocomplete="off" spellcheck="false"/> became angry after Spanish authorities removed their privileges such as exemption from tribute and forced labor.</p>
+                            <p class="fill-blank-line">These changes were ordered by Governor-General <input type="text" class="blank-input" data-answer="Rafael de Izquierdo" placeholder="[governor]" autocomplete="off" spellcheck="false"/>.</p>
+                            <p class="fill-blank-line">On the night of January 20, 1872, a group of soldiers led by Sergeant <input type="text" class="blank-input" data-answer="La Madrid" placeholder="[leader]" autocomplete="off" spellcheck="false"/> staged an uprising at <input type="text" class="blank-input" data-answer="Fort San Felipe" placeholder="[fort]" autocomplete="off" spellcheck="false"/>.</p>
+                            <p class="fill-blank-line">They expected support from other Filipino troops, but no <input type="text" class="blank-input" data-answer="reinforcements" placeholder="[support]" autocomplete="off" spellcheck="false"/> came, so the mutiny quickly failed.</p>
+                            <p class="fill-blank-line">After the revolt was crushed, the Spanish government blamed Filipino priests and reformists. Three priests known as <input type="text" class="blank-input" data-answer="Gomburza" placeholder="[priests]" autocomplete="off" spellcheck="false"/> — <input type="text" class="blank-input" data-answer="Gomez" placeholder="[first]" autocomplete="off" spellcheck="false"/>, <input type="text" class="blank-input" data-answer="Burgos" placeholder="[second]" autocomplete="off" spellcheck="false"/>, and <input type="text" class="blank-input" data-answer="Zamora" placeholder="[third]" autocomplete="off" spellcheck="false"/> — were accused of involvement.</p>
+                            <p class="fill-blank-line">On February 17, 1872, they were executed by garrote at Bagumbayan, an event that strengthened Filipino nationalism and later inspired heroes like Jose Rizal.</p>
                         </div>
-                        <div id="fillblank-feedback" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
+                        <div id="fillblank-feedback" class="fillblank-feedback"></div>
                     `,
                     check: function() {
                         let score = 0;
@@ -208,31 +204,31 @@
                 },
                 'timeline-first-mass': {
                     title: 'First Mass Historical Events',
-                    clues: 'Timeline Tip: Arrange events in order of when they happened historically. Think about: When was the Mass celebrated? When did the debate about its location begin?',
+                    clues: 'Start with Pigafetta’s record, then the First Mass tradition, and end with the Butuan-versus-Limasawa debate.',
                     maxScore: 6,
                     content: `
-                        <p style="font-size: 16px; color: #51513E; margin-bottom: 24px; font-weight: 500;"><strong>Arrange these events in the correct chronological order:</strong></p>
-                        <div style="margin: 20px 0; display: grid; gap: 12px;">
-                            <div class="timeline-item" data-order="3" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Pigafetta's account becomes the primary historical document for the First Mass.</span>
+                        <p class="timeline-title"><strong>Arrange these events in the correct chronological order:</strong></p>
+                        <div class="timeline-container">
+                            <div class="timeline-item" data-order="3" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Pigafetta's account becomes the primary historical document for the First Mass.</span>
                             </div>
-                            <div class="timeline-item" data-order="1" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Tradition believes the First Mass was celebrated in Butuan.</span>
+                            <div class="timeline-item" data-order="1" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Tradition believes the First Mass was celebrated in Butuan.</span>
                             </div>
-                            <div class="timeline-item" data-order="5" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Scholars debate the geographical accuracy of Butuan as the location.</span>
+                            <div class="timeline-item" data-order="5" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Scholars debate the geographical accuracy of Butuan as the location.</span>
                             </div>
-                            <div class="timeline-item" data-order="2" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">A monument is erected in Butuan claiming the First Mass took place there.</span>
+                            <div class="timeline-item" data-order="2" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>A monument is erected in Butuan claiming the First Mass took place there.</span>
                             </div>
-                            <div class="timeline-item" data-order="4" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Francisco Albo's navigational records provide evidence supporting Limasawa.</span>
+                            <div class="timeline-item" data-order="4" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Francisco Albo's navigational records provide evidence supporting Limasawa.</span>
                             </div>
-                            <div class="timeline-item" data-order="6" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Modern historiography shifts toward accepting Limasawa as the correct location.</span>
+                            <div class="timeline-item" data-order="6" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Modern historiography shifts toward accepting Limasawa as the correct location.</span>
                             </div>
                         </div>
-                        <div id="timeline-feedback" style="margin-top: 20px; padding: 16px; border-radius: 8px; display: none; border-left: 4px solid #28a745;"></div>
+                        <div id="timeline-feedback" class="timeline-feedback"></div>
                     `,
                     check: function() {
                         if (timelineSelectionOrder.length < 6) {
@@ -251,14 +247,14 @@
                 },
                 'matching-first-mass': {
                     title: 'Match Historical Figures & Evidence',
-                    clues: 'Matching Tip: Consider what each person contributed—Did they explore? Document? Lead a group? Officiate a religious ceremony?',
+                    clues: 'Match Magellan, Pigafetta, Rajah Kolambu, Rajah Siagu, and Valderrama to their exact roles at the First Mass.',
                     maxScore: 5,
                     content: `
                         <p><strong>Match explorers and historians with their contributions:</strong></p>
-                        <div style="margin: 20px 0; display: grid; gap: 15px;">
+                        <div class="matching-container">
                             <div class="matching-item">
                                 <strong>Ferdinand Magellan</strong>
-                                <select class="match-answer" data-answer="A" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select contribution...</option>
                                     <option value="C">Local ruler who welcomed Magellan and attended the Mass</option>
                                     <option value="D">Priest who officiated the First Catholic Mass in 1521</option>
@@ -268,7 +264,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Antonio Pigafetta</strong>
-                                <select class="match-answer" data-answer="B" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="B">
                                     <option value="">Select contribution...</option>
                                     <option value="D">Priest who officiated the First Catholic Mass in 1521</option>
                                     <option value="A">Portuguese explorer who led the expedition that reached the Philippines in 1521</option>
@@ -278,7 +274,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Rajah Kolambu</strong>
-                                <select class="match-answer" data-answer="C" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="C">
                                     <option value="">Select contribution...</option>
                                     <option value="B">Chronicler who documented Magellan's voyage and the First Mass</option>
                                     <option value="C">Local ruler who welcomed Magellan and attended the Mass</option>
@@ -288,7 +284,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Rajah Siagu</strong>
-                                <select class="match-answer" data-answer="E" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="E">
                                     <option value="">Select contribution...</option>
                                     <option value="E">Native ruler of Limasawa who was present during the First Mass</option>
                                     <option value="C">Local ruler who welcomed Magellan and attended the Mass</option>
@@ -298,7 +294,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Fr. Pedro de Valderrama</strong>
-                                <select class="match-answer" data-answer="D" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="D">
                                     <option value="">Select contribution...</option>
                                     <option value="B">Chronicler who documented Magellan's voyage and the First Mass</option>
                                     <option value="A">Portuguese explorer who led the expedition that reached the Philippines in 1521</option>
@@ -307,7 +303,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div id="matching-feedback" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
+                        <div id="matching-feedback" class="matching-feedback"></div>
                     `,
                     check: function() {
                         let score = 0;
@@ -321,18 +317,17 @@
                 },
                 'fillblank-first-mass': {
                     title: 'Complete the Geographical Analysis',
-                    clues: 'Fill-in Hints: [city]=a major site in the First Mass debate; [island]=an alternative location; [crew member]=primary chronicler of Magellan\'s voyage; [navigator]=someone who recorded coordinates; [navigation data]=what maps and compasses show; [geographic feature]=a river or waterway.',
+                    clues: 'Look for Butuan, Limasawa, Pigafetta’s account, Francisco Albo’s logs, and the missing river clue.',
                     maxScore: 6,
                     content: `
-                        <p><strong>Fill in the missing geographical and historical terms:</strong></p>
-                        <div style="margin: 20px 0; line-height: 1.8; color: #555; font-size: 15px;">
-                            The First Mass debate centers on identifying whether the Mass was held in <input type="text" class="blank-input" data-answer="Butuan" placeholder="[city]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> or
-                            <input type="text" class="blank-input" data-answer="Limasawa" placeholder="[island]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>. The primary source document comes from
-                            <input type="text" class="blank-input" data-answer="Antonio Pigafetta" placeholder="[crew member]" style="width: 150px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>, who sailed with Magellan.
-                            <input type="text" class="blank-input" data-answer="Francisco Albo" placeholder="[navigator]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> provided navigational logs showing
-                            <input type="text" class="blank-input" data-answer="latitude and longitude coordinates" placeholder="[navigation data]" style="width: 180px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>. The absence of a <input type="text" class="blank-input" data-answer="river" placeholder="[geographic feature]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> in Butuan's accounts supports the Limasawa claim.
+                        <p class="task-instruction"><strong>Fill in the missing geographical and historical terms:</strong></p>
+                        <div class="fill-blank-content">
+                            <p class="fill-blank-line">The First Mass debate centers on identifying whether the Mass was held in <input type="text" class="blank-input" data-answer="Butuan" placeholder="[city]" autocomplete="off" spellcheck="false"/> or <input type="text" class="blank-input" data-answer="Limasawa" placeholder="[island]" autocomplete="off" spellcheck="false"/>.</p>
+                            <p class="fill-blank-line">The primary source document comes from <input type="text" class="blank-input" data-answer="Antonio Pigafetta" placeholder="[crew member]" autocomplete="off" spellcheck="false"/>, who sailed with Magellan.</p>
+                            <p class="fill-blank-line"><input type="text" class="blank-input" data-answer="Francisco Albo" placeholder="[navigator]" autocomplete="off" spellcheck="false"/> provided navigational logs showing <input type="text" class="blank-input" data-answer="latitude and longitude coordinates" placeholder="[navigation data]" autocomplete="off" spellcheck="false"/>.</p>
+                            <p class="fill-blank-line">The absence of a <input type="text" class="blank-input" data-answer="river" placeholder="[geographic feature]" autocomplete="off" spellcheck="false"/> in Butuan's accounts supports the Limasawa claim.</p>
                         </div>
-                        <div id="fillblank-feedback" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
+                        <div id="fillblank-feedback" class="fillblank-feedback"></div>
                     `,
                     check: function() {
                         let score = 0;
@@ -346,37 +341,37 @@
                 },
                 'timeline-rizal': {
                     title: 'Rizal\'s Final Days Timeline',
-                    clues: 'Timeline Tip: Sequence the events from Rizal\'s deportation through his execution. Pay attention to key moments: arrest, trial, final hours, and the alleged retraction.',
+                    clues: 'Follow Rizal from deportation to Dapitan, then arrest, death row, and his execution in Bagumbayan.',
                     maxScore: 8,
                     content: `
-                        <p style="font-size: 16px; color: #51513E; margin-bottom: 24px; font-weight: 500;"><strong>Arrange events from Rizal's final hours in correct sequence:</strong></p>
-                        <div style="margin: 20px 0; display: grid; gap: 12px;">
-                            <div class="timeline-item" data-order="2" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Pio Valenzuela visits Rizal in Dapitan to inform him of the planned revolution.</span>
+                        <p class="timeline-title"><strong>Arrange events from Rizal's final hours in correct sequence:</strong></p>
+                        <div class="timeline-container">
+                            <div class="timeline-item" data-order="2" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Pio Valenzuela visits Rizal in Dapitan to inform him of the planned revolution.</span>
                             </div>
-                            <div class="timeline-item" data-order="4" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Rizal is arrested and imprisoned, awaiting trial and execution.</span>
+                            <div class="timeline-item" data-order="4" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Rizal is arrested and imprisoned, awaiting trial and execution.</span>
                             </div>
-                            <div class="timeline-item" data-order="6" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Rizal requests a prayer book upon entering death row at 12:30 PM.</span>
+                            <div class="timeline-item" data-order="6" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Rizal requests a prayer book upon entering death row at 12:30 PM.</span>
                             </div>
-                            <div class="timeline-item" data-order="1" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Rizal is deported from the Philippines due to his writings and activism.</span>
+                            <div class="timeline-item" data-order="1" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Rizal is deported from the Philippines due to his writings and activism.</span>
                             </div>
-                            <div class="timeline-item" data-order="7" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Jesuit priests present Rizal with a pre-prepared retraction document.</span>
+                            <div class="timeline-item" data-order="7" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Jesuit priests present Rizal with a pre-prepared retraction document.</span>
                             </div>
-                            <div class="timeline-item" data-order="3" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Rizal is tried and sentenced to death by the Spanish authorities.</span>
+                            <div class="timeline-item" data-order="3" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Rizal is tried and sentenced to death by the Spanish authorities.</span>
                             </div>
-                            <div class="timeline-item" data-order="8" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Rizal is executed by firing squad on December 30, 1896.</span>
+                            <div class="timeline-item" data-order="8" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Rizal is executed by firing squad on December 30, 1896.</span>
                             </div>
-                            <div class="timeline-item" data-order="5" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Rizal's alleged nuptial ceremony at the point of death occurs at 5:00 AM.</span>
+                            <div class="timeline-item" data-order="5" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Rizal's alleged nuptial ceremony at the point of death occurs at 5:00 AM.</span>
                             </div>
                         </div>
-                        <div id="timeline-feedback" style="margin-top: 20px; padding: 16px; border-radius: 8px; display: none; border-left: 4px solid #28a745;"></div>
+                        <div id="timeline-feedback" class="timeline-feedback"></div>
                     `,
                     check: function() {
                         if (timelineSelectionOrder.length < 8) {
@@ -395,14 +390,14 @@
                 },
                 'matching-rizal': {
                     title: 'Identify Key Figures in Retraction',
-                    clues: 'Matching Tip: Match based on roles—Who was Rizal? Who were the officials? Which priests were involved? Consider the historical context of each person.',
+                    clues: 'Match Rizal, Fr. Balaguer, Polavieja, the Jesuit visitors, and the retraction witnesses to their roles.',
                     maxScore: 5,
                     content: `
                         <p><strong>Match Jesuit priests and officials with their roles:</strong></p>
-                        <div style="margin: 20px 0; display: grid; gap: 15px;">
+                        <div class="matching-container">
                             <div class="matching-item">
                                 <strong>Jose Rizal</strong>
-                                <select class="match-answer" data-answer="A" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select role...</option>
                                     <option value="D">Priests who visited Rizal in Fort Santiago</option>
                                     <option value="C">Spanish official who presided over Rizal's trial and execution</option>
@@ -412,7 +407,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Fr. Vicente Balaguer</strong>
-                                <select class="match-answer" data-answer="B" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="B">
                                     <option value="">Select role...</option>
                                     <option value="C">Spanish official who presided over Rizal's trial and execution</option>
                                     <option value="A">Filipino nationalist executed at Bagumbayan; visited by Jesuits before execution</option>
@@ -422,7 +417,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Governor-General Camilo de Polavieja</strong>
-                                <select class="match-answer" data-answer="C" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="C">
                                     <option value="">Select role...</option>
                                     <option value="B">Jesuit priest who visited Rizal in Fort Santiago and claimed Rizal retracted</option>
                                     <option value="D">Priests who visited Rizal in Fort Santiago</option>
@@ -432,7 +427,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Jesuit Priests (visiting Rizal)</strong>
-                                <select class="match-answer" data-answer="D" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="D">
                                     <option value="">Select role...</option>
                                     <option value="A">Filipino nationalist executed at Bagumbayan; visited by Jesuits before execution</option>
                                     <option value="C">Spanish official who presided over Rizal's trial and execution</option>
@@ -442,7 +437,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Witnesses of Retraction Document</strong>
-                                <select class="match-answer" data-answer="E" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="E">
                                     <option value="">Select role...</option>
                                     <option value="C">Spanish official who presided over Rizal's trial and execution</option>
                                     <option value="E">Verified Rizal's retraction document after 1935 discovery</option>
@@ -451,7 +446,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div id="matching-feedback" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
+                        <div id="matching-feedback" class="matching-feedback"></div>
                     `,
                     check: function() {
                         let score = 0;
@@ -465,19 +460,19 @@
                 },
                 'fillblank-rizal': {
                     title: 'Complete the Historical Account',
-                    clues: 'Fill-in Hints: [date]=the day/month/year of the alleged retraction; [time]=morning hours; [priest name]=Fr. Vicente Balaguer; [organization]=surveillance group that documented events; [time period]=decades after death; [year]=discovery year; [adjective]=describes scholarly disagreement.',
+                    clues: 'Watch for December 29, 1896, 12:30 PM, Fr. Vicente Balaguer, Cuerpo de Vigilancia, and 1935.',
                     maxScore: 7,
                     content: `
-                        <p><strong>Fill in critical details about Rizal's retraction:</strong></p>
-                        <div style="margin: 20px 0; line-height: 1.8; color: #555; font-size: 15px;">
-                            On <input type="text" class="blank-input" data-answer="December 29, 1896" placeholder="[date]" style="width: 140px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>, the allegedly retracted document was signed by Rizal.
-                            The document was allegedly written at <input type="text" class="blank-input" data-answer="12:30 PM" placeholder="[time]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> on the morning of his execution.
-                            <input type="text" class="blank-input" data-answer="Fr. Vicente Balaguer" placeholder="[priest name]" style="width: 160px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> claimed to witness Rizal writing the document.
-                            The <input type="text" class="blank-input" data-answer="Cuerpo de Vigilancia" placeholder="[organization]" style="width: 140px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> report provides detailed accounts of Rizal's final hours.
-                            Rizal's retraction document surfaced <input type="text" class="blank-input" data-answer="40 years" placeholder="[time period]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> after his execution in <input type="text" class="blank-input" data-answer="1935" placeholder="[year]" style="width: 70px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>.
-                            The existence of this document remains <input type="text" class="blank-input" data-answer="controversial" placeholder="[adjective]" style="width: 120px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> among historians.
+                        <p class="task-instruction"><strong>Fill in critical details about Rizal's retraction:</strong></p>
+                        <div class="fill-blank-content">
+                            <p class="fill-blank-line">On <input type="text" class="blank-input" data-answer="December 29, 1896" placeholder="[date]" autocomplete="off" spellcheck="false"/>, the allegedly retracted document was signed by Rizal.</p>
+                            <p class="fill-blank-line">The document was allegedly written at <input type="text" class="blank-input" data-answer="12:30 PM" placeholder="[time]" autocomplete="off" spellcheck="false"/> on the morning of his execution.</p>
+                            <p class="fill-blank-line"><input type="text" class="blank-input" data-answer="Fr. Vicente Balaguer" placeholder="[priest name]" autocomplete="off" spellcheck="false"/> claimed to witness Rizal writing the document.</p>
+                            <p class="fill-blank-line">The <input type="text" class="blank-input" data-answer="Cuerpo de Vigilancia" placeholder="[organization]" autocomplete="off" spellcheck="false"/> report provides detailed accounts of Rizal's final hours.</p>
+                            <p class="fill-blank-line">Rizal's retraction document surfaced <input type="text" class="blank-input" data-answer="40 years" placeholder="[time period]" autocomplete="off" spellcheck="false"/> after his execution in <input type="text" class="blank-input" data-answer="1935" placeholder="[year]" autocomplete="off" spellcheck="false"/>.</p>
+                            <p class="fill-blank-line">The existence of this document remains <input type="text" class="blank-input" data-answer="controversial" placeholder="[adjective]" autocomplete="off" spellcheck="false"/> among historians.</p>
                         </div>
-                        <div id="fillblank-feedback" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
+                        <div id="fillblank-feedback" class="fillblank-feedback"></div>
                     `,
                     check: function() {
                         let score = 0;
@@ -491,28 +486,28 @@
                 },
                 'timeline-cry-rebellion': {
                     title: 'Cry of Rebellion Timeline',
-                    clues: 'Timeline Tip: Order events from discovery of Katipunan through the start of armed revolution. Look for: secret society formation → discovery → gathering → symbolic act → uprising.',
+                    clues: 'Track the Katipunan discovery, the Pugad Lawin gathering, the tearing of cedulas, and the start of the revolution.',
                     maxScore: 5,
                     content: `
-                        <p style="font-size: 16px; color: #51513E; margin-bottom: 24px; font-weight: 500;"><strong>Arrange revolutionary events in the correct chronological order:</strong></p>
-                        <div style="margin: 20px 0; display: grid; gap: 12px;">
-                            <div class="timeline-item" data-order="1" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">The Katipunan, a secret revolutionary society, was discovered by Spanish authorities in Manila.</span>
+                        <p class="timeline-title"><strong>Arrange revolutionary events in the correct chronological order:</strong></p>
+                        <div class="timeline-container">
+                            <div class="timeline-item" data-order="1" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>The Katipunan, a secret revolutionary society, was discovered by Spanish authorities in Manila.</span>
                             </div>
-                            <div class="timeline-item" data-order="2" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Andres Bonifacio gathered fellow revolutionaries in Pugad Lawin (or Balintawak) to plan a revolt.</span>
+                            <div class="timeline-item" data-order="2" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Andres Bonifacio gathered fellow revolutionaries in Pugad Lawin (or Balintawak) to plan a revolt.</span>
                             </div>
-                            <div class="timeline-item" data-order="3" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">The revolutionaries tore their cedulas (residence certificates) as a symbolic act of defiance against Spanish rule.</span>
+                            <div class="timeline-item" data-order="3" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>The revolutionaries tore their cedulas (residence certificates) as a symbolic act of defiance against Spanish rule.</span>
                             </div>
-                            <div class="timeline-item" data-order="4" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">The Cry of Balintawak/Pugad Lawin officially signaled the start of the Philippine Revolution against Spain.</span>
+                            <div class="timeline-item" data-order="4" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>The Cry of Balintawak/Pugad Lawin officially signaled the start of the Philippine Revolution against Spain.</span>
                             </div>
-                            <div class="timeline-item" data-order="5" onclick="selectTimelineItem(this)" style="padding: 16px 18px; background: linear-gradient(135deg, #F9F7F4 0%, #FFFFFF 100%); border-radius: 10px; cursor: pointer; border: 2px solid #D6DCE1; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
-                                <input type="checkbox" class="timeline-check" style="width: 18px; height: 18px; cursor: pointer;"> <span style="color: #51513E; font-weight: 500;">Fighting erupted in several provinces, marking the beginning of organized revolutionary actions throughout the Philippines.</span>
+                            <div class="timeline-item" data-order="5" onclick="selectTimelineItem(this)">
+                                <input type="checkbox" class="timeline-check"> <span>Fighting erupted in several provinces, marking the beginning of organized revolutionary actions throughout the Philippines.</span>
                             </div>
                         </div>
-                        <div id="timeline-feedback" style="margin-top: 20px; padding: 16px; border-radius: 8px; display: none; border-left: 4px solid #28a745;"></div>
+                        <div id="timeline-feedback" class="timeline-feedback"></div>
                     `,
                     check: function() {
                         if (timelineSelectionOrder.length < 5) {
@@ -531,14 +526,14 @@
                 },
                 'matching-cry-rebellion': {
                     title: 'Match Revolutionary Leaders & Actions',
-                    clues: 'Matching Tip: Consider each revolutionary\'s unique role—Who founded the group? Who provided support? Who wrote important documents? Who led militarily?',
+                    clues: 'Match Bonifacio, Jacinto, Tandang Sora, Teodoro Plata, and the Katipunan members to their contributions.',
                     maxScore: 5,
                     content: `
                         <p><strong>Match revolutionary leaders with their significant contributions:</strong></p>
-                        <div style="margin: 20px 0; display: grid; gap: 15px;">
+                        <div class="matching-container">
                             <div class="matching-item">
                                 <strong>Andres Bonifacio</strong>
-                                <select class="match-answer" data-answer="A" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select contribution...</option>
                                     <option value="C">Provided food, shelter, and medical care to Katipuneros</option>
                                     <option value="A">Founder of the Katipunan; led the Cry of Pugad Lawin and tore cedulas</option>
@@ -548,7 +543,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Emilio Jacinto</strong>
-                                <select class="match-answer" data-answer="B" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="B">
                                     <option value="">Select contribution...</option>
                                     <option value="D">Early Katipunan member who helped organize meetings</option>
                                     <option value="B">Bonifacio's advisor; wrote the "Kartilya ng Katipunan" and guided revolutionary strategies</option>
@@ -558,7 +553,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Melchora Aquino (Tandang Sora)</strong>
-                                <select class="match-answer" data-answer="C" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="C">
                                     <option value="">Select contribution...</option>
                                     <option value="B">Bonifacio's advisor; wrote the "Kartilya ng Katipunan"</option>
                                     <option value="D">Early Katipunan member who helped organize meetings</option>
@@ -568,7 +563,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Teodoro Plata</strong>
-                                <select class="match-answer" data-answer="D" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="D">
                                     <option value="">Select contribution...</option>
                                     <option value="A">Founder of the Katipunan; led the Cry of Pugad Lawin and tore cedulas</option>
                                     <option value="C">Provided food, shelter, and medical care to Katipuneros</option>
@@ -578,7 +573,7 @@
                             </div>
                             <div class="matching-item">
                                 <strong>Andres Bonifacio's Katipunan Members (general)</strong>
-                                <select class="match-answer" data-answer="E" style="width: 100%; padding: 8px; margin-top: 5px;">
+                                <select class="match-answer" data-answer="E">
                                     <option value="">Select contribution...</option>
                                     <option value="B">Bonifacio's advisor; wrote the "Kartilya ng Katipunan"</option>
                                     <option value="E">Participated in tearing cedulas and initiating uprisings in multiple provinces</option>
@@ -587,7 +582,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div id="matching-feedback" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
+                        <div id="matching-feedback" class="matching-feedback"></div>
                     `,
                     check: function() {
                         let score = 0;
@@ -601,17 +596,19 @@
                 },
                 'fillblank-cry-rebellion': {
                     title: 'Complete Revolutionary Accounts',
-                    clues: 'Fill-in Hints: [founder]=Andres Bonifacio\'s full name; [organization]=secret society; [ritual]=traditional oath; [city]=Philippine capital; [military leader]=eventual supreme leader; [form]=armed conflict; [verb]=past tense of continue.',
+                    clues: 'Look for Bonifacio, Katipunan, the blood oath, Manila, Aguinaldo, and the shift to armed rebellion.',
                     maxScore: 8,
                     content: `
-                        <p><strong>Fill in historical details from the Cry of Rebellion:</strong></p>
-                        <div style="margin: 20px 0; line-height: 1.8; color: #555; font-size: 15px;">
-                            <input type="text" class="blank-input" data-answer="Andrés Bonifacio" placeholder="[founder]" style="width: 150px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> founded the <input type="text" class="blank-input" data-answer="Katipunan" placeholder="[organization]" style="width: 120px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>, a secret revolutionary society. The Katipunan required its members to take a <input type="text" class="blank-input" data-answer="blood oath" placeholder="[ritual]" style="width: 110px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> during initiation. The capital of the Philippines, <input type="text" class="blank-input" data-answer="Manila" placeholder="[city]" style="width: 100px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>, became the center of Katipunan organizing.
-                            Spanish authorities discovered the secret society, prompting Bonifacio to call for an armed uprising. <input type="text" class="blank-input" data-answer="Emilio Aguinaldo" placeholder="[military leader]" style="width: 160px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> eventually took command of the revolution.
-                            The movement transitioned from secret society to <input type="text" class="blank-input" data-answer="armed rebellion" placeholder="[form]" style="width: 120px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/>.
-                            Though Bonifacio was captured and executed, the revolution <input type="text" class="blank-input" data-answer="continued" placeholder="[verb]" style="width: 110px; padding: 5px; border: 1px solid #ddd; border-radius: 3px;"/> under new leadership.
+                        <p class="task-instruction"><strong>Fill in historical details from the Cry of Rebellion:</strong></p>
+                        <div class="fill-blank-content">
+                            <p class="fill-blank-line"><input type="text" class="blank-input" data-answer="Andrés Bonifacio" placeholder="[founder]" autocomplete="off" spellcheck="false"/> founded the <input type="text" class="blank-input" data-answer="Katipunan" placeholder="[organization]" autocomplete="off" spellcheck="false"/>, a secret revolutionary society.</p>
+                            <p class="fill-blank-line">The Katipunan required its members to take a <input type="text" class="blank-input" data-answer="blood oath" placeholder="[ritual]" autocomplete="off" spellcheck="false"/> during initiation.</p>
+                            <p class="fill-blank-line">The capital of the Philippines, <input type="text" class="blank-input" data-answer="Manila" placeholder="[city]" autocomplete="off" spellcheck="false"/>, became the center of Katipunan organizing.</p>
+                            <p class="fill-blank-line">Spanish authorities discovered the secret society, prompting Bonifacio to call for an armed uprising. <input type="text" class="blank-input" data-answer="Emilio Aguinaldo" placeholder="[military leader]" autocomplete="off" spellcheck="false"/> eventually took command of the revolution.</p>
+                            <p class="fill-blank-line">The movement transitioned from secret society to <input type="text" class="blank-input" data-answer="armed rebellion" placeholder="[form]" autocomplete="off" spellcheck="false"/>.</p>
+                            <p class="fill-blank-line">Though Bonifacio was captured and executed, the revolution <input type="text" class="blank-input" data-answer="continued" placeholder="[verb]" autocomplete="off" spellcheck="false"/> under new leadership.</p>
                         </div>
-                        <div id="fillblank-feedback" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
+                        <div id="fillblank-feedback" class="fillblank-feedback"></div>
                     `,
                     check: function() {
                         let score = 0;
@@ -637,12 +634,11 @@
                 let fullContent = '';
                 if (task.clues) {
                     fullContent = `
-                        <div style="background: linear-gradient(135deg, #FEF3C7 0%, #FEF9E7 100%); border-left: 4px solid #F59E0B; padding: 8px 16px; border-radius: 6px; margin-top: 0; margin-bottom: 20px; position: relative;">
-                            <div style="display: flex; gap: 12px; align-items: flex-start;">
-                                <div style="flex-shrink: 0; font-size: 20px; margin-top: 2px;">💡</div>
+                        <div class="task-hints-box">
+                            <div class="hints-container">
                                 <div>
-                                    <h4 style="margin: 0 0 6px 0; color: #B45309; font-weight: 600;">Helpful Hints</h4>
-                                    <p style="margin: 0; color: #92400E; font-size: 14px; line-height: 1.5;">${task.clues}</p>
+                                    <h4 class="hints-title">Quick Clues</h4>
+                                    <p class="hints-paragraph">${task.clues}</p>
                                 </div>
                             </div>
                         </div>
@@ -651,17 +647,15 @@
                 fullContent += task.content;
                 
                 const taskContentEl = document.getElementById('taskContent');
-                const modalContent = document.querySelector('.task-modal');
-                
-                // Add gap between modal-header and modal-body
-                if (modalContent) {
-                    modalContent.style.display = 'flex';
-                    modalContent.style.flexDirection = 'column';
-                    modalContent.style.gap = '16px';
-                }
                 
                 taskContentEl.innerHTML = fullContent;
-                document.getElementById('taskModal').style.display = 'flex';
+                const taskModal = document.getElementById('taskModal');
+                // Clear any inline display override (e.g., from legacy close handlers)
+                taskModal.style.display = '';
+                taskModal.classList.add('show');
+
+                const submitBtn = document.getElementById('submitTaskBtn');
+                if (submitBtn) submitBtn.classList.remove('is-hidden');
 
                 // Make utility functions available globally
                 window.selectTimelineItem = selectTimelineItem;
@@ -695,13 +689,13 @@
 
                 if (closeBtn) {
                     closeBtn.addEventListener('click', () => {
-                        modal.style.display = 'none';
+                        modal.classList.remove('show');
                     });
                 }
 
                 if (cancelBtn) {
                     cancelBtn.addEventListener('click', () => {
-                        modal.style.display = 'none';
+                        modal.classList.remove('show');
                     });
                 }
 
@@ -712,7 +706,7 @@
                 // Close modal when clicking outside
                 window.addEventListener('click', (e) => {
                     if (e.target === modal) {
-                        modal.style.display = 'none';
+                        modal.classList.remove('show');
                     }
                 });
             },
@@ -725,13 +719,16 @@
                 const percentage = Math.round((result.score / result.max) * 100);
 
                 // Show score result
-                const message = `<div style="padding: 20px; background: ${percentage >= 70 ? '#d4edda' : '#fff3cd'}; border: 1px solid ${percentage >= 70 ? '#c3e6cb' : '#ffc107'}; border-radius: 8px; text-align: center;">
-                    <h3 style="margin: 0 0 10px 0; color: ${percentage >= 70 ? '#155724' : '#856404'};">You got ${result.score}/${result.max}</h3>
-                    <p style="margin: 0; color: ${percentage >= 70 ? '#155724' : '#856404'}; font-size: 14px;">Score: ${percentage}%</p>
-                </div>`;
+                const resultClass = percentage >= 70 ? 'is-success' : 'is-warning';
+                const message = `
+                    <div class="task-result ${resultClass}">
+                        <h3 class="task-result__title">You got ${result.score}/${result.max}</h3>
+                        <p class="task-result__meta">Score: ${percentage}%</p>
+                    </div>
+                `;
 
                 document.getElementById('taskContent').innerHTML = message;
-                document.getElementById('submitTaskBtn').style.display = 'none';
+                document.getElementById('submitTaskBtn').classList.add('is-hidden');
 
                 // Save task progress to Supabase
                 try {
@@ -778,17 +775,6 @@
                     console.error('Error saving task progress:', error);
                 }
 
-                // Add close button
-                setTimeout(() => {
-                    const newBtn = document.createElement('button');
-                    newBtn.className = 'btn-cancel';
-                    newBtn.textContent = 'Close';
-                    newBtn.onclick = () => {
-                        document.getElementById('taskModal').style.display = 'none';
-                        document.getElementById('submitTaskBtn').style.display = 'block';
-                    };
-                    document.querySelector('.modal-footer').insertBefore(newBtn, document.getElementById('submitTaskBtn'));
-                }, 100);
             }
         };
 
@@ -967,13 +953,15 @@
 
             if (closeTaskModal) {
                 closeTaskModal.addEventListener('click', () => {
-                    taskModal.style.display = 'none';
+                    taskModal.classList.remove('show');
+                    taskModal.style.display = '';
                 });
             }
 
             if (cancelTaskBtn) {
                 cancelTaskBtn.addEventListener('click', () => {
-                    taskModal.style.display = 'none';
+                    taskModal.classList.remove('show');
+                    taskModal.style.display = '';
                 });
             }
 

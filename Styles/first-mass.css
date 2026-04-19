@@ -394,7 +394,10 @@
     color: #51443b;
     margin-bottom: 16px;
     line-height: 1.9;
-    text-align: left;
+    text-align: justify;
+    text-justify: inter-word;
+    text-wrap: pretty;
+    hyphens: auto;
 }
 
 .content-section ul {
@@ -405,6 +408,17 @@
 
 .content-section li {
     text-align: justify;
+    text-justify: inter-word;
+    text-wrap: pretty;
+    hyphens: auto;
+}
+
+.content-section blockquote p,
+.fact-callout {
+    text-align: justify;
+    text-justify: inter-word;
+    text-wrap: pretty;
+    hyphens: auto;
 }
 
 .highlight {

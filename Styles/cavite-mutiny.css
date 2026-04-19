@@ -635,7 +635,10 @@ blockquote em {
     color: #51443b;
     margin-bottom: 16px;
     line-height: 1.9;
-    text-align: left;
+    text-align: justify;
+    text-justify: inter-word;
+    text-wrap: pretty;
+    hyphens: auto;
 }
 
 .content-section ul {
@@ -645,6 +648,20 @@ blockquote em {
 }
 
 .content-section li { text-align: justify; }
+
+.content-section li {
+    text-justify: inter-word;
+    text-wrap: pretty;
+    hyphens: auto;
+}
+
+.content-section blockquote p,
+.fact-callout {
+    text-align: justify;
+    text-justify: inter-word;
+    text-wrap: pretty;
+    hyphens: auto;
+}
 
 .highlight { background: #D6DCE1; color: #423833; padding: 2px 6px; border-radius: 4px; font-weight: 600; display: inline-block; }
 .key-term { color: #51513E; font-weight: 700; border-bottom: 2px solid #D6DCE1; padding-bottom: 2px; }

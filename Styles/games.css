@@ -2824,6 +2824,10 @@
             box-shadow: 0 4px 12px rgba(92, 52, 34, 0.08);
             min-width: 200px;
             max-width: 280px;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .timeline-event-card:hover {
@@ -3062,19 +3066,38 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .timeline-modal.active {
+                align-items: stretch;
+                padding: 0;
+            }
+
             .timeline-modal-content {
                 max-width: 100%;
-                border-radius: 16px;
+                border-radius: 0;
                 max-height: 100vh;
+                height: 100vh;
             }
 
             .timeline-screen {
-                padding: 20px;
+                padding: 18px 14px 24px;
+                max-height: 100vh;
             }
 
             .timeline-start-content h2,
             .timeline-end-content h2 {
-                font-size: 32px;
+                font-size: 28px;
+                line-height: 1.2;
+            }
+
+            .timeline-description {
+                font-size: 16px;
+            }
+
+            .timeline-close-btn {
+                width: 42px;
+                height: 42px;
+                top: 12px;
+                right: 12px;
             }
 
             .era-chips {
@@ -3089,30 +3112,63 @@
             .timeline-game-header {
                 flex-direction: column;
                 gap: 12px;
-            }
-
-            .timeline-track-container {
+                align-items: flex-start;
                 padding: 16px;
             }
 
+            .timeline-track-container {
+                padding: 14px 12px;
+                overflow-x: auto;
+                overflow-y: visible;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .timeline-track {
+                min-width: 640px;
+                padding: 20px 0 26px;
+            }
+
             .timeline-drop-zones {
+                left: 72px;
+                right: 72px;
+                gap: 10px;
+            }
+
+            .timeline-drop-zone {
+                min-height: 88px;
+                min-width: 106px;
+            }
+
+            .drop-zone-label {
+                width: 24px;
+                height: 24px;
+                font-size: 11px;
+            }
+
+            .timeline-cards-container {
+                padding: 16px 14px;
+            }
+
+            .timeline-cards-header {
+                gap: 8px;
+                align-items: flex-start;
                 flex-direction: column;
-                position: static;
-                transform: none;
-                margin-top: 20px;
             }
 
-            .timeline-line {
-                display: none;
-            }
-
-            .timeline-markers {
-                display: none;
+            .timeline-cards-area {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 10px;
             }
 
             .timeline-event-card {
                 min-width: 100%;
                 max-width: 100%;
+                padding: 14px 14px;
+            }
+
+            .event-card-title {
+                font-size: 13px;
             }
 
             .timeline-final-stats {
@@ -3126,10 +3182,41 @@
             .timeline-btn-primary,
             .timeline-btn-secondary {
                 width: 100%;
+                min-height: 48px;
             }
 
             .grade-letter {
                 font-size: 56px;
+            }
+
+            .timeline-feedback {
+                width: calc(100vw - 24px);
+                max-width: 420px;
+                padding: 22px 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-track {
+                min-width: 560px;
+            }
+
+            .timeline-drop-zones {
+                left: 64px;
+                right: 64px;
+            }
+
+            .timeline-start-content h2,
+            .timeline-end-content h2 {
+                font-size: 24px;
+            }
+
+            .round-progress-dots {
+                gap: 8px;
+            }
+
+            .progress-dot {
+                width: 30px;
             }
         }
 

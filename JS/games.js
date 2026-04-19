@@ -3551,268 +3551,140 @@
         // ==================== TIMELINE QUEST EVENT DATABASE ====================
 
         const timelineEvents = [
-            // First Mass Topic (1521)
+            // First Mass (1521)
             {
                 id: 1,
-                title: "Magellan's Fleet Arrives in Philippines",
-                date: new Date(1521, 2, 16), // March 16, 1521
+                title: "Magellan expedition reached Homonhon",
+                date: new Date(1521, 2, 16),
                 year: 1521,
                 era: "first-mass",
-                description: "Ferdinand Magellan's expedition sights the islands of Samar"
+                description: "Ferdinand Magellan's expedition reached the island of Homonhon."
             },
             {
                 id: 2,
-                title: "Landing in Homonhon Island",
-                date: new Date(1521, 2, 17), // March 17, 1521
+                title: "First Catholic Mass celebrated",
+                date: new Date(1521, 2, 31, 8, 0),
                 year: 1521,
                 era: "first-mass",
-                description: "Magellan's crew lands on Homonhon Island for rest and supplies"
+                description: "A Catholic Mass was celebrated on March 31, 1521."
             },
             {
                 id: 3,
-                title: "Blood Compact with Rajah Kolambu",
-                date: new Date(1521, 2, 29), // March 29, 1521
+                title: "Rajah Kolambu and Rajah Siagu attended the Mass",
+                date: new Date(1521, 2, 31, 10, 0),
                 year: 1521,
                 era: "first-mass",
-                description: "Magellan forms alliance with Rajah Kolambu through blood compact"
+                description: "Rajah Kolambu and Rajah Siagu attended the religious ceremony."
             },
             {
                 id: 4,
-                title: "First Mass in Limasawa",
-                date: new Date(1521, 2, 31), // March 31, 1521
+                title: "Cross planted on a hill",
+                date: new Date(1521, 3, 1),
                 year: 1521,
                 era: "first-mass",
-                description: "Father Pedro Valderrama celebrates first Catholic Mass on Easter Sunday"
+                description: "A cross was planted on a hill overlooking the island."
             },
+
+            // Cavite Mutiny (1872)
             {
                 id: 5,
-                title: "Planting of the Cross in Limasawa",
-                date: new Date(1521, 3, 1), // April 1, 1521
-                year: 1521,
-                era: "first-mass",
-                description: "Spanish crew plants a large cross on the highest hill of Limasawa"
+                title: "Workers and soldiers protested removal of privileges",
+                date: new Date(1872, 0, 1),
+                year: 1872,
+                era: "cavite-mutiny",
+                description: "Filipino workers and soldiers in the Cavite arsenal protested the removal of privileges."
             },
             {
                 id: 6,
-                title: "Arrival in Cebu",
-                date: new Date(1521, 3, 7), // April 7, 1521
-                year: 1521,
-                era: "first-mass",
-                description: "Magellan's expedition arrives in Cebu and meets Rajah Humabon"
+                title: "Mutiny at Fort San Felipe",
+                date: new Date(1872, 0, 20),
+                year: 1872,
+                era: "cavite-mutiny",
+                description: "The mutiny broke out at Fort San Felipe in Cavite."
             },
             {
                 id: 7,
-                title: "Baptism of Rajah Humabon",
-                date: new Date(1521, 3, 14), // April 14, 1521
-                year: 1521,
-                era: "first-mass",
-                description: "Rajah Humabon and his wife are baptized as Christians"
+                title: "Spanish authorities blamed priests and reformists",
+                date: new Date(1872, 0, 21),
+                year: 1872,
+                era: "cavite-mutiny",
+                description: "Spanish authorities blamed Filipino priests and reformists for the uprising."
             },
             {
                 id: 8,
-                title: "Magellan's Death in Mactan",
-                date: new Date(1521, 3, 27), // April 27, 1521
-                year: 1521,
-                era: "first-mass",
-                description: "Ferdinand Magellan killed in Battle of Mactan by Lapu-Lapu's forces"
+                title: "Execution of Gomburza",
+                date: new Date(1872, 1, 17),
+                year: 1872,
+                era: "cavite-mutiny",
+                description: "Gomburza (Gomez, Burgos, Zamora) were executed by garrote."
             },
 
-            // Cavite Mutiny Topic (1872)
+            // Rizal's Retraction (1896)
             {
                 id: 9,
-                title: "Governor-General Izquierdo Takes Office",
-                date: new Date(1871, 3, 4), // April 4, 1871
-                year: 1871,
-                era: "cavite-mutiny",
-                description: "Rafael Izquierdo becomes Governor-General, introducing repressive policies"
+                title: "Rizal sentenced to death",
+                date: new Date(1896, 11, 26),
+                year: 1896,
+                era: "retraction-rizal",
+                description: "Rizal was sentenced to death by the Spanish military court."
             },
             {
                 id: 10,
-                title: "Abolition of Arsenal Privileges",
-                date: new Date(1872, 0, 1), // January 1, 1872
-                year: 1872,
-                era: "cavite-mutiny",
-                description: "Izquierdo abolishes privileges of Cavite arsenal workers"
+                title: "Jesuit visits in Fort Santiago",
+                date: new Date(1896, 11, 29, 9, 0),
+                year: 1896,
+                era: "retraction-rizal",
+                description: "Rizal was visited by Jesuit priests while imprisoned in Fort Santiago."
             },
             {
                 id: 11,
-                title: "Cavite Mutiny Erupts",
-                date: new Date(1872, 0, 20), // January 20, 1872
-                year: 1872,
-                era: "cavite-mutiny",
-                description: "Filipino soldiers and workers revolt at Fort San Felipe arsenal"
+                title: "Retraction document appeared",
+                date: new Date(1896, 11, 29, 22, 0),
+                year: 1896,
+                era: "retraction-rizal",
+                description: "A document stating Rizal's retraction of anti-Catholic ideas appeared."
             },
             {
                 id: 12,
-                title: "Mutiny Suppressed",
-                date: new Date(1872, 0, 21), // January 21, 1872
-                year: 1872,
-                era: "cavite-mutiny",
-                description: "Spanish forces quickly crush the mutiny within 24 hours"
+                title: "Execution at Bagumbayan",
+                date: new Date(1896, 11, 30),
+                year: 1896,
+                era: "retraction-rizal",
+                description: "Rizal was executed at Bagumbayan (Luneta) on December 30, 1896."
             },
+
+            // Cry of Rebellion (1896)
             {
                 id: 13,
-                title: "Arrest of GOMBURZA",
-                date: new Date(1872, 0, 28), // January 28, 1872
-                year: 1872,
-                era: "cavite-mutiny",
-                description: "Filipino priests Gomez, Burgos, and Zamora arrested"
+                title: "Katipunan discovered",
+                date: new Date(1896, 7, 19),
+                year: 1896,
+                era: "cry-rebellion",
+                description: "The Katipunan was discovered by Spanish authorities."
             },
             {
                 id: 14,
-                title: "Trial of GOMBURZA",
-                date: new Date(1872, 1, 6), // February 6, 1872
-                year: 1872,
-                era: "cavite-mutiny",
-                description: "GOMBURZA tried by court-martial for alleged conspiracy"
+                title: "Bonifacio gathered revolutionaries",
+                date: new Date(1896, 7, 23, 9, 0),
+                year: 1896,
+                era: "cry-rebellion",
+                description: "Andres Bonifacio gathered revolutionaries in Pugad Lawin/Balintawak."
             },
             {
                 id: 15,
-                title: "Execution of GOMBURZA",
-                date: new Date(1872, 1, 17), // February 17, 1872
-                year: 1872,
-                era: "cavite-mutiny",
-                description: "Three Filipino priests executed by garrote in Bagumbayan"
+                title: "Cedulas torn as sign of revolt",
+                date: new Date(1896, 7, 23, 15, 0),
+                year: 1896,
+                era: "cry-rebellion",
+                description: "Katipuneros tore their cedulas as a sign of revolt."
             },
             {
                 id: 16,
-                title: "Martyrdom Inspires Nationalism",
-                date: new Date(1872, 1, 18), // February 18, 1872
-                year: 1872,
-                era: "cavite-mutiny",
-                description: "GOMBURZA's death inspires Filipino nationalist movement"
-            },
-
-            // Cry of Rebellion Topic (1896)
-            {
-                id: 17,
-                title: "Katipunan's Discovery",
-                date: new Date(1896, 7, 19), // August 19, 1896
+                title: "Philippine Revolution began",
+                date: new Date(1896, 7, 24),
                 year: 1896,
                 era: "cry-rebellion",
-                description: "Spanish authorities discover the secret revolutionary society"
-            },
-            {
-                id: 18,
-                title: "Mass Arrests Begin",
-                date: new Date(1896, 7, 20), // August 20, 1896
-                year: 1896,
-                era: "cry-rebellion",
-                description: "Spanish colonial government orders arrest of suspected Katipuneros"
-            },
-            {
-                id: 19,
-                title: "Bonifacio Calls for Gathering",
-                date: new Date(1896, 7, 22), // August 22, 1896
-                year: 1896,
-                era: "cry-rebellion",
-                description: "Andres Bonifacio summons Katipuneros to Pugad Lawin"
-            },
-            {
-                id: 20,
-                title: "Cry of Pugad Lawin",
-                date: new Date(1896, 7, 23), // August 23, 1896
-                year: 1896,
-                era: "cry-rebellion",
-                description: "Katipuneros tear their cedulas, marking start of revolution"
-            },
-            {
-                id: 21,
-                title: "First Battle in San Juan del Monte",
-                date: new Date(1896, 7, 30), // August 30, 1896
-                year: 1896,
-                era: "cry-rebellion",
-                description: "First major armed confrontation between Katipunan and Spanish forces"
-            },
-            {
-                id: 22,
-                title: "Spread of Revolution to Provinces",
-                date: new Date(1896, 8, 1), // September 1, 1896
-                year: 1896,
-                era: "cry-rebellion",
-                description: "Revolutionary movement spreads across Luzon provinces"
-            },
-            {
-                id: 23,
-                title: "Declaration of Martial Law",
-                date: new Date(1896, 8, 3), // September 3, 1896
-                year: 1896,
-                era: "cry-rebellion",
-                description: "Spanish Governor-General declares martial law in eight provinces"
-            },
-            {
-                id: 24,
-                title: "Battle of San Mateo",
-                date: new Date(1896, 11, 2), // December 2, 1896
-                year: 1896,
-                era: "cry-rebellion",
-                description: "Major Katipunan victory against Spanish colonial forces"
-            },
-
-            // Retraction of Rizal Topic (1896)
-            {
-                id: 25,
-                title: "Rizal Arrives from Dapitan",
-                date: new Date(1896, 8, 16), // September 16, 1896
-                year: 1896,
-                era: "retraction-rizal",
-                description: "Rizal returns from exile in Dapitan, arrested in Barcelona"
-            },
-            {
-                id: 26,
-                title: "Rizal's Return to Manila",
-                date: new Date(1896, 10, 3), // November 3, 1896
-                year: 1896,
-                era: "retraction-rizal",
-                description: "Rizal brought back to Manila as prisoner of Spanish authorities"
-            },
-            {
-                id: 27,
-                title: "Rizal Imprisoned in Fort Santiago",
-                date: new Date(1896, 10, 20), // November 20, 1896
-                year: 1896,
-                era: "retraction-rizal",
-                description: "Rizal incarcerated while awaiting trial for rebellion"
-            },
-            {
-                id: 28,
-                title: "Rizal's Court-Martial Trial",
-                date: new Date(1896, 11, 26), // December 26, 1896
-                year: 1896,
-                era: "retraction-rizal",
-                description: "Military trial finds Rizal guilty of rebellion and sedition"
-            },
-            {
-                id: 29,
-                title: "Alleged Retraction Document Signed",
-                date: new Date(1896, 11, 29), // December 29, 1896
-                year: 1896,
-                era: "retraction-rizal",
-                description: "Controversial retraction allegedly signed by Rizal"
-            },
-            {
-                id: 30,
-                title: "Rizal Writes 'Mi Último Adiós'",
-                date: new Date(1896, 11, 29), // December 29, 1896
-                year: 1896,
-                era: "retraction-rizal",
-                description: "Rizal pens his final poem on the eve of execution"
-            },
-            {
-                id: 31,
-                title: "Marriage to Josephine Bracken",
-                date: new Date(1896, 11, 30), // December 30, 1896 (early morning)
-                year: 1896,
-                era: "retraction-rizal",
-                description: "Rizal marries Josephine Bracken hours before execution"
-            },
-            {
-                id: 32,
-                title: "Execution of José Rizal",
-                date: new Date(1896, 11, 30), // December 30, 1896
-                year: 1896,
-                era: "retraction-rizal",
-                description: "National hero executed by firing squad at Bagumbayan Field"
+                description: "The Philippine Revolution against Spain began."
             }
         ];
 

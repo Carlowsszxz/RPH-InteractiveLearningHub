@@ -331,6 +331,35 @@
     display: block;
 }
 
+.learning-tips-widget[aria-labelledby="learningObjectivesTitle"] .tip-desc {
+    display: block;
+}
+
+.learning-tips-widget[aria-labelledby="learningObjectivesTitle"] {
+    overflow: visible;
+}
+
+.learning-tips-widget[aria-labelledby="learningObjectivesTitle"] .widget-content {
+    max-height: none;
+    overflow: visible;
+}
+
+.learning-tips-widget[aria-labelledby="learningObjectivesTitle"] .tip-card {
+    align-items: flex-start;
+    padding: 12px 12px;
+    min-height: auto;
+}
+
+.learning-tips-widget[aria-labelledby="learningObjectivesTitle"] .tip-icon {
+    margin-top: 2px;
+}
+
+.learning-tips-widget[aria-labelledby="learningObjectivesTitle"] .tip-desc {
+    line-height: 1.5;
+    overflow: visible;
+    word-break: break-word;
+}
+
 .tip-action {
     display: none; /* hide chevron for minimal look */
 }

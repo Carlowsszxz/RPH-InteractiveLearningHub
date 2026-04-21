@@ -114,53 +114,53 @@
                         <p><strong>Direction: Choose the correct description for each historical figure.</strong></p>
                         <div class="matching-container">
                             <div class="matching-item">
-                                <strong>Mariano Gomez</strong>
+                                <strong>1. Mariano Gomez</strong>
                                 <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="B">Spanish governor-general who removed privileges of workers</option>
                                     <option value="A">Filipino priest, elderly member of Gomburza executed in 1872</option>
-                                    <option value="C">Filipino soldier who led the uprising</option>
+                                    <option value="B">Spanish governor-general who removed privileges of workers</option>
+                                    <option value="C">Soldier who led the Cavite uprising</option>
                                     <option value="D">Jesuit priest who visited Rizal</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Jose Burgos</strong>
-                                <select class="match-answer" data-answer="B">
+                                <strong>2. Jose Burgos</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="B">Parish priest accused in the mutiny; advocate of secularization</option>
-                                    <option value="D">Governor of Cavite during the mutiny</option>
+                                    <option value="A">Parish priest accused in the mutiny; advocate of secularization</option>
+                                    <option value="B">Governor of Cavite during the mutiny</option>
                                     <option value="C">Leader of the Katipunan</option>
-                                    <option value="A">Spanish military commander in Fort San Felipe</option>
+                                    <option value="D">Spanish military commander in Fort San Felipe</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Jacinto Zamora</strong>
-                                <select class="match-answer" data-answer="C">
+                                <strong>3. Jacinto Zamora</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="A">Filipino soldier who started the revolt</option>
-                                    <option value="C">Priest executed with Gomez and Burgos despite weak evidence</option>
-                                    <option value="B">Governor-General who imposed new taxes</option>
+                                    <option value="A">Priest executed with Gomez and Burgos despite weak evidence</option>
+                                    <option value="B">Filipino soldier who started the revolt</option>
+                                    <option value="C">Governor-General who imposed new taxes</option>
                                     <option value="D">Historian who wrote about the mutiny</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Rafael de Izquierdo</strong>
-                                <select class="match-answer" data-answer="D">
+                                <strong>4. Rafael de Izquierdo</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="C">Parish priest of Bacoor</option>
-                                    <option value="A">Filipino reformist writer</option>
-                                    <option value="D">Spanish Governor-General who removed privileges and tightened policies</option>
-                                    <option value="B">Leader of the Cavite arsenal workers</option>
+                                    <option value="A">Spanish Governor-General who removed privileges and tightened policies</option>
+                                    <option value="B">Parish priest of Bacoor</option>
+                                    <option value="C">Filipino reformist writer</option>
+                                    <option value="D">Leader of the Cavite arsenal workers</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Sergeant La Madrid</strong>
-                                <select class="match-answer" data-answer="E">
+                                <strong>5. Sergeant La Madrid</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="A">Priest accused in the Cavite Mutiny</option>
-                                    <option value="E">Filipino soldier who led the uprising at Fort San Felipe</option>
-                                    <option value="B">Spanish judge during the trials</option>
-                                    <option value="C">Katipunan member in 1896</option>
+                                    <option value="A">Filipino soldier who led the uprising at Fort San Felipe</option>
+                                    <option value="B">Priest accused in the Cavite Mutiny</option>
+                                    <option value="C">Spanish judge during the trials</option>
+                                    <option value="D">Katipunan member in 1896</option>
                                 </select>
                             </div>
                         </div>
@@ -183,12 +183,8 @@
                     content: `
                         <p class="task-instruction"><strong>Fill in the missing words to complete this historical account:</strong></p>
                         <div class="fill-blank-content">
-                            <p class="fill-blank-line">In <input type="text" class="blank-input" data-answer="1872" placeholder="[year]" autocomplete="off" spellcheck="false"/>, Filipino soldiers and workers at the arsenal in <input type="text" class="blank-input" data-answer="Cavite" placeholder="[location]" autocomplete="off" spellcheck="false"/> became angry after Spanish authorities removed their privileges such as exemption from tribute and forced labor.</p>
-                            <p class="fill-blank-line">These changes were ordered by Governor-General <input type="text" class="blank-input" data-answer="Rafael de Izquierdo" placeholder="[governor]" autocomplete="off" spellcheck="false"/>.</p>
-                            <p class="fill-blank-line">On the night of January 20, 1872, a group of soldiers led by Sergeant <input type="text" class="blank-input" data-answer="La Madrid" placeholder="[leader]" autocomplete="off" spellcheck="false"/> staged an uprising at <input type="text" class="blank-input" data-answer="Fort San Felipe" placeholder="[fort]" autocomplete="off" spellcheck="false"/>.</p>
-                            <p class="fill-blank-line">They expected support from other Filipino troops, but no <input type="text" class="blank-input" data-answer="reinforcements" placeholder="[support]" autocomplete="off" spellcheck="false"/> came, so the mutiny quickly failed.</p>
-                            <p class="fill-blank-line">After the revolt was crushed, the Spanish government blamed Filipino priests and reformists. Three priests known as <input type="text" class="blank-input" data-answer="Gomburza" placeholder="[priests]" autocomplete="off" spellcheck="false"/> — <input type="text" class="blank-input" data-answer="Gomez" placeholder="[first]" autocomplete="off" spellcheck="false"/>, <input type="text" class="blank-input" data-answer="Burgos" placeholder="[second]" autocomplete="off" spellcheck="false"/>, and <input type="text" class="blank-input" data-answer="Zamora" placeholder="[third]" autocomplete="off" spellcheck="false"/> — were accused of involvement.</p>
-                            <p class="fill-blank-line">On February 17, 1872, they were executed by garrote at Bagumbayan, an event that strengthened Filipino nationalism and later inspired heroes like Jose Rizal.</p>
+                            <p class="fill-blank-line">In <input type="text" class="blank-input" data-answer="1872" placeholder="[year]" autocomplete="off" spellcheck="false"/>, Filipino soldiers and workers at the arsenal in <input type="text" class="blank-input" data-answer="Cavite" placeholder="[location]" autocomplete="off" spellcheck="false"/> became angry after Spanish authorities removed their privileges such as exemption from tribute and forced labor. These changes were ordered by Governor-General <input type="text" class="blank-input" data-answer="Rafael de Izquierdo" placeholder="[governor]" autocomplete="off" spellcheck="false"/>. On the night of January 20, 1872, a group of soldiers led by Sergeant <input type="text" class="blank-input" data-answer="La Madrid" placeholder="[leader]" autocomplete="off" spellcheck="false"/> staged an uprising at <input type="text" class="blank-input" data-answer="Fort San Felipe" placeholder="[fort]" autocomplete="off" spellcheck="false"/>. They expected support from other Filipino troops, but no <input type="text" class="blank-input" data-answer="reinforcements" placeholder="[support]" autocomplete="off" spellcheck="false"/> came, so the mutiny quickly failed.</p>
+                            <p class="fill-blank-line">After the revolt was crushed, the Spanish government blamed Filipino priests and reformists. Three priests known as <input type="text" class="blank-input" data-answer="Gomburza" placeholder="[priests]" autocomplete="off" spellcheck="false"/> — <input type="text" class="blank-input" data-answer="Gomez" placeholder="[first]" autocomplete="off" spellcheck="false"/>, <input type="text" class="blank-input" data-answer="Burgos" placeholder="[second]" autocomplete="off" spellcheck="false"/>, and <input type="text" class="blank-input" data-answer="Zamora" placeholder="[third]" autocomplete="off" spellcheck="false"/> — were accused of involvement. On February 17, 1872, they were executed by garrote at Bagumbayan, an event that strengthened Filipino nationalism and later inspired heroes like Jose Rizal.</p>
                         </div>
                         <div id="fillblank-feedback" class="fillblank-feedback"></div>
                     `,
@@ -253,53 +249,53 @@
                         <p><strong>Direction: Choose the correct description for each historical figure.</strong></p>
                         <div class="matching-container">
                             <div class="matching-item">
-                                <strong>Ferdinand Magellan</strong>
+                                <strong>1. Ferdinand Magellan</strong>
                                 <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
+                                    <option value="A">Portuguese explorer who led the expedition that reached the Philippines in 1521</option>
                                     <option value="B">Italian scholar who recorded the voyage</option>
                                     <option value="C">Spanish governor in the Philippines</option>
-                                    <option value="C">Local ruler who welcomed Magellan and attended the Mass</option>
-                                    <option value="A">Portuguese explorer who led the expedition that reached the Philippines in 1521</option>
+                                    <option value="D">Local chieftain who welcomed the Spaniards</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Antonio Pigafetta</strong>
-                                <select class="match-answer" data-answer="B">
+                                <strong>2. Antonio Pigafetta</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="A">Soldier who fought in Mactan</option>
-                                    <option value="B">Chronicler who documented Magellan's voyage and the First Mass</option>
+                                    <option value="A">Chronicler who documented Magellan's voyage and the First Mass</option>
+                                    <option value="B">Soldier who fought in Mactan</option>
                                     <option value="C">Priest who celebrated the First Mass</option>
                                     <option value="D">Rajah of Limasawa</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Rajah Kolambu</strong>
-                                <select class="match-answer" data-answer="C">
+                                <strong>3. Rajah Kolambu</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="A">Spanish missionary priest</option>
-                                    <option value="C">Local ruler who welcomed Magellan and attended the Mass</option>
-                                    <option value="B">Captain of Magellan's ship</option>
+                                    <option value="A">Local ruler who welcomed Magellan and attended the Mass</option>
+                                    <option value="B">Spanish missionary priest</option>
+                                    <option value="C">Captain of Magellan's ship</option>
                                     <option value="D">Historian who wrote about the expedition</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Rajah Siagu</strong>
-                                <select class="match-answer" data-answer="E">
+                                <strong>4. Rajah Siagu</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="E">Native ruler of Limasawa who was present during the First Mass</option>
-                                    <option value="A">Portuguese explorer who led the expedition that reached the Philippines in 1521</option>
-                                    <option value="B">Spanish soldier assigned in Cebu</option>
-                                    <option value="C">Leader of the Cavite Mutiny</option>
+                                    <option value="A">Native ruler of Limasawa who was present during the First Mass</option>
+                                    <option value="B">Portuguese sailor who navigated the fleet</option>
+                                    <option value="C">Spanish soldier assigned in Cebu</option>
+                                    <option value="D">Leader of the Cavite Mutiny</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Fr. Pedro de Valderrama</strong>
-                                <select class="match-answer" data-answer="D">
+                                <strong>5. Fr. Pedro de Valderrama</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="A">Explorer who discovered the Pacific route</option>
-                                    <option value="D">Priest who officiated the First Catholic Mass in 1521</option>
-                                    <option value="B">Local datu who traded with Magellan</option>
-                                    <option value="C">Interpreter between Spaniards and natives</option>
+                                    <option value="A">Priest who officiated the First Catholic Mass in 1521</option>
+                                    <option value="B">Explorer who discovered the Pacific route</option>
+                                    <option value="C">Local datu who traded with Magellan</option>
+                                    <option value="D">Interpreter between Spaniards and natives</option>
                                 </select>
                             </div>
                         </div>
@@ -396,7 +392,7 @@
                         <p><strong>Direction: Choose the correct description for each historical figure.</strong></p>
                         <div class="matching-container">
                             <div class="matching-item">
-                                <strong>Jose Rizal</strong>
+                                <strong>1. Jose Rizal</strong>
                                 <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
                                     <option value="A">Filipino nationalist executed at Bagumbayan; visited by Jesuits before execution</option>
@@ -406,43 +402,43 @@
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Fr. Vicente Balaguer</strong>
-                                <select class="match-answer" data-answer="B">
+                                <strong>2. Fr. Vicente Balaguer</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="A">Rizal's friend who hid his writings</option>
-                                    <option value="B">Jesuit priest who visited Rizal in Fort Santiago and claimed Rizal retracted</option>
+                                    <option value="A">Jesuit priest who visited Rizal in Fort Santiago and claimed Rizal retracted</option>
+                                    <option value="B">Rizal's friend who hid his writings</option>
                                     <option value="C">Spanish general who sentenced Rizal to death</option>
                                     <option value="D">Katipunan leader during the revolution</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Governor-General Camilo de Polavieja</strong>
-                                <select class="match-answer" data-answer="C">
+                                <strong>3. Governor-General Camilo de Polavieja</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="C">Spanish official who presided over Rizal's trial and execution</option>
-                                    <option value="A">Chronicler of the retraction document</option>
-                                    <option value="B">Filipino reformist advocating secularization</option>
+                                    <option value="A">Spanish official who presided over Rizal's trial and execution</option>
+                                    <option value="B">Chronicler of the retraction document</option>
+                                    <option value="C">Filipino reformist advocating secularization</option>
                                     <option value="D">Priest executed during Cavite Mutiny</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Jesuit Priests (visiting Rizal)</strong>
-                                <select class="match-answer" data-answer="D">
+                                <strong>4. Jesuit Priests (visiting Rizal)</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="D">Priests who visited Rizal in Fort Santiago and assisted with his retraction</option>
-                                    <option value="A">Writers who exposed the Katipunan</option>
-                                    <option value="B">Soldiers who protected Rizal</option>
-                                    <option value="C">Priests executed in Cavite Mutiny</option>
+                                    <option value="A">Priests who visited Rizal in Fort Santiago and assisted with his retraction</option>
+                                    <option value="B">Writers who exposed the Katipunan</option>
+                                    <option value="C">Soldiers who protected Rizal</option>
+                                    <option value="D">Priests executed in Cavite Mutiny</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Witnesses of Retraction Document</strong>
-                                <select class="match-answer" data-answer="E">
+                                <strong>5. Witnesses of Retraction Document</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="E">Verified Rizal's retraction document after 1935 discovery</option>
-                                    <option value="A">Soldiers in Cavite arsenal</option>
-                                    <option value="B">Leaders of the Philippine Revolution</option>
-                                    <option value="C">Local chieftains during First Mass</option>
+                                    <option value="A">Verified Rizal's retraction document after 1935 discovery</option>
+                                    <option value="B">Soldiers in Cavite arsenal</option>
+                                    <option value="C">Leaders of the Philippine Revolution</option>
+                                    <option value="D">Local chieftains during First Mass</option>
                                 </select>
                             </div>
                         </div>
@@ -532,7 +528,7 @@
                         <p><strong>Direction: Choose the correct description for each revolutionary leader.</strong></p>
                         <div class="matching-container">
                             <div class="matching-item">
-                                <strong>Andres Bonifacio</strong>
+                                <strong>1. Andres Bonifacio</strong>
                                 <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
                                     <option value="A">Founder of the Katipunan; led the Cry of Pugad Lawin and tore cedulas</option>
@@ -542,42 +538,42 @@
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Emilio Jacinto</strong>
-                                <select class="match-answer" data-answer="B">
+                                <strong>2. Emilio Jacinto</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="B">Bonifacio's advisor; wrote the "Kartilya ng Katipunan" and guided revolutionary strategies</option>
-                                    <option value="A">Soldier who led a failed uprising in Cavite</option>
+                                    <option value="A">Bonifacio's advisor; wrote the "Kartilya ng Katipunan" and guided revolutionary strategies</option>
+                                    <option value="B">Soldier who led a failed uprising in Cavite</option>
                                     <option value="C">Spanish military commander in Manila</option>
                                     <option value="D">Priest who officiated religious ceremonies during the revolution</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Melchora Aquino (Tandang Sora)</strong>
-                                <select class="match-answer" data-answer="C">
+                                <strong>3. Melchora Aquino (Tandang Sora)</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="C">Provided food, shelter, and medical care to Katipuneros; called the "Mother of the Revolution"</option>
-                                    <option value="A">Revolutionary who led attacks in Manila</option>
-                                    <option value="B">Governor-General of the Philippines</option>
+                                    <option value="A">Provided food, shelter, and medical care to Katipuneros; called the "Mother of the Revolution"</option>
+                                    <option value="B">Revolutionary who led attacks in Manila</option>
+                                    <option value="C">Governor-General of the Philippines</option>
                                     <option value="D">Chronicler of Rizal's execution</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Teodoro Plata</strong>
-                                <select class="match-answer" data-answer="D">
+                                <strong>4. Teodoro Plata</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="D">Early Katipunan member who helped organize meetings and logistics</option>
-                                    <option value="A">Leader of Spanish forces during Cavite Mutiny</option>
-                                    <option value="B">Priest executed with Gomburza</option>
-                                    <option value="C">Writer of Rizal's retraction document</option>
+                                    <option value="A">Early Katipunan member who helped organize meetings and logistics</option>
+                                    <option value="B">Leader of Spanish forces during Cavite Mutiny</option>
+                                    <option value="C">Priest executed with Gomburza</option>
+                                    <option value="D">Writer of Rizal's retraction document</option>
                                 </select>
                             </div>
                             <div class="matching-item">
-                                <strong>Andres Bonifacio's Katipunan Members (general)</strong>
-                                <select class="match-answer" data-answer="E">
+                                <strong>5. Andres Bonifacio's Katipunan Members (general)</strong>
+                                <select class="match-answer" data-answer="A">
                                     <option value="">Select description...</option>
-                                    <option value="E">Participated in tearing cedulas and initiating uprisings in multiple provinces</option>
-                                    <option value="A">Spanish soldiers who defended Manila</option>
-                                    <option value="B">Jesuit priests visiting Rizal</option>
+                                    <option value="A">Participated in tearing cedulas and initiating uprisings in multiple provinces</option>
+                                    <option value="B">Spanish soldiers who defended Manila</option>
+                                    <option value="C">Jesuit priests visiting Rizal</option>
                                     <option value="C">Local rulers during First Mass</option>
                                 </select>
                             </div>
@@ -618,6 +614,44 @@
                             }
                         });
                         return { score: score, max: 8 };
+                    }
+                },
+                'interactive-concept-map': {
+                    title: 'Interactive Concept Map',
+                    clues: 'Build connections between concepts collaboratively. Add words, create hierarchies, and explore relationships in Philippine history topics.',
+                    maxScore: 0,
+                    content: `
+                        <p class="timeline-title"><strong>Build connections between concepts collaboratively:</strong></p>
+                        <div class="concept-map-container">
+                            <p style="text-align: center; color: #666; padding: 40px 20px;">
+                                The Interactive Concept Map activity is designed as a collaborative, multi-user experience.
+                            </p>
+                            <p style="text-align: center; color: #666; padding: 20px;">
+                                <strong>To access the full interactive mode:</strong>
+                            </p>
+                            <button onclick="window.location.href='structured-concept-map.html'" style="
+                                display: block;
+                                margin: 20px auto;
+                                padding: 12px 24px;
+                                background: #5C3422;
+                                color: white;
+                                border: none;
+                                border-radius: 6px;
+                                font-size: 16px;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: background 0.3s ease;
+                            " onmouseover="this.style.background='#4A2918'" onmouseout="this.style.background='#5C3422'">
+                                Open Concept Map Builder
+                            </button>
+                            <p style="text-align: center; color: #999; font-size: 14px; padding: 20px; margin-top: 20px; border-top: 1px solid #ddd;">
+                                This is a collaborative learning activity where you can add concepts, link ideas, and explore relationships in Philippine history.
+                            </p>
+                        </div>
+                    `,
+                    check: function() {
+                        // Concept map is collaborative with no fixed answer key
+                        return { score: 0, max: 0 };
                     }
                 }
             },

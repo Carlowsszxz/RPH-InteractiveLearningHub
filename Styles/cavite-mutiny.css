@@ -753,6 +753,33 @@ blockquote footer { margin-top: 8px; font-style: normal; font-weight: 700; color
 .right-sidebar .learning-tips-widget .tip-card:focus-within .tip-desc,
 .right-sidebar .learning-tips-widget .tip-card.expanded .tip-desc { display: block; }
 
+.right-sidebar .learning-tips-widget[aria-labelledby="learningObjectivesTitle"] .tip-desc { display: block; }
+
+.right-sidebar .learning-tips-widget[aria-labelledby="learningObjectivesTitle"] {
+    overflow: visible;
+}
+
+.right-sidebar .learning-tips-widget[aria-labelledby="learningObjectivesTitle"] .widget-content {
+    max-height: none;
+    overflow: visible;
+}
+
+.right-sidebar .learning-tips-widget[aria-labelledby="learningObjectivesTitle"] .tip-card {
+    align-items: flex-start;
+    padding: 12px 12px;
+    min-height: auto;
+}
+
+.right-sidebar .learning-tips-widget[aria-labelledby="learningObjectivesTitle"] .tip-icon {
+    margin-top: 2px;
+}
+
+.right-sidebar .learning-tips-widget[aria-labelledby="learningObjectivesTitle"] .tip-desc {
+    line-height: 1.5;
+    overflow: visible;
+    word-break: break-word;
+}
+
 /* hide decorative action elements */
 .right-sidebar .learning-tips-widget .tip-action { display: none; }
 .right-sidebar .learning-tips-widget .tip-card::after { display: none; }

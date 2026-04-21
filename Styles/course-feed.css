@@ -360,6 +360,59 @@
     word-break: break-word;
 }
 
+/* Key Facts Widget - Cavite Mutiny & other topic pages */
+.learning-tips-widget[aria-labelledby="keyFactsTitle"] {
+    overflow: visible;
+}
+
+.learning-tips-widget[aria-labelledby="keyFactsTitle"] .widget-content {
+    max-height: none;
+    overflow: visible;
+}
+
+.learning-tips-widget[aria-labelledby="keyFactsTitle"] .tip-card {
+    align-items: flex-start;
+    padding: 12px 12px;
+    min-height: auto;
+}
+
+.learning-tips-widget[aria-labelledby="keyFactsTitle"] .tip-icon {
+    margin-top: 2px;
+}
+
+.learning-tips-widget[aria-labelledby="keyFactsTitle"] .tip-desc {
+    line-height: 1.5;
+    overflow: visible;
+    word-break: break-word;
+}
+
+/* Interactive Tasks - Widget Content Scrollable Fix */
+.page-interactive-tasks .learning-tips-widget .widget-content,
+.page-interactive-tasks .learning-tips-list {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Custom scrollbar for interactive tasks widget */
+.page-interactive-tasks .learning-tips-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.page-interactive-tasks .learning-tips-list::-webkit-scrollbar-track {
+    background: rgba(92, 52, 34, 0.05);
+    border-radius: 3px;
+}
+
+.page-interactive-tasks .learning-tips-list::-webkit-scrollbar-thumb {
+    background: rgba(92, 52, 34, 0.2);
+    border-radius: 3px;
+}
+
+.page-interactive-tasks .learning-tips-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(92, 52, 34, 0.4);
+}
+
 .tip-action {
     display: none; /* hide chevron for minimal look */
 }

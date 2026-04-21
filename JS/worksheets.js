@@ -306,82 +306,159 @@ Please submit your completed worksheet to your teacher or upload it to your lear
     document.body.removeChild(element);
 }
 
-function downloadImage(imagePath) {
-    // Create and download image file
-    const element = document.createElement('a');
-    element.setAttribute('href', imagePath);
-    element.setAttribute('download', imagePath.split('/').pop());
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+function downloadImage(imagePathOrPaths) {
+    const imagePaths = Array.isArray(imagePathOrPaths) ? imagePathOrPaths : [imagePathOrPaths];
+
+    imagePaths.forEach((imagePath, index) => {
+        setTimeout(() => {
+            const element = document.createElement('a');
+            element.setAttribute('href', imagePath);
+            element.setAttribute('download', imagePath.split('/').pop());
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }, index * 180);
+    });
 }
 
-function previewImage(imagePath) {
-    // Create a modal to preview the image
+function previewImage(imagePathOrPaths) {
+    const imagePaths = Array.isArray(imagePathOrPaths) ? imagePathOrPaths : [imagePathOrPaths];
+    let currentImageIndex = 0;
+
     const modal = document.createElement('div');
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-    `;
+    modal.className = 'worksheet-preview-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Worksheet image preview');
 
     const modalContent = document.createElement('div');
-    modalContent.style.cssText = `
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        max-width: 90vw;
-        max-height: 90vh;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    `;
+    modalContent.className = 'worksheet-preview-content';
 
     const closeBtn = document.createElement('button');
     closeBtn.innerHTML = '×';
-    closeBtn.style.cssText = `
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        background: #f0f0f0;
-        border: none;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        font-size: 18px;
-        cursor: pointer;
-        color: #666;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    `;
+    closeBtn.className = 'worksheet-preview-close';
+    closeBtn.setAttribute('type', 'button');
+    closeBtn.setAttribute('aria-label', 'Close preview');
+
+    const previewHeader = document.createElement('div');
+    previewHeader.className = 'worksheet-preview-header';
+
+    const title = document.createElement('h4');
+    title.className = 'worksheet-preview-title';
+    title.textContent = 'Worksheet Preview';
+
+    const fileName = document.createElement('p');
+    fileName.className = 'worksheet-preview-filename';
 
     const image = document.createElement('img');
-    image.src = imagePath;
-    image.style.cssText = `
-        max-width: 100%;
-        max-height: 80vh;
-        object-fit: contain;
-        border-radius: 8px;
-    `;
+    image.className = 'worksheet-preview-image';
+    image.alt = 'Worksheet image preview';
 
+    const imageFrame = document.createElement('div');
+    imageFrame.className = 'worksheet-preview-image-frame';
+    imageFrame.appendChild(image);
+
+    const navigation = document.createElement('div');
+    navigation.className = 'worksheet-preview-navigation';
+    navigation.style.display = imagePaths.length > 1 ? 'flex' : 'none';
+
+    const prevBtn = document.createElement('button');
+    prevBtn.textContent = '← Previous';
+    prevBtn.className = 'worksheet-preview-nav-btn';
+    prevBtn.setAttribute('type', 'button');
+    prevBtn.setAttribute('aria-label', 'Show previous image');
+
+    const counter = document.createElement('span');
+    counter.className = 'worksheet-preview-counter';
+
+    const nextBtn = document.createElement('button');
+    nextBtn.textContent = 'Next →';
+    nextBtn.className = 'worksheet-preview-nav-btn';
+    nextBtn.setAttribute('type', 'button');
+    nextBtn.setAttribute('aria-label', 'Show next image');
+
+    const actionBar = document.createElement('div');
+    actionBar.className = 'worksheet-preview-actions';
+
+    const downloadCurrentBtn = document.createElement('button');
+    downloadCurrentBtn.className = 'worksheet-preview-download-btn';
+    downloadCurrentBtn.setAttribute('type', 'button');
+    downloadCurrentBtn.textContent = 'Download This Image';
+
+    function refreshImagePreview() {
+        image.src = imagePaths[currentImageIndex];
+        counter.textContent = `${currentImageIndex + 1} / ${imagePaths.length}`;
+        fileName.textContent = imagePaths[currentImageIndex].split('/').pop();
+        prevBtn.disabled = currentImageIndex === 0;
+        nextBtn.disabled = currentImageIndex === imagePaths.length - 1;
+    }
+
+    prevBtn.onclick = () => {
+        if (currentImageIndex > 0) {
+            currentImageIndex -= 1;
+            refreshImagePreview();
+        }
+    };
+
+    nextBtn.onclick = () => {
+        if (currentImageIndex < imagePaths.length - 1) {
+            currentImageIndex += 1;
+            refreshImagePreview();
+        }
+    };
+
+    downloadCurrentBtn.onclick = () => {
+        downloadImage(imagePaths[currentImageIndex]);
+    };
+
+    const onKeyDown = (event) => {
+        if (event.key === 'Escape') {
+            closeModal();
+            return;
+        }
+
+        if (event.key === 'ArrowLeft' && !prevBtn.disabled) {
+            prevBtn.click();
+            return;
+        }
+
+        if (event.key === 'ArrowRight' && !nextBtn.disabled) {
+            nextBtn.click();
+        }
+    };
+
+    function closeModal() {
+        document.removeEventListener('keydown', onKeyDown);
+        document.body.classList.remove('worksheet-preview-open');
+        if (modal.parentNode) {
+            document.body.removeChild(modal);
+        }
+    }
+
+    previewHeader.appendChild(title);
+    previewHeader.appendChild(fileName);
+    navigation.appendChild(prevBtn);
+    navigation.appendChild(counter);
+    navigation.appendChild(nextBtn);
+    actionBar.appendChild(downloadCurrentBtn);
+
+    modalContent.appendChild(previewHeader);
     modalContent.appendChild(closeBtn);
-    modalContent.appendChild(image);
+    modalContent.appendChild(imageFrame);
+    modalContent.appendChild(navigation);
+    modalContent.appendChild(actionBar);
     modal.appendChild(modalContent);
     document.body.appendChild(modal);
+    document.body.classList.add('worksheet-preview-open');
 
-    closeBtn.onclick = () => document.body.removeChild(modal);
+    refreshImagePreview();
+    closeBtn.focus();
+    document.addEventListener('keydown', onKeyDown);
+
+    closeBtn.onclick = closeModal;
     modal.onclick = (e) => {
-        if (e.target === modal) document.body.removeChild(modal);
+        if (e.target === modal) closeModal();
     };
 }
 

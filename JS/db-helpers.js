@@ -89,31 +89,80 @@ const DB = {
 
     // ===== LIKES =====
 
+    async resolveActiveUserId(fallbackUserId) {
+        try {
+            const client = this.getClient();
+            if (!client) return fallbackUserId;
+
+            const { data: { user } } = await client.auth.getUser();
+            return user?.id || fallbackUserId;
+        } catch (error) {
+            return fallbackUserId;
+        }
+    },
+
+    async syncPostLikesCount(postId) {
+        const client = this.getClient();
+        if (!client) return { success: false, error: 'Supabase not initialized' };
+
+        const { count, error: countError } = await client
+            .from('post_likes')
+            .select('id', { count: 'exact', head: true })
+            .eq('post_id', postId);
+
+        if (countError) {
+            return { success: false, error: countError.message };
+        }
+
+        const newLikeCount = Math.max(count || 0, 0);
+        const { error: updateError } = await client
+            .from('posts')
+            .update({ likes_count: newLikeCount })
+            .eq('id', postId);
+
+        if (updateError) {
+            return { success: false, error: updateError.message };
+        }
+
+        return { success: true, likesCount: newLikeCount };
+    },
+
     async likePost(postId, userId) {
         try {
             const client = this.getClient();
             if (!client) return { success: false, error: 'Supabase not initialized' };
+
+            const activeUserId = await this.resolveActiveUserId(userId);
+            if (!activeUserId || activeUserId === 'guest') {
+                return { success: false, error: 'User is not authenticated' };
+            }
             
-            // Insert like
-            const { error: insertError } = await client
+            // Insert like only when not yet liked
+            const { data: existingLike, error: existErr } = await client
                 .from('post_likes')
-                .insert([{ post_id: postId, user_id: userId }]);
+                .select('id')
+                .eq('post_id', postId)
+                .eq('user_id', activeUserId)
+                .maybeSingle();
 
-            if (insertError) throw insertError;
+            if (existErr) {
+                return { success: false, error: existErr.message };
+            }
 
-            // Increment count
-            const { data: post } = await client
-                .from('posts')
-                .select('likes_count')
-                .eq('id', postId)
-                .single();
+            if (!existingLike) {
+                const { error: insertError } = await client
+                    .from('post_likes')
+                    .insert([{ post_id: postId, user_id: activeUserId }]);
 
-            await client
-                .from('posts')
-                .update({ likes_count: (post?.likes_count || 0) + 1 })
-                .eq('id', postId);
+                if (insertError) throw insertError;
+            }
 
-            return { success: true };
+            const syncResult = await this.syncPostLikesCount(postId);
+            if (!syncResult.success) {
+                return syncResult;
+            }
+
+            return { success: true, likesCount: syncResult.likesCount };
         } catch (error) {
             console.error('Error liking post:', error);
             return { success: false, error: error.message };
@@ -124,29 +173,34 @@ const DB = {
         try {
             const client = this.getClient();
             if (!client) return { success: false, error: 'Supabase not initialized' };
+
+            const activeUserId = await this.resolveActiveUserId(userId);
+            if (!activeUserId || activeUserId === 'guest') {
+                return { success: false, error: 'User is not authenticated' };
+            }
+
+            const candidateUserIds = [...new Set([activeUserId, userId].filter(Boolean))];
             
-            // Delete like
-            const { error: deleteError } = await client
+            // Delete like for the active user (and fallback id if different)
+            const { data: deletedRows, error: deleteError } = await client
                 .from('post_likes')
                 .delete()
                 .eq('post_id', postId)
-                .eq('user_id', userId);
+                .in('user_id', candidateUserIds)
+                .select('id, user_id');
 
             if (deleteError) throw deleteError;
 
-            // Decrement count
-            const { data: post } = await client
-                .from('posts')
-                .select('likes_count')
-                .eq('id', postId)
-                .single();
+            // If no rows were deleted, that's okay - user is already not liked on this post
+            // This can happen due to sync issues or race conditions
+            // The important thing is that syncPostLikesCount reflects the true state
 
-            await client
-                .from('posts')
-                .update({ likes_count: Math.max((post?.likes_count || 1) - 1, 0) })
-                .eq('id', postId);
+            const syncResult = await this.syncPostLikesCount(postId);
+            if (!syncResult.success) {
+                return syncResult;
+            }
 
-            return { success: true };
+            return { success: true, likesCount: syncResult.likesCount };
         } catch (error) {
             console.error('Error unliking post:', error);
             return { success: false, error: error.message };

@@ -92,49 +92,63 @@ class CourseInterface {
         return;
     }
 
-    async optimisticLikeToggle(likeBtn, span, icon, likeCount, liked, postId) {
-        // Update UI optimistically
-        if (liked) {
-            likeBtn.classList.remove('liked');
-            likeBtn.setAttribute('aria-pressed', 'false');
-            likeBtn.setAttribute('aria-label', 'Like');
-            likeBtn.title = 'Like';
-            if (icon) { icon.style.fill = 'none'; icon.style.stroke = 'currentColor'; icon.style.color = 'currentColor'; }
-            span.textContent = Math.max(likeCount - 1, 0);
-        } else {
-            likeBtn.classList.add('liked');
-            likeBtn.setAttribute('aria-pressed', 'true');
-            likeBtn.setAttribute('aria-label', 'Unlike');
-            likeBtn.title = 'Unlike';
-            if (icon) { icon.style.fill = '#f39c12'; icon.style.stroke = '#f39c12'; icon.style.color = '#f39c12'; }
-            span.textContent = likeCount + 1;
+    applyLikeButtonState(likeBtn, icon, span, liked, likeCount) {
+        if (!likeBtn || !span) return;
+
+        likeBtn.classList.toggle('liked', liked);
+        likeBtn.setAttribute('aria-pressed', liked ? 'true' : 'false');
+        likeBtn.setAttribute('aria-label', liked ? 'Unlike' : 'Like');
+        likeBtn.title = liked ? 'Unlike' : 'Like';
+        span.textContent = Math.max(likeCount, 0);
+
+        if (icon) {
+            icon.style.fill = liked ? '#f39c12' : 'none';
+            icon.style.stroke = liked ? '#f39c12' : 'currentColor';
+            icon.style.color = liked ? '#f39c12' : 'currentColor';
+        }
+    }
+
+    async optimisticLikeToggle(likeBtn, postId) {
+        if (!likeBtn || !postId) return;
+
+        if (!this.currentUser || this.currentUser.id === 'guest') {
+            this.showNotification('Please log in to like posts.', 'error');
+            return;
         }
 
-        // Call backend
+        if (likeBtn.dataset.likePending === '1') return;
+
+        if (this.isSpamAction('like', postId)) {
+            this.showNotification('Please wait before reacting again', 'error');
+            return;
+        }
+
+        const span = likeBtn.querySelector('span');
+        const icon = likeBtn.querySelector('i, svg');
+        const currentLikeCount = parseInt(span?.textContent || '0', 10) || 0;
+        const currentlyLiked = likeBtn.classList.contains('liked');
+        const nextLiked = !currentlyLiked;
+        const nextLikeCount = currentLikeCount + (nextLiked ? 1 : -1);
+
+        this.applyLikeButtonState(likeBtn, icon, span, nextLiked, nextLikeCount);
+
+        likeBtn.dataset.likePending = '1';
+        likeBtn.classList.add('is-pending');
+
         try {
-            if (liked) {
-                await window.DB.unlikePost(postId, this.currentUser.id);
-            } else {
-                await window.DB.likePost(postId, this.currentUser.id);
+            const result = nextLiked
+                ? await window.DB.likePost(postId, this.currentUser.id)
+                : await window.DB.unlikePost(postId, this.currentUser.id);
+
+            if (!result || result.success !== true) {
+                throw new Error(result?.error || 'Failed to update like');
             }
         } catch (err) {
-            // Revert UI if backend fails
-            if (liked) {
-                likeBtn.classList.add('liked');
-                likeBtn.setAttribute('aria-pressed', 'true');
-                likeBtn.setAttribute('aria-label', 'Unlike');
-                likeBtn.title = 'Unlike';
-                if (icon) { icon.style.fill = '#f39c12'; icon.style.stroke = '#f39c12'; icon.style.color = '#f39c12'; }
-                span.textContent = likeCount;
-            } else {
-                likeBtn.classList.remove('liked');
-                likeBtn.setAttribute('aria-pressed', 'false');
-                likeBtn.setAttribute('aria-label', 'Like');
-                likeBtn.title = 'Like';
-                if (icon) { icon.style.fill = 'none'; icon.style.stroke = 'currentColor'; icon.style.color = 'currentColor'; }
-                span.textContent = Math.max(likeCount, 0);
-            }
+            this.applyLikeButtonState(likeBtn, icon, span, currentlyLiked, currentLikeCount);
             this.showNotification('Failed to update like. Please try again.', 'error');
+        } finally {
+            likeBtn.dataset.likePending = '0';
+            likeBtn.classList.remove('is-pending');
         }
     }
 
@@ -1249,6 +1263,11 @@ class CourseInterface {
                 .select('post_id')
                 .eq('user_id', this.currentUser.id);
 
+            if (likesError) {
+                console.warn('Error fetching user likes:', likesError);
+                // Continue with empty likes set - will load correctly on next refresh
+            }
+
             const likedPostIds = new Set(userLikes?.map(like => like.post_id) || []);
 
             // Get the discussion section
@@ -1608,7 +1627,18 @@ class CourseInterface {
                         }
                         if (nestedLike) {
                             nestedLike.setAttribute('data-post-id', String(enriched.id));
-                            nestedLike.addEventListener('click', (e) => this.handleLikeClick(e, enriched));
+                            nestedLike.setAttribute('tabindex', '0');
+                            nestedLike.setAttribute('role', 'button');
+                            nestedLike.setAttribute('aria-pressed', nestedLike.classList.contains('liked') ? 'true' : 'false');
+                            nestedLike.setAttribute('aria-label', nestedLike.classList.contains('liked') ? 'Unlike' : 'Like');
+                            nestedLike.title = nestedLike.classList.contains('liked') ? 'Unlike' : 'Like';
+                            nestedLike.addEventListener('click', () => this.optimisticLikeToggle(nestedLike, enriched.id));
+                            nestedLike.addEventListener('keydown', (e) => {
+                                if (e.key === ' ' || e.key === 'Enter') {
+                                    e.preventDefault();
+                                    this.optimisticLikeToggle(nestedLike, enriched.id);
+                                }
+                            });
                         }
                     }
                 } catch (e) {
@@ -1720,20 +1750,14 @@ class CourseInterface {
             likeBtn.setAttribute('aria-pressed', likeBtn.classList.contains('liked') ? 'true' : 'false');
             likeBtn.setAttribute('aria-label', likeBtn.classList.contains('liked') ? 'Unlike' : 'Like');
             likeBtn.title = likeBtn.classList.contains('liked') ? 'Unlike' : 'Like';
-
-            // Find icon and span
-            const icon = likeBtn.querySelector('i, svg');
-            const span = likeBtn.querySelector('span');
-            const likeCount = postData.likes_count || 0;
-            const liked = likeBtn.classList.contains('liked');
             const postId = postData.id;
 
-            // Optimistic UI toggle
-            likeBtn.addEventListener('click', () => this.optimisticLikeToggle(likeBtn, span, icon, likeCount, liked, postId));
+            // Optimistic UI toggle with live state per click
+            likeBtn.addEventListener('click', () => this.optimisticLikeToggle(likeBtn, postId));
             likeBtn.addEventListener('keydown', (e) => {
                 if (e.key === ' ' || e.key === 'Enter') {
                     e.preventDefault();
-                    this.optimisticLikeToggle(likeBtn, span, icon, likeCount, liked, postId);
+                    this.optimisticLikeToggle(likeBtn, postId);
                 }
             });
         }

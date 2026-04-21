@@ -143,6 +143,25 @@
                 </div>
             </div>
 
+            <section class="progress-summary" aria-labelledby="overallProgressTitle">
+                <div class="progress-summary-header">
+                    <div>
+                        <h3 id="overallProgressTitle">Your Progress</h3>
+                        <p id="progressSummaryText">0 completed, 0 remaining</p>
+                    </div>
+                    <span class="progress-percent" id="progressPercent">0%</span>
+                </div>
+                <div class="progress-track" role="progressbar" aria-label="Interactive tasks completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBarTrack">
+                    <div class="progress-track-fill" id="progressBar"></div>
+                </div>
+                <div class="progress-summary-meta">
+                    <span><strong id="completedTasks">0</strong> completed</span>
+                    <span><strong id="remainingTasks">0</strong> remaining</span>
+                    <span><strong id="totalTasks">0</strong> total</span>
+                </div>
+                <div class="topic-progress-list" id="topicProgressList"></div>
+            </section>
+
             <!-- Topic Section: Cavite Mutiny -->
             <div class="topic-section">
                 <div class="topic-header" data-topic="cavite">
@@ -162,7 +181,7 @@
                         </div>
                         <div class="tasks-grid">
                             
-                            <div class="task-card" data-topic="cavite">
+                            <div class="task-card" data-topic="cavite" data-task-id="fillblank-cavite">
                                 <div class="task-top">
                                     <div class="task-badges">
                                         <span class="badge badge-type">Fill Blanks</span>
@@ -192,7 +211,7 @@
                             <h4>Average Tasks</h4>
                         </div>
                         <div class="tasks-grid">
-                            <div class="task-card" data-topic="cavite">
+                            <div class="task-card" data-topic="cavite" data-task-id="timeline-cavite">
                                 <div class="task-top">
                                     <div class="task-badges">
                                         <span class="badge badge-type">Timeline</span>
@@ -212,7 +231,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="task-card" data-topic="cavite">
+                            <div class="task-card" data-topic="cavite" data-task-id="matching-figures">
                                 <div class="task-top">
                                     <div class="task-badges">
                                         <span class="badge badge-type">Matching</span>
@@ -254,7 +273,7 @@
                             <h4>Average Tasks</h4>
                         </div>
                         <div class="tasks-grid">
-                            <div class="task-card" data-topic="first-mass">
+                            <div class="task-card" data-topic="first-mass" data-task-id="matching-first-mass">
                                 <div class="task-top">
                                     <div class="task-badges">
                                         <span class="badge badge-type">Matching</span>
@@ -296,7 +315,7 @@
                             <h4>Average Tasks</h4>
                         </div>
                         <div class="tasks-grid">
-                            <div class="task-card" data-topic="rizal">
+                            <div class="task-card" data-topic="rizal" data-task-id="matching-rizal">
                                 <div class="task-top">
                                     <div class="task-badges">
                                         <span class="badge badge-type">Matching</span>
@@ -339,7 +358,7 @@
                             <h4>Average Tasks</h4>
                         </div>
                         <div class="tasks-grid">
-                            <div class="task-card" data-topic="cry-rebellion">
+                            <div class="task-card" data-topic="cry-rebellion" data-task-id="timeline-cry-rebellion">
                                 <div class="task-top">
                                     <div class="task-badges">
                                         <span class="badge badge-type">Timeline</span>
@@ -369,7 +388,7 @@
                             <h4>Hard Tasks</h4>
                         </div>
                         <div class="tasks-grid">
-                            <div class="task-card" data-topic="cry-rebellion">
+                            <div class="task-card" data-topic="cry-rebellion" data-task-id="matching-cry-rebellion">
                                 <div class="task-top">
                                     <div class="task-badges">
                                         <span class="badge badge-type">Matching</span>

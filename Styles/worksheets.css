@@ -271,6 +271,164 @@
     transform: scale(0.98);
 }
 
+/* Worksheet Preview Modal */
+body.worksheet-preview-open {
+    overflow: hidden;
+}
+
+.worksheet-preview-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(30, 22, 18, 0.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 24px;
+    backdrop-filter: blur(2px);
+}
+
+.worksheet-preview-content {
+    background: #FFFFFF;
+    border: 1px solid #E2D5C2;
+    border-radius: 16px;
+    width: min(960px, 100%);
+    max-height: calc(100vh - 48px);
+    padding: 20px 20px 16px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 0 18px 40px rgba(33, 25, 19, 0.3);
+}
+
+.worksheet-preview-header {
+    padding-right: 48px;
+}
+
+.worksheet-preview-title {
+    margin: 0 0 4px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #51513E;
+}
+
+.worksheet-preview-filename {
+    margin: 0;
+    font-size: 12px;
+    color: #7A6B5F;
+    font-weight: 600;
+}
+
+.worksheet-preview-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #D6DCE1;
+    border-radius: 50%;
+    background: #F9F7F4;
+    color: #5C3422;
+    font-size: 20px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.worksheet-preview-close:hover {
+    background: #F0EBE0;
+    border-color: #5C3422;
+}
+
+.worksheet-preview-close:focus-visible,
+.worksheet-preview-nav-btn:focus-visible,
+.worksheet-preview-download-btn:focus-visible {
+    outline: 2px solid #5C3422;
+    outline-offset: 2px;
+}
+
+.worksheet-preview-image-frame {
+    background: #F9F7F4;
+    border: 1px solid #E2D5C2;
+    border-radius: 12px;
+    min-height: 320px;
+    max-height: calc(100vh - 280px);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.worksheet-preview-image {
+    max-width: 100%;
+    max-height: calc(100vh - 320px);
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.worksheet-preview-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.worksheet-preview-nav-btn {
+    background: #FFFFFF;
+    color: #5C3422;
+    border: 1px solid #5C3422;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.worksheet-preview-nav-btn:hover:not(:disabled) {
+    background: #5C3422;
+    color: #FFFFFF;
+}
+
+.worksheet-preview-nav-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.worksheet-preview-counter {
+    font-size: 13px;
+    font-weight: 700;
+    color: #51513E;
+    min-width: 70px;
+    text-align: center;
+}
+
+.worksheet-preview-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.worksheet-preview-download-btn {
+    background: #5C3422;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.worksheet-preview-download-btn:hover {
+    background: #8B5A3C;
+}
+
 /* Learning Cards Grid */
 .learning-cards-grid {
     display: grid;
@@ -1079,6 +1237,39 @@
 
     .reflections-container {
         grid-template-columns: 1fr;
+    }
+
+    .worksheet-preview-modal {
+        padding: 14px;
+    }
+
+    .worksheet-preview-content {
+        width: 100%;
+        max-height: calc(100vh - 28px);
+        padding: 16px 14px 14px;
+    }
+
+    .worksheet-preview-title {
+        font-size: 16px;
+    }
+
+    .worksheet-preview-image-frame {
+        min-height: 240px;
+        max-height: calc(100vh - 270px);
+        padding: 8px;
+    }
+
+    .worksheet-preview-image {
+        max-height: calc(100vh - 300px);
+    }
+
+    .worksheet-preview-navigation {
+        gap: 8px;
+    }
+
+    .worksheet-preview-nav-btn {
+        padding: 8px 10px;
+        font-size: 12px;
     }
 }
 

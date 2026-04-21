@@ -573,3 +573,57 @@ blockquote footer {
 
 /* Use `course.css` widget styles for uniform look; remove local overrides */
 /* Local overrides removed so shared `course.css` rules apply. */
+
+@media (max-width: 768px) {
+    .fact-callout {
+        display: block;
+        padding: 12px 14px;
+        margin: 14px 0;
+        border-left-width: 3px;
+        border-radius: 10px;
+        font-size: 13.5px;
+        line-height: 1.65;
+        text-align: left;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        hyphens: auto;
+    }
+
+    .fact-callout strong {
+        display: block;
+        min-width: 0;
+        margin-bottom: 6px;
+    }
+
+    .fact-callout.conclusion-box {
+        text-align: left;
+    }
+
+    .perspective-section {
+        border-left-width: 3px;
+        padding: 14px;
+        margin-left: 0;
+    }
+
+    .perspective-label {
+        display: inline-block;
+        max-width: 100%;
+        font-size: 11px;
+        letter-spacing: 0.6px;
+        padding: 5px 10px;
+    }
+
+    blockquote,
+    .perspective-section blockquote {
+        padding: 12px 14px;
+        margin: 12px 0 16px;
+        font-size: 13.5px;
+        line-height: 1.6;
+    }
+
+    .content-section p,
+    .content-section li {
+        text-align: left;
+        text-justify: auto;
+    }
+}

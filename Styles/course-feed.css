@@ -3885,6 +3885,12 @@ body.user-is-keyboard-navigating .special-design-badge:focus {
     position: relative;
 }
 
+.like-btn.is-pending {
+    opacity: 0.72;
+    pointer-events: none;
+    cursor: wait;
+}
+
 .like-btn.liked {
     background: rgba(255, 193, 7, 0.15);
     border-color: rgba(243, 156, 18, 0.4);

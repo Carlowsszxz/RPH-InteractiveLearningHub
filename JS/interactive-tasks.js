@@ -730,6 +730,18 @@
                 document.getElementById('taskContent').innerHTML = message;
                 document.getElementById('submitTaskBtn').classList.add('is-hidden');
 
+                saveLocalTaskProgress(this.currentTask, {
+                    task_id: this.currentTask,
+                    score: result.score,
+                    max_score: result.max,
+                    is_completed: percentage >= 70,
+                    completed_at: new Date().toISOString()
+                });
+
+                setTimeout(() => {
+                    loadTaskStats();
+                }, 150);
+
                 // Save task progress to Supabase
                 try {
                     const supabaseClient = await getSupabaseClient();
@@ -770,6 +782,8 @@
                         setTimeout(() => {
                             loadTaskStats();
                         }, 500);
+                    } else {
+                        console.warn('Task progress saved locally only (no authenticated Supabase user).');
                     }
                 } catch (error) {
                     console.error('Error saving task progress:', error);
@@ -948,8 +962,6 @@
             const taskModal = document.getElementById('taskModal');
             const closeTaskModal = document.getElementById('closeTaskModal');
             const cancelTaskBtn = document.getElementById('cancelTaskBtn');
-            const submitTaskBtn = document.getElementById('submitTaskBtn');
-            const taskContent = document.getElementById('taskContent');
 
             if (closeTaskModal) {
                 closeTaskModal.addEventListener('click', () => {
@@ -963,20 +975,6 @@
                     taskModal.classList.remove('show');
                     taskModal.style.display = '';
                 });
-            }
-
-            if (submitTaskBtn) {
-                submitTaskBtn.addEventListener('click', () => {
-                    // Check which task is active by looking for specific elements
-                    if (taskContent.querySelector('.timeline-item')) {
-                        submitTimelineTask();
-                    } else if (taskContent.querySelector('.match-answer')) {
-                        submitMatchingTask();
-                    } else if (taskContent.querySelector('.blank-input')) {
-                        submitFillBlanksTask();
-                    }
-                });
-                submitTaskBtn.style.display = 'block';
             }
         });
 
@@ -1066,46 +1064,155 @@
         }
 
         // ==================== LOAD TASK STATS ====================
+        function getLocalProgressStorageKey() {
+            const userEmail = localStorage.getItem('userEmail') || 'guest';
+            return `interactiveTaskProgress_${userEmail}`;
+        }
+
+        function getLocalTaskProgressMap() {
+            try {
+                const raw = localStorage.getItem(getLocalProgressStorageKey());
+                const parsed = raw ? JSON.parse(raw) : {};
+                return parsed && typeof parsed === 'object' ? parsed : {};
+            } catch (error) {
+                console.warn('Failed to read local task progress:', error);
+                return {};
+            }
+        }
+
+        function saveLocalTaskProgress(taskId, taskData) {
+            if (!taskId) return;
+            const progressMap = getLocalTaskProgressMap();
+            progressMap[taskId] = {
+                ...progressMap[taskId],
+                ...taskData,
+                updated_at: new Date().toISOString()
+            };
+            localStorage.setItem(getLocalProgressStorageKey(), JSON.stringify(progressMap));
+        }
+
         async function loadTaskStats() {
             try {
-                const supabaseClient = await getSupabaseClient();
-                const { data: { user } } = await supabaseClient.auth.getUser();
+                const trackedTaskCards = Array.from(document.querySelectorAll('.task-card[data-task-id]'));
+                const trackedTaskIds = trackedTaskCards
+                    .map(card => card.dataset.taskId)
+                    .filter(Boolean);
 
-                if (!user) {
-                    console.log('No user logged in');
+                const uniqueTrackedTaskIds = [...new Set(trackedTaskIds)];
+                const totalCount = uniqueTrackedTaskIds.length;
+                const localProgressMap = getLocalTaskProgressMap();
+                const taskProgressMap = new Map();
+
+                uniqueTrackedTaskIds.forEach(taskId => {
+                    if (localProgressMap[taskId]) {
+                        taskProgressMap.set(taskId, localProgressMap[taskId]);
+                    }
+                });
+
+                if (totalCount === 0) {
                     return;
                 }
 
-                // Fetch all tasks
-                const { data: allTasks, error: tasksError } = await supabaseClient
-                    .from('user_task_progress')
-                    .select('id')
-                    .eq('user_id', user.id);
+                const supabaseClient = await getSupabaseClient();
+                const { data: { user } } = await supabaseClient.auth.getUser();
 
-                if (tasksError) throw tasksError;
+                if (user) {
+                    const { data: savedTasks, error: tasksError } = await supabaseClient
+                        .from('user_task_progress')
+                        .select('task_id, is_completed, score, max_score, completed_at')
+                        .eq('user_id', user.id);
 
-                // Fetch completed tasks
-                const { data: completedTasks, error: completedError } = await supabaseClient
-                    .from('user_task_progress')
-                    .select('id')
-                    .eq('user_id', user.id)
-                    .eq('is_completed', true);
+                    if (tasksError) throw tasksError;
 
-                if (completedError) throw completedError;
+                    (savedTasks || []).forEach(record => {
+                        if (!record.task_id || !uniqueTrackedTaskIds.includes(record.task_id)) {
+                            return;
+                        }
 
-                const totalCount = allTasks?.length || 0;
-                const completedCount = completedTasks?.length || 0;
+                        const existing = taskProgressMap.get(record.task_id);
+                        const existingDate = existing?.completed_at ? new Date(existing.completed_at).getTime() : 0;
+                        const currentDate = record.completed_at ? new Date(record.completed_at).getTime() : 0;
+
+                        if (!existing || currentDate >= existingDate) {
+                            taskProgressMap.set(record.task_id, record);
+                        }
+                    });
+                }
+
+                const completedCount = uniqueTrackedTaskIds.filter(taskId => {
+                    const progress = taskProgressMap.get(taskId);
+                    return progress && progress.is_completed;
+                }).length;
+
+                const remainingCount = Math.max(totalCount - completedCount, 0);
                 const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
-                // Update stats display
-                document.getElementById('totalTasks').textContent = totalCount;
-                document.getElementById('completedTasks').textContent = completedCount;
-                document.getElementById('progressPercent').textContent = progressPercent + '%';
-                document.getElementById('progressBar').style.width = progressPercent + '%';
+                const totalTasksEl = document.getElementById('totalTasks');
+                const completedTasksEl = document.getElementById('completedTasks');
+                const remainingTasksEl = document.getElementById('remainingTasks');
+                const progressPercentEl = document.getElementById('progressPercent');
+                const progressSummaryEl = document.getElementById('progressSummaryText');
+                const progressBarEl = document.getElementById('progressBar');
+                const progressBarTrackEl = document.getElementById('progressBarTrack');
 
-                // Update trend
-                document.getElementById('totalTasksTrend').textContent = '→';
-                document.getElementById('completedTrend').textContent = completedCount > 0 ? '↑' : '-';
+                if (totalTasksEl) totalTasksEl.textContent = totalCount;
+                if (completedTasksEl) completedTasksEl.textContent = completedCount;
+                if (remainingTasksEl) remainingTasksEl.textContent = remainingCount;
+                if (progressPercentEl) progressPercentEl.textContent = progressPercent + '%';
+                if (progressSummaryEl) progressSummaryEl.textContent = `${completedCount} completed, ${remainingCount} remaining`;
+                if (progressBarEl) progressBarEl.style.width = progressPercent + '%';
+                if (progressBarTrackEl) progressBarTrackEl.setAttribute('aria-valuenow', String(progressPercent));
+
+                trackedTaskCards.forEach(card => {
+                    const taskId = card.dataset.taskId;
+                    const statusEl = card.querySelector('.status');
+                    const actionBtn = card.querySelector('.task-btn');
+                    const taskProgress = taskProgressMap.get(taskId);
+
+                    if (!statusEl || !taskId) return;
+
+                    statusEl.classList.remove('status-new', 'status-active', 'status-done');
+
+                    if (taskProgress?.is_completed) {
+                        statusEl.classList.add('status-done');
+                        statusEl.textContent = 'Completed';
+                        if (actionBtn) actionBtn.textContent = 'Review';
+                    } else if (taskProgress) {
+                        statusEl.classList.add('status-active');
+                        statusEl.textContent = 'In Progress';
+                        if (actionBtn) actionBtn.textContent = 'Continue';
+                    } else {
+                        statusEl.classList.add('status-new');
+                        statusEl.textContent = 'Not Started';
+                        if (actionBtn) actionBtn.textContent = 'Start';
+                    }
+                });
+
+                const topicProgressList = document.getElementById('topicProgressList');
+                if (topicProgressList) {
+                    const topicSections = Array.from(document.querySelectorAll('.topic-section'));
+                    const topicRows = topicSections
+                        .map(section => {
+                            const header = section.querySelector('.topic-header h3');
+                            const topicCards = Array.from(section.querySelectorAll('.task-card[data-task-id]'));
+                            if (!header || topicCards.length === 0) return null;
+
+                            const topicTitle = header.textContent.trim();
+                            const topicTaskIds = topicCards.map(card => card.dataset.taskId).filter(Boolean);
+                            const topicCompleted = topicTaskIds.filter(taskId => taskProgressMap.get(taskId)?.is_completed).length;
+
+                            return `
+                                <div class="topic-progress-item">
+                                    <span class="topic-progress-name">${topicTitle}</span>
+                                    <span class="topic-progress-value">${topicCompleted}/${topicTaskIds.length}</span>
+                                </div>
+                            `;
+                        })
+                        .filter(Boolean)
+                        .join('');
+
+                    topicProgressList.innerHTML = topicRows;
+                }
 
             } catch (error) {
                 console.error('Error loading task stats:', error);
